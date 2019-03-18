@@ -1,4 +1,4 @@
-# Instant-Messaging-and-Chat
+# Instant-Messaging-and-Chat-App [ Windows Application ]
 An application where clients can connect to friends and chat using text, emojis, pictures, etc...
 
 Core Functionality :
