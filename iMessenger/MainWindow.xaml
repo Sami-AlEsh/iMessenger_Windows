@@ -1,0 +1,23 @@
+﻿<Window x:Class="iMessenger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iMessenger"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="525"
+        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf">
+
+    <Grid>
+        <Button x:Name="ConnectToServer" Content="Connect To Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="134" Height="36" Cursor="Hand" Click="ConnectToServer_Click"/>
+        <TextBox x:Name="Serverip_textBox" HorizontalAlignment="Left" Height="36" Margin="294,10,0,0" TextWrapping="Wrap" Text="192.168.43.55" VerticalAlignment="Top" Width="213" FontWeight="Bold" TextAlignment="Center" FontSize="15"/>
+        <Label x:Name="Serverip_label" Content="ip" HorizontalAlignment="Left" Margin="200,15,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontStyle="Italic"/>
+        <Label x:Name="ServerPort_label" Content="Port" HorizontalAlignment="Left" Margin="200,50,0,0" VerticalAlignment="Top" Height="37" Width="75" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBox x:Name="ServerPort_textBox" HorizontalAlignment="Left" Height="37" Margin="294,51,0,0" TextWrapping="Wrap" Text="3001" VerticalAlignment="Top" Width="213" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="MessageBox" HorizontalAlignment="Left" Height="121" Margin="10,142,0,0" TextWrapping="Wrap" Text="Hi there !" VerticalAlignment="Top" Width="300" FontSize="15"/>
+            <!-- <emoji:RichTextBox x:Name="MessageBox" HorizontalAlignment="Left" Height="121" Margin="10,142,0,0" VerticalAlignment="Top" Width="300" FontSize="25"/> -->
+            <Button x:Name="SendButton" Content="Send" HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top" Width="75" Click="SendButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
