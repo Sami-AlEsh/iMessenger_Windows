@@ -53,3 +53,40 @@ C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل ا�
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger Project\iMessenger\iMessenger\obj\Debug\Styles\Windows.baml
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger Project\iMessenger\iMessenger\obj\Debug\Styles\Colors.baml
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger Project\iMessenger\iMessenger\obj\Debug\Styles\Fonts.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\iMessenger.exe.config
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.exe
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.pdb
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\iMessenger.exe
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\iMessenger.pdb
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Emoji.Wpf.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Microsoft.Windows.Shell.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\PropertyChanged2.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\RestSharp.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Typography.GlyphLayout.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Typography.OpenFont.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\websocket-sharp.dll
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Microsoft.Windows.Shell.pdb
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\Newtonsoft.Json.xml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\PropertyChanged2.xml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\RestSharp.xml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\websocket-sharp.xml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csprojResolveAssemblyReference.cache
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\MainWindow.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Signup_LoginWindow.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\App.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger_MarkupCompile.cache
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger_MarkupCompile.lref
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\App.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\MainWindow.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Signup_LoginWindow.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Styles\Buttons.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Styles\Texts.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Styles\Windows.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Styles\Colors.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Styles\Fonts.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.g.resources
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.Properties.Resources.resources
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csproj.GenerateResource.Cache
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\GeneratedInternalTypeHelper.g.cs

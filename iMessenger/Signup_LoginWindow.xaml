@@ -11,7 +11,81 @@
         x:Name="SignAppWindow"
         Icon="Images/icon.ico"
         Title="iMessenger" Height="600" Width="900">
-    <StackPanel>
-        <TextBlock Text="{Binding Test}"/>
-    </StackPanel>
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:Signup_LoginWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Outer Border with the drop shadow margin -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+                            
+                            <!-- Main Window Outline -->
+                            <Grid>
+                            
+                                <!-- Window border and DropShadow -->
+                                <Border CornerRadius="{Binding WindowCornerRadius , FallbackValue=10}"
+                                        Background="{Binding ForeGroundLightBrush  , FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+                                
+                                <!-- The Main Windwo Content -->
+                                <Grid>
+                                    
+                                    <Grid.RowDefinitions>
+                                        
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength , FallbackValue=42}" />
+                                        <!-- Drop Shadow-->
+                                        <RowDefinition Height="Auto" />
+                                        <!--Window Content-->
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title Bar -->
+                                    <Grid Grid.Column="0" Panel.ZIndex="1">
+
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Logo Icon-->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+                                            <!-- Windows Buttons-->
+                                            <ColumnDefinition Width="Auto" />
+
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <!-- Icon -->
+                                        <Button WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding MenuCommand}">
+                                            <Image Source="/Images/Icon.ico" />
+                                        </Button>
+
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+    
+    <Grid >
+        
+    </Grid>
 </Window>

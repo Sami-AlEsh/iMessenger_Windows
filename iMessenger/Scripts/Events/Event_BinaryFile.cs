@@ -36,7 +36,7 @@ namespace iMessenger.Scripts.Events
             return json.ToString();
         }
 
-        public override byte[] GetBinaryFile()
+        public override byte[] GetBytes()
         {
             if (File.ReadAllBytes(this.FilePath).Length == 0) Console.WriteLine("SSSSSSSS");
             return File.ReadAllBytes(this.FilePath);

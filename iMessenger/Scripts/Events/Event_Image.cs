@@ -10,29 +10,32 @@ namespace iMessenger.Scripts.Events
     class Event_Image : Message
     {
         private string Receiver;
-        private string img64;
-        private string sentDate;
+        private string FilePath;
+        private string Extension;
+        private string SentDate;
 
-        public Event_Image(string Receiver, string img64)
+        public Event_Image(string Receiver, string FilePath)
         {
             this.type = "image";
             this.Receiver = Receiver;
-            this.img64 = img64;
-            sentDate = DateTime.Now.ToString();
+            this.FilePath = FilePath;
+            // TODO Extract it from FilePath
+            this.Extension = ".JPG";
+            this.SentDate = DateTime.Now.ToString();
         }
         public override string GetJson()
         {
             JObject json = new JObject(
                 new JProperty("type",type),
                 new JProperty("Reciever", Receiver),
-                new JProperty("message", img64),
-                new JProperty("extension",".JPG"),
-                new JProperty("sentDate",sentDate)
+                //new JProperty("message", img64),
+                new JProperty("extension",Extension),
+                new JProperty("sentDate",SentDate)
                 );
             return json.ToString();
         }
 
-        public override byte[] GetBinaryFile()
+        public override byte[] GetBytes()
         {
             throw new NotImplementedException();
         }
