@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace iMessenger
 {
@@ -29,12 +30,26 @@ namespace iMessenger
 
         #region Public Properties
 
+        /// <summary>
+        /// The smallest width of the window
+        /// </summary>
+        public double WindowMinimumWidth { get; set; } = 400;
+        /// <summary>
+        /// The smallest Height of the window
+        /// </summary>
+        public double WindowMinimumHeight { get; set; } = 400;
+
         public int ResizeBorder{ get; set; } = 6;
 
         /// <summary>
         /// The Size of the resize border around the window , taking into account   the outer margin
         /// </summary>
         public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
+        
+        /// <summary>
+        /// The Size of Inner Content of main window
+        /// </summary>
+        public Thickness InnerContentPadding { get { return new Thickness(ResizeBorder); } }
 
         /// <summary>
         /// The Margin around the window to allow for a drop shadow
@@ -87,6 +102,15 @@ namespace iMessenger
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight+ResizeBorder); } }
         #endregion
 
+        #region Commands
+
+        public ICommand MinimizedCommand { get; set; }
+        public ICommand MaximizedCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
+        public ICommand MenuCommand { get; set; }
+
+        #endregion
+
         #region Constractor
 
         /// <summary>
@@ -105,6 +129,14 @@ namespace iMessenger
                 OnPropertyChanged(nameof(WindowRadius));
                 OnPropertyChanged(nameof(WindowCornerRadius));
             };
+
+            //Create commands
+            MinimizedCommand = new RelayCommand(()=> mWindow.WindowState = WindowState.Minimized);
+            MaximizedCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
+            CloseCommand     = new RelayCommand(() => mWindow.Close());
+            MenuCommand = new RelayCommand(()=> SystemCommands.ShowSystemMenu(mWindow , new Point(0,0)) );
+
+            var resize = new WindowResizer(mWindow);
         }
 
         #endregion
