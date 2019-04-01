@@ -1,1 +1,3 @@
 - Custom Window Style (Resizable , Drop shadow )
+- Nice Doc for Http Requests
+- verfication through AccessToken
