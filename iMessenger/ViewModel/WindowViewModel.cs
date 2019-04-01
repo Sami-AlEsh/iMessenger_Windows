@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace iMessenger
@@ -26,6 +28,11 @@ namespace iMessenger
         /// </summary>
         private int mWindowRadius = 10;
 
+        /// <summary>
+        /// The last known dock position
+        /// </summary>
+        private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
+
         #endregion
 
         #region Public Properties
@@ -39,17 +46,22 @@ namespace iMessenger
         /// </summary>
         public double WindowMinimumHeight { get; set; } = 400;
 
-        public int ResizeBorder{ get; set; } = 6;
+        /// <summary>
+        /// True if the window should be borderless because it is docked or maximized
+        /// </summary>
+        public bool Borderless { get { return (mWindow.WindowState == WindowState.Maximized || mDockPosition != WindowDockPosition.Undocked); } }
+
+        public int ResizeBorder { get { return Borderless ? 0 : 6; } }
 
         /// <summary>
         /// The Size of the resize border around the window , taking into account   the outer margin
         /// </summary>
         public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
-        
+
         /// <summary>
         /// The Size of Inner Content of main window
         /// </summary>
-        public Thickness InnerContentPadding { get { return new Thickness(ResizeBorder); } }
+        public Thickness InnerContentPadding { get; set; } = new Thickness(0);
 
         /// <summary>
         /// The Margin around the window to allow for a drop shadow
@@ -100,6 +112,12 @@ namespace iMessenger
         /// The hieght of the title bar/caption of hte window 
         /// </summary>
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight+ResizeBorder); } }
+
+        /// <summary>
+        /// The Current Page in application
+        /// </summary>
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.login;
+
         #endregion
 
         #region Commands
@@ -120,14 +138,11 @@ namespace iMessenger
         {
             mWindow = window;
 
-            //Listen out for window resizing
-            mWindow.StateChanged += (sender , e) =>{
-                //Fire of events for all properties that are affected by a resize
-                OnPropertyChanged(nameof(ResizeBorderThickness));
-                OnPropertyChanged(nameof(OuterMarginSize));
-                OnPropertyChanged(nameof(OuterMarginSizeThickness));
-                OnPropertyChanged(nameof(WindowRadius));
-                OnPropertyChanged(nameof(WindowCornerRadius));
+            // Listen out for the window resizing
+            mWindow.StateChanged += (sender, e) =>
+            {
+                // Fire off events for all properties that are affected by a resize
+                WindowResized();
             };
 
             //Create commands
@@ -137,8 +152,53 @@ namespace iMessenger
             MenuCommand = new RelayCommand(()=> SystemCommands.ShowSystemMenu(mWindow , new Point(0,0)) );
 
             var resize = new WindowResizer(mWindow);
+
+            // Listen out for dock changes
+            resize.WindowDockChanged += (dock) =>
+            {
+                // Store last position
+                mDockPosition = dock;
+
+                // Fire off resize events
+                WindowResized();
+            };
+
         }
 
         #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Gets the current mouse position on the screen
+        /// </summary>
+        /// <returns></returns>
+        private Point GetMousePosition()
+        {
+            // Position of the mouse relative to the window
+            var position = Mouse.GetPosition(mWindow);
+
+            // Add the window position so its a "ToScreen"
+            return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
+        }
+
+        /// <summary>
+        /// If the window resizes to a special position (docked or maximized)
+        /// this will update all required property change events to set the borders and radius values
+        /// </summary>
+        private void WindowResized()
+        {
+            // Fire off events for all properties that are affected by a resize
+            OnPropertyChanged(nameof(Borderless));
+            OnPropertyChanged(nameof(ResizeBorderThickness));
+            OnPropertyChanged(nameof(OuterMarginSize));
+            OnPropertyChanged(nameof(OuterMarginSizeThickness));
+            OnPropertyChanged(nameof(WindowRadius));
+            OnPropertyChanged(nameof(WindowCornerRadius));
+        }
+
+
+        #endregion
+
     }
 }

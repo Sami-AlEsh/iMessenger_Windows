@@ -72,7 +72,6 @@ C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل ا�
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\PropertyChanged2.xml
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\RestSharp.xml
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\bin\Debug\websocket-sharp.xml
-C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csprojResolveAssemblyReference.cache
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\MainWindow.g.cs
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Signup_LoginWindow.g.cs
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\App.g.cs
@@ -90,3 +89,6 @@ C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل ا�
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.Properties.Resources.resources
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csproj.GenerateResource.Cache
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\LoginPage.baml
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csprojResolveAssemblyReference.cache

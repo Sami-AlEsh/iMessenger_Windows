@@ -16,5 +16,18 @@
 
     <Color x:Key="ForegroundLight" >#ffffff</Color>
     <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}" />
-    
+
+    <Color x:Key="ForegroundDark" >#bdbdbd</Color>
+    <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
+
+    <!-- LOGO : Four COLORS-->
+    <Color x:Key="LogoBlue">#3099c5</Color>
+    <SolidColorBrush x:Key="LogoBlueBrush" Color="{StaticResource LogoBlue}" />
+    <Color x:Key="LogoOrange">#ff8800</Color>
+    <SolidColorBrush x:Key="LogoOrangeBrush" Color="{StaticResource LogoOrange}" />
+    <Color x:Key="LogoRed">#ff4747</Color>
+    <SolidColorBrush x:Key="LogoRedBrush" Color="{StaticResource LogoRed}" />
+    <Color x:Key="LogoGreen">#00c541</Color>
+    <SolidColorBrush x:Key="LogoGreenBrush" Color="{StaticResource LogoGreen}" />
+
 </ResourceDictionary>
