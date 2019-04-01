@@ -138,7 +138,7 @@ namespace iMessenger
         //}
         void HttpReq()
         {
-            var client = new RestClient("http://192.168.137.140:3002");
+            var client = new RestClient("http://192.168.43.56:3002");
             var request = new RestRequest("/signup/", Method.POST);
 
             string jsonToSend = new JObject(new JProperty("username","dsgsg"), new JProperty("password", "fgg"), new JProperty("email", "asggdgdfaf@gmail.com")).ToString();
@@ -179,18 +179,18 @@ namespace iMessenger
             }
             img.Dispose();
         }
-        void Test1()
-        {
-            var mainUser = new MainUser("sami","sami98","s@gmail.com");
-            if(mainUser.GetUserAuthentication() == true)
-            {
-                Console.WriteLine("Auth Correct");
-            }
-            else
-            {
-                Console.WriteLine("Auth Wrong");
-            }
-        }
+        //void Test1()
+        //{
+        //    var mainUser = new MainUser("sami","sami98","s@gmail.com");
+        //    if(mainUser.GetUserAuthentication() == true)
+        //    {
+        //        Console.WriteLine("Auth Correct");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Auth Wrong");
+        //    }
+        //}
         void Test2()
         {
             FileInfo fileInfo = new FileInfo(@"D:\S.JPG");
@@ -206,17 +206,17 @@ namespace iMessenger
 
         private void ConnectToServer_Click(object sender, RoutedEventArgs e)
         {
-            //MySockt.ServerIp = this.Serverip_textBox.Text;
-            //MySockt.ServerPort = this.ServerPort_textBox.Text;
-            //MySockt.Connect();
-            //new Event_Identification().SendMessage();
-            MyWebSocket.Connect();
+            MySocket.ServerIp = this.Serverip_textBox.Text;
+            MySocket.ServerPort = this.ServerPort_textBox.Text;
+            MySocket.Connect();
+
+            //MyWebSocket.Connect();
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            //new Event_Chat("Alaa",this.MessageBox.Text).SendMessage();
-            new Event_BinaryFile("Nader", @"D:\Desktop.rar", "rar").SendMessage();
+            new Event_Text("Alaa",this.MessageBox.Text).SendMessage();
+            //new Event_BinaryFile("Nader", @"D:\Desktop.rar", "rar").SendMessage();
         }
     }
 }

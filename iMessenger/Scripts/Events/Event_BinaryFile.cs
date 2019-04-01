@@ -30,7 +30,7 @@ namespace iMessenger.Scripts.Events
             JObject json = new JObject(
                 new JProperty("type",type),
                 new JProperty("extension", FileExtension),
-                new JProperty("Receiver",Receiver),
+                new JProperty("receiver",Receiver),
                 new JProperty("sentDate",sentDate)
                 );
             return json.ToString();

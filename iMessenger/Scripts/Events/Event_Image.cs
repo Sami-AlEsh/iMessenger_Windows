@@ -16,7 +16,7 @@ namespace iMessenger.Scripts.Events
 
         public Event_Image(string Receiver, string FilePath)
         {
-            this.type = "image";
+            this.type = "Image";
             this.Receiver = Receiver;
             this.FilePath = FilePath;
             // TODO Extract it from FilePath
@@ -27,7 +27,7 @@ namespace iMessenger.Scripts.Events
         {
             JObject json = new JObject(
                 new JProperty("type",type),
-                new JProperty("Reciever", Receiver),
+                new JProperty("reciever", Receiver),
                 //new JProperty("message", img64),
                 new JProperty("extension",Extension),
                 new JProperty("sentDate",SentDate)

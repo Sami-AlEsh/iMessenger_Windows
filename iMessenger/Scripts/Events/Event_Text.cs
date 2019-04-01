@@ -15,7 +15,7 @@ namespace iMessenger.Scripts.Events
 
         public Event_Text(string Receiver, string text)
         {
-            this.type = "Text Message";
+            this.type = "Text";
             this.Receiver = Receiver;
             this.text = text;
             SentDate = DateTime.Now.ToString();
@@ -24,9 +24,9 @@ namespace iMessenger.Scripts.Events
         public override string GetJson()
         {
             JObject Jobj = new JObject(
-                new JProperty("Type", type),
-                new JProperty("Receiver",Receiver) ,
-                new JProperty("Text", text) ,
+                new JProperty("type", type),
+                new JProperty("receiver",Receiver) ,
+                new JProperty("message", text) ,
                 new JProperty("SentDate", SentDate)
                 );
 

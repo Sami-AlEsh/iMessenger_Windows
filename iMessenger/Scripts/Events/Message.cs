@@ -13,7 +13,7 @@ namespace iMessenger.Scripts.Events
     abstract class Message
     {
         protected string type;
-        //protected string accessToken;
+        protected string ID;
 
         /// <summary>
         /// Return Message as JSON
@@ -34,20 +34,21 @@ namespace iMessenger.Scripts.Events
                 {
                     //First Message
                     Console.WriteLine("String Message -> " + this.GetJson());
-                    MyWebSocket.SendJson(this.GetJson());
+                    //MyWebSocket.SendJson(this.GetJson());
+                    MySocket.SendJson(this.GetJson());
 
                     //Second Message
                     Console.WriteLine("# Binary Message #");
-                    MyWebSocket.SendBinary(this.GetBytes());
+                    //MyWebSocket.SendBinary(this.GetBytes());
+                    MySocket.SendBinary(this.GetBytes());
                 }
                 //Json Data:
                 else
                 {
                     Console.WriteLine("String Message -> "+GetJson());
-                    MyWebSocket.SendJson(this.GetJson());
+                    MySocket.SendJson(this.GetJson());
                 }
 
-                Console.WriteLine("Message Sent !");
             }
             catch (Exception e)
             {
