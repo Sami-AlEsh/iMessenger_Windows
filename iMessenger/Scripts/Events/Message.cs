@@ -13,7 +13,7 @@ namespace iMessenger.Scripts.Events
     abstract class Message
     {
         protected string type;
-        protected string ID;
+        public string ID { set; get; }
 
         /// <summary>
         /// Return Message as JSON
