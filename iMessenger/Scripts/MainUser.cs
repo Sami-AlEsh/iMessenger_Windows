@@ -8,27 +8,31 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace iMessenger.Scripts
 {
+    [Serializable]
     public class MainUser : User
     {
         #region Attributes
 
         //Main User Attributes:
-        private string startDate;
-        private string accessToken;
+        private string StartDate;
+        public string AccessToken;
 
         //Main User Property:
         public bool verified { set; get; } = false;
 
         //Other Attributes:
-        private List<User> Friends;
+        private List<User> Friends = new List<User>();
 
         #endregion
 
         #region Constructor
-        public MainUser(string name,string userName , string email) : base(name, userName, email)
+
+        public MainUser(string name,string userName , string email , string AccessToken) : base(name, userName, email)
         {
-            startDate = DateTime.Now.ToFileTime().ToString();
+            this.AccessToken = AccessToken;
+            StartDate = DateTime.Now.ToFileTime().ToString();
         }
+
         #endregion
 
         /// <summary>
@@ -40,87 +44,73 @@ namespace iMessenger.Scripts
             //Quickly check for Local Main User:
             string ProjectBinPath = Environment.CurrentDirectory;
             string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-            if (!File.Exists( ProjectPath + @"\MainUser\MainUser.binary")) return null;
-            //if (!File.Exists(@"\MainUser\MainUser.binary")) return null;
+            string MainUserPath = ProjectPath + @"\MainUser\MainUser.binary";
+
+            if (!File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
+            {
+                Console.WriteLine("No Local Main User Found !");
+                return null;
+            }
             else
             {
-                Console.WriteLine("File Founded");
-                MainUser mainUser = null ;
+                Console.WriteLine("Local Main User Found !");
+
                 BinaryFormatter BF = new BinaryFormatter();
-                FileStream fs = new FileStream(ProjectPath + @"\MainUser\MainUser.binary", FileMode.Open);
+                FileStream fs = new FileStream(MainUserPath , FileMode.Open, FileAccess.ReadWrite);
+                MainUser mainUser = new MainUser("","","","");
+
                 try
                 {
                     //fs.Position = 0;
-                    mainUser = (MainUser)BF.Deserialize(fs);
+                    mainUser = BF.Deserialize(fs) as MainUser;
+                    Console.WriteLine("SH : " + mainUser.AccessToken);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Binary Formatter Deserialize Error => " + e.Message);
                 }
                 finally
                 {
                     fs.Close();
                 }
-
-                return mainUser;
+                return new MainUser(mainUser.name, mainUser.userName, mainUser.email, mainUser.AccessToken);
             }
 
         }
-        public static void SaveLocalMainUser(MainUser mainUser)
+
+        //Just for Test
+        public void SaveLocalMainUser()
         {
             string ProjectBinPath = Environment.CurrentDirectory;
             string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
 
-            if (File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
+
+            BinaryFormatter BF = new BinaryFormatter();
+            FileStream fs = new FileStream(ProjectPath + @"\MainUser\MainUser.binary", FileMode.Create);
+            try
             {
-                Console.WriteLine("Old MainUser File Deleted !");
-                File.Delete(ProjectPath + @"\MainUser\MainUser.binary");
+                fs.Position = 0;
+                BF.Serialize(fs , new MainUser("test Seri","sami98","sami@hotmail.com","864d51fsr8645"));
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("File Founded");
-                BinaryFormatter BF = new BinaryFormatter();
-                FileStream fs = new FileStream(ProjectPath + @"\MainUser\MainUser.binary", FileMode.CreateNew);
-                try
-                {
-                    //fs.Position = 0;
-                    BF.Serialize(fs , mainUser);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-                finally
-                {
-                    fs.Close();
-                }
+                Console.WriteLine(e.Message);
             }
+            finally
+            {
+                fs.Close();
+            }
+            Console.WriteLine("Main User Saved to Local");
 
         }
 
-        public static void UpdateFriendsList()
+        public void UpdateFriendsList()
         {
-            //TODO : create TASK to send Get Requet
+            //TODO : create TASK to send Get Requet to server
         }
         public static void AddFriend()
         {
 
         }
-        //public bool GetUserAuthentication()
-        //{
-        //    string ProjectBinPath = Environment.CurrentDirectory;
-        //    string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-        //    if (File.Exists(ProjectPath + @"\AccessToken\AT.bin"))
-        //    {
-        //        accessToken = File.ReadAllText(ProjectPath + @"\AccessToken\AT.bin");
-        //        Console.WriteLine("Your AccessToken -> "+accessToken);
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("No Current User to Auto-Login !");
-        //        return false;
-        //    }
-        //}
     }
 }

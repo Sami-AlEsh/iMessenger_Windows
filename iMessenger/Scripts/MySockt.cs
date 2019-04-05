@@ -20,17 +20,25 @@ namespace iMessenger.Scripts
 {
     static class MySocket
     {
-        public static bool connected { get; set; }
-        public static string ServerIp { set; get; }
-        public static string ServerPort { set; get; }
-        public static Socket socket { set; get; }
+        #region public property
 
+        //Server IP
+        public static string ServerIp { set; get; }
+
+        //Server Port
+        public static string ServerPort { set; get; }
+
+        //My Socket
+        private static Socket socket { set; get; }
+
+        #endregion
 
         /// <summary>
         /// TCP Socket Connect to server
         /// </summary>
         public static void Connect() //TODO Calling this function repetadliy
         {
+            //Init Socket IP,Port
             IPAddress ipAddr = IPAddress.Parse(ServerIp);
             IPEndPoint localEndPoint = new IPEndPoint(ipAddr, Convert.ToInt32(ServerPort));
 
@@ -43,7 +51,6 @@ namespace iMessenger.Scripts
                 if (socket.Connected)
                 {
                     Console.WriteLine("Connected");
-                    connected = true;
                     new Event_Authentication().SendMessage();
                     Console.WriteLine("Socket connected to -> {0} ", socket.RemoteEndPoint.ToString());
 

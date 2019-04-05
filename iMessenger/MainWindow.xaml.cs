@@ -71,7 +71,7 @@ namespace iMessenger
             else
             {
                 Console.WriteLine("No Registered User !");
-                return new MainUser("Null", "Null", "Null");
+                return new MainUser("Null", "Null", "Null","Null");
             }
         }
         void RSA()

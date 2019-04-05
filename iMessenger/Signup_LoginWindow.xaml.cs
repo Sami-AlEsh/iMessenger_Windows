@@ -28,22 +28,33 @@ namespace iMessenger
 
             this.DataContext = new WindowViewModel(this);
 
-            MainUser.SaveLocalMainUser(new MainUser("sami", "sami98", "s@gmail.com"));
+            //MainUser.SaveLocalMainUser();
+
             MainUser mainUser = MainUser.LoadLocalMainUser();
+
             #region /* My Code */
 
-            if (mainUser == null)
-            {
-                Console.WriteLine("No Local Main User !");
-            }
-            else
-            {
-                Console.WriteLine("Main User Founded !");
-                //TODO: leave this window and open iMessenger Window
-            }
+            Console.WriteLine("Main User " + mainUser.AccessToken);
+
+            //if (mainUser == null)
+            //{
+            //    Console.WriteLine("No Local Main User !");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Main User Founded !");
+            //    //TODO: leave this window and open iMessenger Window
+            //}
 
             #endregion
 
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            //TODO Close socket & Save Changes
+
+            base.OnClosing(e);
         }
 
     }

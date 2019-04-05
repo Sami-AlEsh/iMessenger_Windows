@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace iMessenger.Scripts
 {
+    [Serializable]
     public class User
     {
-        private string name;
-        private string userName;
-        private string email;
-        //private string profilePhotoPath; We Know it from his UserName !
+        protected string name;
+        protected string userName;
+        protected string email;
+        protected string profilePhotoUrl;
 
         public User(string name, string userName, string email)
         {
@@ -19,5 +20,6 @@ namespace iMessenger.Scripts
             this.userName = userName;
             this.email = email;
         }
+
     }
 }
