@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="LoginPage">
-
+    
     <Border>
         <Grid>
             <!-- Background -->
@@ -19,53 +19,62 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.TextAlignment="Center">
                     <Border Background="{StaticResource BackgroundLightBrush}" 
-                            CornerRadius="10" Padding="15 50 15 15"
+                            CornerRadius="10" Padding="15 20 15 20"
                             Width="400" Margin="50 50 50 0">
-                        <StackPanel>
+                        <StackPanel >
 
                             <TextBlock Text="Sign Up" 
                                        FontSize="{StaticResource FontSizeLarge}"
                                        FontFamily="{StaticResource LatoRegular}"
                                        Foreground="{StaticResource LogoBlueBrush}" />
                             <TextBlock Text="Made with Love By Samo :)"
+                                       Margin="0 0 0 10"
                                        FontSize="{StaticResource FontSizeRegular}"
                                        Foreground="{StaticResource ForegroundDarkBrush}" />
 
                             <!-- Name-->
-                            <TextBox x:Name="Name"
+                            <TextBox Tag="Name"
+                                x:Name="Name"
                                 Height="40"
-                                FontSize="{StaticResource FontSizeRegular}"
-                                FontFamily="{StaticResource LatoRegular}"
-                                VerticalContentAlignment="Center" />
-                            
-                            <!-- UserName-->
-                            <TextBox x:Name="UserName"
-                                Height="40"
-                                FontSize="{StaticResource FontSizeRegular}"
-                                FontFamily="{StaticResource LatoRegular}"
-                                VerticalContentAlignment="Center" />
-                            
-                            <!-- Email -->
-                            <TextBox x:Name="Email"
-                                Height="40"
-                                FontSize="{StaticResource FontSizeRegular}"
-                                FontFamily="{StaticResource LatoRegular}"
-                                VerticalContentAlignment="Center" />
-                            
-                            <!-- Password -->
-                            <TextBox x:Name="Password"
-                                Height="40"
+                                Margin="0 5"
                                 FontSize="{StaticResource FontSizeRegular}"
                                 FontFamily="{StaticResource LatoRegular}"
                                 VerticalContentAlignment="Center" />
 
+                            <!-- UserName-->
+                            <TextBox Tag="User Name"
+                                x:Name="UserName"
+                                Height="40"
+                                Margin="0 5"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                FontFamily="{StaticResource LatoRegular}"
+                                VerticalContentAlignment="Center" />
+
+                            <!-- Email -->
+                            <TextBox Tag="Email"
+                                x:Name="Email"
+                                Height="40"
+                                Margin="0 5"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                FontFamily="{StaticResource LatoRegular}"
+                                VerticalContentAlignment="Center" />
+
+                            <!-- Password -->
+                            <PasswordBox
+                                x:Name="Password"
+                                Height="40"
+                                Margin="0 5 0 20"
+                                />
+
                             <!-- SignUp Button -->
-                            <Button Content="Sign Up" HorizontalAlignment="Center" Click="Signup_Click" />
+                            <Button Content="Sign Up"
+                                    HorizontalAlignment="Center"
+                                    Click="Signup_Click" />
 
                         </StackPanel>
                     </Border>
 
-                    <Button Content="I already have an account !"
+                    <Button Style="{StaticResource TextButton}" Content="I already have an account !"
                             HorizontalAlignment="Center" />
 
                 </StackPanel>

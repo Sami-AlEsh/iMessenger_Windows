@@ -69,14 +69,18 @@ namespace iMessenger.Pages
         }
         private bool CheckPassword()
         {
-            if (String.IsNullOrEmpty(Password.Text)) { Set2Error(Password); return false; }
+            if (String.IsNullOrEmpty(Password.Password)) { Set2Error(Password); return false; }
 
-            if (Password.Text.Length < 16 && Password.Text.Length > 6) return true;
+            if (Password.Password.Length < 16 && Password.Password.Length > 6) return true;
             else { Set2Error(Password); return false; }
         }
         private void Set2Error(TextBox box)
         {
             box.Text = "#ERROR#";
+        }
+        private void Set2Error(PasswordBox box)
+        {
+            box.Password = "";
         }
         #endregion
 
@@ -88,7 +92,7 @@ namespace iMessenger.Pages
             string jsonToSend = new JObject(
                 new JProperty("name", Name.Text),
                 new JProperty("username", UserName.Text), 
-                new JProperty("password", Password.Text), 
+                new JProperty("password", Password.Password), 
                 new JProperty("email", Email.Text) ).ToString();
 
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType. RequestBody);
