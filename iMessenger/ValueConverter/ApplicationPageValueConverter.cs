@@ -17,6 +17,10 @@ namespace iMessenger
             {
                 case ApplicationPage.login:
                     return new LoginPage();
+
+                case ApplicationPage.chat:
+                    return new ChatPage();
+
                 default:
                     Debugger.Break();
                     return null;

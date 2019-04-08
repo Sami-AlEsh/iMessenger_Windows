@@ -6,6 +6,7 @@
     <FontFamily x:Key="LatoThin"   >pack://appliction;,,,/Fonts/#Lato Thin   </FontFamily>
     <FontFamily x:Key="LatoRegular">pack://appliction;,,,/Fonts/#Lato Regular</FontFamily>
     <FontFamily x:Key="LatoBold"   >pack://appliction;,,,/Fonts/#Lato Bold   </FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
@@ -23,4 +24,18 @@
     <system:Double x:Key="FontSizeRegular"> 18 </system:Double>
     <system:Double x:Key="FontSizeSmall"  > 12 </system:Double>
     <system:Double x:Key="FontSizeLarge"  > 25 </system:Double>
+
+    <system:String x:Key="FontAwesomeChatIcon">&#xf086;</system:String>
+    <system:String x:Key="FontAwesomeUserIcon">&#xf007;</system:String>
+    <system:String x:Key="FontAwesomePictureIcon">&#xf1c5;</system:String>
+    <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeSearchIcon">&#xf002;</system:String>
+    <system:String x:Key="FontAwesomeEllipsisIcon">&#xf141;</system:String>
+    <system:String x:Key="FontAwesomeEllipsisVerticalIcon">&#xf142;</system:String>
+    <system:String x:Key="FontAwesomePaperclipIcon">&#xf0c6;</system:String>
+    <system:String x:Key="FontAwesomeEmojiIcon">&#xf118;</system:String>
+    <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf060;</system:String>
+    <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeCloseIcon">&#xf00d;</system:String>
+    
 </ResourceDictionary>

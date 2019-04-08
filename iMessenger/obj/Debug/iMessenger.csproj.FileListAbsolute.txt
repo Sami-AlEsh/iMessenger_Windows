@@ -92,3 +92,5 @@ C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل ا�
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\LoginPage.g.cs
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\LoginPage.baml
 C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\iMessenger.csprojResolveAssemblyReference.cache
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\ChatPage.g.cs
+C:\Users\hp\Desktop\SAMI\Faculty of Information Technology\Third_Year\فصل الثاني\مشروع 1\iMessenger_Windows\iMessenger\obj\Debug\Pages\ChatPage.baml

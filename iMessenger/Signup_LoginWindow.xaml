@@ -57,7 +57,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!-- Title Bar -->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1">
+                                    <Grid Background="{StaticResource BackgroundVeryLightBrush}" Grid.Column="0" Panel.ZIndex="1">
 
                                         <Grid.ColumnDefinitions>
                                             <!-- Logo Icon-->
@@ -120,7 +120,51 @@
             />
     </WindowChrome.WindowChrome>
 
-    <Grid Background="{StaticResource ForegroundLightBrush}" >
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage ,Converter={local:ApplicationPageValueConverter}}" />
-    </Grid>
+    <Border>
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- Blue Chat Image -->
+            <Grid.Background>
+                <ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="RelativeToBoundingBox" ImageSource="/Images/Backgrounds/BG (8).png" />
+            </Grid.Background>
+            <Frame Grid.Column="1" x:Name="MainFrame" Content="{Binding CurrentPage ,Converter={local:ApplicationPageValueConverter}}" />
+
+            <!-- Main Background -->
+            <Border Background="{StaticResource ForegroundLightBrush}">
+
+                <!-- Content -->
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Top Menu -->
+                    <Grid Background="{StaticResource LogoBlueBrush}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Main Buttons-->
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="X" />
+                            <Button Content="X" />
+                            <Button Content="X" />
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                </Grid>
+            </Border>
+            
+        </Grid>
+    </Border>
 </Window>

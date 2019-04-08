@@ -40,7 +40,7 @@ namespace iMessenger
         /// <summary>
         /// The smallest width of the window
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 400;
+        public double WindowMinimumWidth { get; set; } = 900;
         /// <summary>
         /// The smallest Height of the window
         /// </summary>
@@ -116,7 +116,7 @@ namespace iMessenger
         /// <summary>
         /// The Current Page in application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.login;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.chat;
 
         #endregion
 
