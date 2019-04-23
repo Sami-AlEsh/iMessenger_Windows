@@ -30,4 +30,11 @@
     <Color x:Key="LogoGreen">#00c541</Color>
     <SolidColorBrush x:Key="LogoGreenBrush" Color="{StaticResource LogoGreen}" />
 
+    <!-- Cht Icons Colors -->
+    <Color x:Key="LogoLightBlue">#45b6e5</Color>
+    <SolidColorBrush x:Key="LogoLightBlueBrush" Color="{StaticResource LogoLightBlue}" />
+
+    <Color x:Key="LogoDarkBlue">#0c6991</Color>
+    <SolidColorBrush x:Key="LogoDarkBlueBrush" Color="{StaticResource LogoDarkBlue}" />
+    
 </ResourceDictionary>

@@ -40,11 +40,11 @@ namespace iMessenger
         /// <summary>
         /// The smallest width of the window
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 900;
+        public double WindowMinimumWidth { get; set; } = 700;
         /// <summary>
         /// The smallest Height of the window
         /// </summary>
-        public double WindowMinimumHeight { get; set; } = 400;
+        public double WindowMinimumHeight { get; set; } = 500;
 
         /// <summary>
         /// True if the window should be borderless because it is docked or maximized
