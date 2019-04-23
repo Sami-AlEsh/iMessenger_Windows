@@ -15,7 +15,7 @@ namespace iMessenger.Scripts
 
         //Main User Attributes:
         private string StartDate;
-        public string AccessToken;
+        private string AccessToken;
 
         //Main User Property:
         public bool verified { set; get; } = false;
@@ -26,11 +26,12 @@ namespace iMessenger.Scripts
         #endregion
 
         #region Constructor
-
+        public MainUser() : base ("","","") {}
         public MainUser(string name,string userName , string email , string AccessToken) : base(name, userName, email)
         {
             this.AccessToken = AccessToken;
             StartDate = DateTime.Now.ToFileTime().ToString();
+            verified = true;
         }
 
         #endregion
@@ -57,29 +58,28 @@ namespace iMessenger.Scripts
 
                 BinaryFormatter BF = new BinaryFormatter();
                 FileStream fs = new FileStream(MainUserPath , FileMode.Open, FileAccess.ReadWrite);
-                MainUser mainUser = new MainUser("","","","");
+                //MainUser mainUser = null;
 
                 try
                 {
-                    //fs.Position = 0;
-                    mainUser = BF.Deserialize(fs) as MainUser;
-                    Console.WriteLine("SH : " + mainUser.AccessToken);
+                    return (MainUser)BF.Deserialize(fs) as MainUser;
+                    //Console.WriteLine("SH : " + mainUser.AccessToken);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Binary Formatter Deserialize Error => " + e.Message);
+                    return null;
                 }
                 finally
                 {
                     fs.Close();
                 }
-                return new MainUser(mainUser.name, mainUser.userName, mainUser.email, mainUser.AccessToken);
+                //return new MainUser(mainUser.name, mainUser.userName, mainUser.email, mainUser.AccessToken);
             }
 
         }
 
-        //Just for Test
-        public void SaveLocalMainUser()
+        public static void SaveLocalMainUser(MainUser currentMainUser)
         {
             string ProjectBinPath = Environment.CurrentDirectory;
             string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
@@ -90,7 +90,7 @@ namespace iMessenger.Scripts
             try
             {
                 fs.Position = 0;
-                BF.Serialize(fs , new MainUser("test Seri","sami98","sami@hotmail.com","864d51fsr8645"));
+                BF.Serialize(fs , currentMainUser);
             }
             catch (Exception e)
             {
@@ -100,9 +100,12 @@ namespace iMessenger.Scripts
             {
                 fs.Close();
             }
-            Console.WriteLine("Main User Saved to Local");
-
+            Console.WriteLine("Main User Saved to Local Storage");
         }
+
+
+
+
 
         public void UpdateFriendsList()
         {

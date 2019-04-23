@@ -17,43 +17,49 @@ using iMessenger.Scripts;
 namespace iMessenger
 {
     /// <summary>
-    /// Interaction logic for Signup_LoginWindow.xaml
+    /// Interaction logic for Main Window.xaml
     /// </summary>
     public partial class Signup_LoginWindow : Window
     {
+        private static Frame mMainFrame = new Frame();
 
         public Signup_LoginWindow()
         {
             InitializeComponent();
-
+            mMainFrame = this.MainFrame;
             this.DataContext = new WindowViewModel(this);
 
-            //MainUser.SaveLocalMainUser();
+            if (MainUser.LoadLocalMainUser() != null) SwitchPage(ApplicationPage.chat);
+            else SwitchPage(ApplicationPage.login);
+        }
 
-            MainUser mainUser = MainUser.LoadLocalMainUser();
+        public static void SwitchPage(ApplicationPage page)
+        {
+            switch (page)
+            {
+                case ApplicationPage.login:
+                    {
+                        mMainFrame.NavigationService.Navigate(new LoginPage());
+                        break;
+                    }
 
-            #region /* My Code */
-
-            Console.WriteLine("Main User " + mainUser.AccessToken);
-
-            //if (mainUser == null)
-            //{
-            //    Console.WriteLine("No Local Main User !");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Main User Founded !");
-            //    //TODO: leave this window and open iMessenger Window
-            //}
-
-            #endregion
-
+                case ApplicationPage.chat:
+                    {
+                        mMainFrame.NavigationService.Navigate(new ChatPage());
+                        break;
+                    }
+                default:
+                    {
+                        mMainFrame.NavigationService.Navigate(new LoginPage());
+                        break;
+                    }
+            }
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             //TODO Close socket & Save Changes
-
+            if(MyTcpSocket.clientsocket != null && MyTcpSocket.clientsocket.Connected) MyTcpSocket.clientsocket.Close();
             base.OnClosing(e);
         }
 

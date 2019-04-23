@@ -19,6 +19,7 @@ using System.IO;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace iMessenger
 {
@@ -28,7 +29,7 @@ namespace iMessenger
     public partial class MainWindow : Window
     {
         //Attributes :
-        public MainUser mainUser = null;
+        public MainUser mainUser = new MainUser();
 
 
         //Methods:
@@ -45,10 +46,10 @@ namespace iMessenger
         }
         private void OnStartUp()
         {
-            mainUser = GetMainUserDetails();
-            if (mainUser.verified)
+            mainUser = MainUser.LoadLocalMainUser();
+            if (mainUser != null && mainUser.verified)
             {
-                //TODO: POST Request to check Program
+                //TODO: POST Request to check Program & Get Friends list
                 /* if (mainUser.verified) -> Show Messenger Window
                  * else -> Show (Sign up/Log in) Window
                  * this Check is useful for case "User tried to modify AccessToken So we Checked it"
@@ -59,21 +60,43 @@ namespace iMessenger
                 //TODO: Show (Sign up/Log in) Window
             }
         }
-        private MainUser GetMainUserDetails()
+
+        private void Test4()
         {
+            JObject videogameRatings = new JObject(
+            new JProperty("Halo", 9),
+            new JProperty("Starcraft", 9),
+            new JProperty("Call of Duty", 7.5));
+
             string ProjectBinPath = Environment.CurrentDirectory;
             string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-            if (File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
+
+            Directory.CreateDirectory(ProjectPath + @"/Database/sami98");
+            File.WriteAllText(ProjectPath + @"/Database/sami98/chat1.json", videogameRatings.ToString());
+
+            // write JSON directly to a file
+            using (StreamWriter file = File.CreateText(ProjectPath + @"/Database/sami98/chat2.json"))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
             {
-                //TODO: Deserialize "MainUser" Object from the File
-                return null;
-            }
-            else
-            {
-                Console.WriteLine("No Registered User !");
-                return new MainUser("Null", "Null", "Null","Null");
+                videogameRatings.WriteTo(writer);
             }
         }
+
+        //private MainUser GetMainUserDetails()
+        //{
+        //    string ProjectBinPath = Environment.CurrentDirectory;
+        //    string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
+        //    if (File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
+        //    {
+        //        //TODO: Deserialize "MainUser" Object from the File
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("No Registered User !");
+        //        return new MainUser("Null", "Null", "Null","Null");
+        //    }
+        //}
         void RSA()
         {
             // Specify a "currently active folder"
@@ -206,17 +229,16 @@ namespace iMessenger
 
         private void ConnectToServer_Click(object sender, RoutedEventArgs e)
         {
-            MySocket.ServerIp = this.Serverip_textBox.Text;
-            MySocket.ServerPort = this.ServerPort_textBox.Text;
-            MySocket.Connect();
-
-            //MyWebSocket.Connect();
+            MyTcpSocket.ServerIp = this.Serverip_textBox.Text;
+            MyTcpSocket.ServerPort = Convert.ToInt32(this.ServerPort_textBox.Text);
+            new MyTcpSocket().Connect();
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            new Event_Text("Alaa",this.MessageBox.Text).SendMessage();
-            //new Event_BinaryFile("Nader", @"D:\Desktop.rar", "rar").SendMessage();
+            //new Event_Text("Alaa",this.MessageBox.Text).SendMessage();
+            new Event_BinaryFile("sami98", @"D:\Desktop.rar", "rar").SendMessage();
+            //new Event_Image("tareq", @"D:\S.JPG").SendMessage();
         }
     }
 }

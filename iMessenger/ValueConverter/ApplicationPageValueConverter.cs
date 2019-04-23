@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Diagnostics;
-using iMessenger.Pages;
 
 namespace iMessenger
 {

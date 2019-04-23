@@ -6,7 +6,8 @@
     <FontFamily x:Key="LatoThin"   >pack://appliction;,,,/Fonts/#Lato Thin   </FontFamily>
     <FontFamily x:Key="LatoRegular">pack://appliction;,,,/Fonts/#Lato Regular</FontFamily>
     <FontFamily x:Key="LatoBold"   >pack://appliction;,,,/Fonts/#Lato Bold   </FontFamily>
-    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+    <FontFamily x:Key="FontAwesomeSolid" >pack://application;,,,/Fonts/FontAwesome1.otf#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="FontAwesomeRegular">pack://application;,,,/Fonts/FontAwesome2.otf#Font Awesome 5 Free Regular</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />

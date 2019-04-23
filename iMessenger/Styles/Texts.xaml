@@ -131,9 +131,9 @@
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="SpinningText" BasedOn="{StaticResource BaseTextBlockStyle}">
-        
-        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"
-        
+
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+
         <Style.Resources>
             <Storyboard x:Key="spin">
                 <DoubleAnimation

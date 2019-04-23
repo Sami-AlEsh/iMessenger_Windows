@@ -116,7 +116,7 @@ namespace iMessenger
         /// <summary>
         /// The Current Page in application
         /// </summary>
-        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.chat;
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.login;
 
         #endregion
 
