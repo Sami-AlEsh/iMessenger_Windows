@@ -12,8 +12,13 @@ namespace iMessenger.Scripts.Events
 {
     abstract class Message
     {
+        #region Local Message ID Counter
+        private static int IDCounter = 0;
+        public static int GetID() { return IDCounter++; }
+        #endregion
+
         protected string type;
-        public string ID { set; get; }
+        public string ID { set; get; } = "null";
 
         /// <summary>
         /// Return Message as JSON
@@ -30,29 +35,27 @@ namespace iMessenger.Scripts.Events
             try
             {
                 //Binary Data:
-                if (this.type == "BinaryFile")
+                if (this.type == "BinaryFile" || this.type == "Image" || this.type == "Audio")
                 {
                     //First Message
                     Console.WriteLine("String Message -> " + this.GetJson());
-                    //MyWebSocket.SendJson(this.GetJson());
-                    MySocket.SendJson(this.GetJson());
+                    new MyTcpSocket().SendJson(this.GetJson());
 
                     //Second Message
                     Console.WriteLine("# Binary Message #");
-                    //MyWebSocket.SendBinary(this.GetBytes());
-                    MySocket.SendBinary(this.GetBytes());
+                    new MyTcpSocket().SendBinary(this.GetBytes());
                 }
                 //Json Data:
                 else
                 {
                     Console.WriteLine("String Message -> "+GetJson());
-                    MySocket.SendJson(this.GetJson());
+                    new MyTcpSocket().SendJson(this.GetJson());
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERROR Happen Here : "+e.Message);
+                Console.WriteLine("ERROR Happen Here : "+e.StackTrace);
             }
         }
     }

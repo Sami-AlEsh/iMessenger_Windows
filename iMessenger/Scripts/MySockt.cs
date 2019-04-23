@@ -45,6 +45,11 @@ namespace iMessenger.Scripts
             if(socket == null)
                 socket = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
+            Task Connection = Task.Factory.StartNew(() => 
+            {
+                
+            });
+            
             try
             {
                 socket.Connect(localEndPoint);
@@ -100,7 +105,7 @@ namespace iMessenger.Scripts
                             }
                             catch (Exception e)
                             {
-
+                                Console.WriteLine(e.Message);
                             }
 
                             // --- Second Message ---
@@ -139,6 +144,8 @@ namespace iMessenger.Scripts
             }
 
         }
+
+        
 
         //<EOM> Method
         //public static void SendJson(string JsonData)
