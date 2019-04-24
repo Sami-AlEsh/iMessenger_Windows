@@ -13,7 +13,7 @@ namespace iMessenger.Scripts.Events
     class Event_Text : Message
     {
         private string Receiver;
-        private string text;
+        public string text;
         private string SentDate;
 
         //When Sending Text Message :
@@ -31,14 +31,18 @@ namespace iMessenger.Scripts.Events
         //When Recieving Text Message :
         public Event_Text(JObject TextMessage)
         {
-            Event_Text_Handler(TextMessage);
+            this.Receiver = TextMessage.SelectToken("receiver").Value<string>();
+            this.type = TextMessage.SelectToken("type").Value<string>();
+            this.ID = "null";
+            this.text = TextMessage.SelectToken("text").Value<string>();
+            SentDate = TextMessage.SelectToken("sentDate").Value<string>();
         }
-        private void Event_Text_Handler(JObject TextMessage)
+        public void Event_Text_Handler()
         {
             //Update Friend Chat Log
-            if (File.Exists("/Database/" + TextMessage.SelectToken("receiver").Value<string>() + "/" + "Chat/Chat.json"))
+            if (File.Exists("/Database/" + Receiver + "/" + "Chat/Chat.json"))
             {
-                File.AppendAllText("/Database/" + TextMessage.SelectToken("receiver").Value<string>() + "/" + "Chat/Chat.json", TextMessage.ToString() + Environment.NewLine);
+                File.AppendAllText("/Database/" + Receiver + "/" + "Chat/Chat.json", GetJson() + Environment.NewLine);
                 Console.WriteLine("#$ Message Stored Successfuly");
             }
             //Create Friend Chat Log
@@ -49,8 +53,8 @@ namespace iMessenger.Scripts.Events
 
                 try
                 {
-                    Directory.CreateDirectory("/Database/" + TextMessage.SelectToken("receiver").Value<string>() + "/Chat/");
-                    File.WriteAllText(ProjectPath + @"/Database/" + TextMessage.SelectToken("receiver").Value<string>() + "/chat.json", TextMessage.ToString());
+                    Directory.CreateDirectory("/Database/" + Receiver + "/Chat/");
+                    File.WriteAllText(ProjectPath + @"/Database/" + Receiver + "/chat.json", GetJson());
                 }
                 catch(Exception e)
                 {

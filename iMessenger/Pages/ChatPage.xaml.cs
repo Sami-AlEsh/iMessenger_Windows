@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using iMessenger.Scripts;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace iMessenger
         public ChatPage()
         {
             InitializeComponent();
-        }   
+            //OnStartUp();
+        }
+        //void OnStartUp()
+        //{
+        //    MainUser.mainUser = MainUser.LoadLocalMainUser();
+        //}
     }
 }

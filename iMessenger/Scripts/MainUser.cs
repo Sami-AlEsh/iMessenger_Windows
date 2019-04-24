@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
+using iMessenger.Scripts.Events;
 
 namespace iMessenger.Scripts
 {
     [Serializable]
     public class MainUser : User
     {
+        public static MainUser mainUser = new MainUser();
         #region Attributes
 
         //Main User Attributes:
@@ -21,17 +23,23 @@ namespace iMessenger.Scripts
         public bool verified { set; get; } = false;
 
         //Other Attributes:
-        private List<User> Friends = new List<User>();
-
+        public List<User> Friends = new List<User>();
+        public Dictionary<string,List<Message> > FrindsChat = new Dictionary<string,List<Message> >();
         #endregion
 
         #region Constructor
-        public MainUser() : base ("","","") {}
+        public MainUser() : base ("","","") { /*if(LoadLocalMainUser() != null ) mainUser = LoadLocalMainUser();*/ }
         public MainUser(string name,string userName , string email , string AccessToken) : base(name, userName, email)
         {
             this.AccessToken = AccessToken;
             StartDate = DateTime.Now.ToFileTime().ToString();
             verified = true;
+
+            //TODO Get Friends List:
+            Friends.Add(new User("Alaa", "Alaa99", "alaa.khair@gmail.com"));
+            Friends.Add(new User("Nader", "Nader98", "Nader.Adi@gmail.com"));
+            Friends.Add(new User("Tareq", "Tareq98", "tareq.amenah@gmail.com"));
+            Friends.Add(new User("Amjad", "amjad99", "amjad.hallak@gmail.com"));
         }
 
         #endregion
@@ -58,12 +66,12 @@ namespace iMessenger.Scripts
 
                 BinaryFormatter BF = new BinaryFormatter();
                 FileStream fs = new FileStream(MainUserPath , FileMode.Open, FileAccess.ReadWrite);
-                //MainUser mainUser = null;
 
                 try
                 {
-                    return (MainUser)BF.Deserialize(fs) as MainUser;
-                    //Console.WriteLine("SH : " + mainUser.AccessToken);
+                    var MainUserobj = (MainUser)BF.Deserialize(fs) as MainUser;
+                    mainUser = MainUserobj;
+                    return MainUserobj;
                 }
                 catch (Exception e)
                 {
@@ -107,7 +115,7 @@ namespace iMessenger.Scripts
 
 
 
-        public void UpdateFriendsList()
+        public static void UpdateFriendsList()
         {
             //TODO : create TASK to send Get Requet to server
         }
@@ -115,5 +123,13 @@ namespace iMessenger.Scripts
         {
 
         }
+
+        //public static void LoadFriendsChats()
+        //{
+        //    foreach(var friend in MainUser.mainUser.Friends)
+        //    {
+        //        mainUser.FrindsChat.Add(friend.name,)
+        //    }
+        //}
     }
 }

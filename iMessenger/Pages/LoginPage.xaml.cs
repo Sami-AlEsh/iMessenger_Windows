@@ -77,7 +77,7 @@ namespace iMessenger
                         {
                             Running = false;
                             var token = JsonResponse.SelectToken("token").Value<string>();
-                            this.Dispatcher.Invoke(() => MainUser.SaveLocalMainUser(new MainUser(Name.Text, UserName.Text, Email.Text, token)));
+                            this.Dispatcher.Invoke(() => MainUser.SaveLocalMainUser(new MainUser("NoNameSAMI", UserName.Text, "NoEmailSAMI", token)));
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);
                         }

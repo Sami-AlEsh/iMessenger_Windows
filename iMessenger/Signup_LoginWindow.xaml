@@ -123,24 +123,15 @@
     <Border Background="{StaticResource LogoBlueBrush}">
         <Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="5*" />
-            </Grid.ColumnDefinitions>
-            <!-- Blue Chat Image -->
+             <!--Blue Chat Image--> 
             <Grid.Background>
-                <!-- <ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="RelativeToBoundingBox" ImageSource="/Images/Backgrounds/BG (8).png" /> -->
+                 <!--<ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="RelativeToBoundingBox" ImageSource="/Images/Backgrounds/BG (8).png" />--> 
                 <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 400" ImageSource="/Images/Backgrounds/BG (9).png" />
             </Grid.Background>
 
-            <!-- Main Frame -->
-            <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+             <!--Main Frame--> 
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
 
-            <!-- Side Menu -->
-            <local:SideMenu>
-                
-            </local:SideMenu>
-            
         </Grid>
     </Border>
 </Window>

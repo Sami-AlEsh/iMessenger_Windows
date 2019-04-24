@@ -23,7 +23,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.43.55";
+        public static string ServerIp { set; get; } = "192.168.1.105";
 
         //Server Port
         public static int ServerPort { set; get; } = 3002;
@@ -84,7 +84,7 @@ namespace iMessenger.Scripts
                                         {
                                             case "Text":
                                                 var TextMessage = JsonMessage;
-                                                new Event_Text(TextMessage);
+                                                new Event_Text(TextMessage).Event_Text_Handler();
                                                 break;
 
                                             case "BinaryFile":

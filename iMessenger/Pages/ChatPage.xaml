@@ -8,9 +8,26 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="iMessenger">
 
-    <Border>
-        <StackPanel>
-            <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" FontSize="50" Text="{StaticResource FontAwesomeSearchIcon}" />
-        </StackPanel>
-    </Border>
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <!-- Blue Chat Image -->
+        <Grid.Background>
+            <!-- <ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="RelativeToBoundingBox" ImageSource="/Images/Backgrounds/BG (8).png" /> -->
+            <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 400" ImageSource="/Images/Backgrounds/BG (9).png" />
+        </Grid.Background>
+
+        <!-- Main Frame -->
+        <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+
+        <!-- Side Menu -->
+        <Border Grid.Column="0" Name="SideMenu">
+            
+        </Border>
+        <local:SideMenu Grid.Column="0" />
+    </Grid>
+
 </Page>

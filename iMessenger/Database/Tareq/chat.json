@@ -1,0 +1,15 @@
+{
+  "type": "Text",
+  "message": "hello from client to client",
+  "sender": "alaa"
+}
+{
+  "type": "Text",
+  "message": "HI to client",
+  "sender": "alaa"
+}
+{
+  "type": "Text",
+  "message": "Bye to client",
+  "sender": "alaa"
+}

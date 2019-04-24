@@ -9,7 +9,7 @@ namespace iMessenger.Scripts
     [Serializable]
     public class User
     {
-        protected string name;
+        public string name;
         protected string userName;
         protected string email;
         protected string profilePhotoUrl;

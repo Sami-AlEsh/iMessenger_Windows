@@ -10,14 +10,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace iMessenger.Scripts.Events
 {
-    abstract class Message
+    public abstract class Message
     {
         #region Local Message ID Counter
         private static int IDCounter = 0;
         public static int GetID() { return IDCounter++; }
         #endregion
 
-        protected string type;
+        public string type;
         public string ID { set; get; } = "null";
 
         /// <summary>
