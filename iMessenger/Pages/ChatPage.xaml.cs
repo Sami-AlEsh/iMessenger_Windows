@@ -1,8 +1,11 @@
 ﻿using iMessenger.Scripts;
+using iMessenger.Scripts.Events;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -27,11 +30,33 @@ namespace iMessenger
         public ChatPage()
         {
             InitializeComponent();
-            //OnStartUp();
+            new MyTcpSocket().Connect();
         }
-        //void OnStartUp()
-        //{
-        //    MainUser.mainUser = MainUser.LoadLocalMainUser();
-        //}
+
+        private void SendTextMsg(object sender, RoutedEventArgs e)
+        {
+            //Create Event_Text:
+            var message = new Event_Text(MessageList.SelectedPerson, this.InputBox.Text);
+            this.InputBox.Text = "";
+            
+            //Update UI & MainUser Chats Log:
+            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(message);
+
+            //Send via TCP:
+            message.SendMessage();
+            //Store Sent JSON Message:
+            message.Event_Text_Handler();
+            //StoreMessage(message);
+        }
+
+        private void StoreMessage(Event_Text message)
+        {
+
+            using (StreamWriter file = File.CreateText(@"/Database/" + message.Receiver + "/chat.json"))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                JObject.Parse(message.GetJson()).WriteTo(writer);
+            };
+        }
     }
 }

@@ -4,35 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:iMessenger"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             Height="60"
              d:DesignHeight="60" d:DesignWidth="300">
     <Grid Background="{StaticResource ForegroundLightBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
 
-        <!-- Notification -->
-        <Border Name="Notification" Background="{StaticResource LogoRedBrush}" Width="5" />
-        <!-- Profile Picture -->
-        <Border Grid.Column="1" Padding="8" >
-            <Border Background="{StaticResource LogoBlueBrush}"
-                    Width="{Binding ActualHeight , RelativeSource={RelativeSource Self}}"
-                    CornerRadius="{Binding ActualHeight , RelativeSource={RelativeSource Self}}">
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <TextBlock Name="FriendNameAlias"
-                           Text="SA"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="{StaticResource ForegroundLightBrush}"
-                           FontSize="{StaticResource FontSizeLarge}"
-                           FontFamily="{StaticResource LatoRegular}"
-                           />
+            <!-- Notification -->
+            <Border Name="Notification" Background="{StaticResource LogoRedBrush}" Width="5" />
+            <!-- Profile Picture -->
+            <Border Grid.Column="1" Padding="8" >
+                <Border Background="{StaticResource LogoBlueBrush}"
+                        Width="{Binding ActualHeight , RelativeSource={RelativeSource Self}}"
+                        CornerRadius="{Binding ActualHeight , RelativeSource={RelativeSource Self}}">
+
+                    <TextBlock Name="FriendNameAlias"
+                               Text="SA"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ForegroundLightBrush}"
+                               FontSize="{StaticResource FontSizeLarge}"
+                               FontFamily="{StaticResource LatoRegular}"
+                               />
+                </Border>
             </Border>
-        </Border>
-        <!-- Text Content -->
-        <Border Grid.Column="2" Padding="0 0 8 0">
+            <!-- Text Content -->
+            <Border Grid.Column="2" Padding="0 0 8 0">
             <StackPanel VerticalAlignment="Center">
                 <!-- Name -->
                 <TextBlock Name="FriendName" 
@@ -49,5 +52,16 @@
                     FontFamily="{StaticResource LatoRegular}" />
             </StackPanel>
         </Border>
+            
+        </Grid>
+        
+        <Button
+            Grid.Column="0"
+            Style="{StaticResource TextButton}"
+            Height="60"
+            VerticalAlignment="Center"
+            Click="ShowChat"
+            />
+        
     </Grid>
 </UserControl>

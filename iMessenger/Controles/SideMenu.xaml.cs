@@ -26,13 +26,14 @@ namespace iMessenger
     /// </summary>
     public partial class SideMenu : UserControl
     {
+        public static StackPanel friendsList = new StackPanel();
         public SideMenu()
         {
             InitializeComponent();
+            friendsList = this.FriendsList;
 
-            //Load Friends Chats:
-            Task.Factory.StartNew(() =>
-            {
+            //Load Last Friends Chats UI:
+            Task.Factory.StartNew(() => {
                 string ProjectBinPath = Environment.CurrentDirectory;
                 string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
 
@@ -48,10 +49,8 @@ namespace iMessenger
                         JsonTextReader reader = new JsonTextReader(new StringReader(json));
                         reader.SupportMultipleContent = true;
 
-                        while (true)
+                        while (reader.Read())
                         {
-                            if (!reader.Read()) break;
-
                             JsonSerializer serializer = new JsonSerializer();
                             JObject obj = serializer.Deserialize<JObject>(reader);
 
@@ -67,6 +66,7 @@ namespace iMessenger
                         MainUser.mainUser.FrindsChat.Add(usr.name, messages);
 
                         Console.WriteLine(usr.name + "Chats Loaded !");
+                        reader.Close();
                     }
                     catch (Exception e)
                     {
@@ -77,18 +77,20 @@ namespace iMessenger
 
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
-                    Event_Text lastMsg = (Event_Text)MainUser.mainUser.FrindsChat[usr.name].Last<Message>();
+                    var count = MainUser.mainUser.FrindsChat[usr.name].Count;
+                    if (count <= 0) continue;
+                    Event_Text lastMsg = (Event_Text)MainUser.mainUser.FrindsChat[usr.name][count-1];
                     if(lastMsg.type == "Text")
-                        this.FriendsList.Children.Add(new ChatListItemControl(usr.name, "AA", lastMsg.text));
+                        this.Dispatcher.Invoke(()=>this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
                     else
-                        this.FriendsList.Children.Add(new ChatListItemControl(usr.name, "AA", "BinatyFile NOT Handled yet here"));
+                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, "AA", "BinatyFile NOT Handled yet here")));
                 }
             });
         }
         
-        public static void AddFriend_UI()
+        public void AddFriend_UI(ChatListItemControl item)
         {
-            //TODO add ChatListItem to newly added Friend
+            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(item));
         }
     }
 }

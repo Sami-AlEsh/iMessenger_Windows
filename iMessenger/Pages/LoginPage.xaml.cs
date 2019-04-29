@@ -25,7 +25,6 @@ namespace iMessenger
         public LoginPage()
         {
             InitializeComponent();
-            //TODO Load Old User Files if AccessToken is Right !
         }
         
 
@@ -44,11 +43,11 @@ namespace iMessenger
 
             if (CheckUserName() && CheckPassword())
             {
-                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + MyTcpSocket.ServerPort.ToString());
+                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
 
                 var client = new RestClient(ServerUri);
                 //HTTP Request Route & Method
-                var request = new RestRequest("/login/", Method.POST);
+                var request = new RestRequest("/index/login/", Method.POST);
 
                 string jsonToSend = new JObject( new JProperty("username", UserName.Text),
                                                  new JProperty("password", Password.Text)
@@ -77,7 +76,12 @@ namespace iMessenger
                         {
                             Running = false;
                             var token = JsonResponse.SelectToken("token").Value<string>();
-                            this.Dispatcher.Invoke(() => MainUser.SaveLocalMainUser(new MainUser("NoNameSAMI", UserName.Text, "NoEmailSAMI", token)));
+                            //TODO Take : Name,Email,Friends from Response (modify MainUser Constructoe to add Friends)
+                            this.Dispatcher.Invoke(() => {
+                                MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
+                                MainUser.UpdateFriendsList();
+                                MainUser.SaveLocalMainUser();
+                            });
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);
                         }
@@ -112,11 +116,11 @@ namespace iMessenger
 
             if (CheckName() && CheckUserName() && CheckEmail() && CheckPassword())
             {
-                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + MyTcpSocket.ServerPort.ToString());
+                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
 
                 var client = new RestClient(ServerUri);
                 //HTTP Request Route & Method
-                var request = new RestRequest("/signup/", Method.POST);
+                var request = new RestRequest("/index/signup/", Method.POST);
 
                 string jsonToSend = new JObject(new JProperty("name", Name.Text),
                                                     new JProperty("username", UserName.Text),
@@ -147,7 +151,11 @@ namespace iMessenger
                         {
                             Running = false;
                             var token = JsonResponse.SelectToken("token").Value<string>();
-                            this.Dispatcher.Invoke(() => MainUser.SaveLocalMainUser(new MainUser(Name.Text, UserName.Text, Email.Text, token)));
+                            this.Dispatcher.Invoke(() => {
+                                MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
+                                MainUser.UpdateFriendsList(); //TODO Delete this statement
+                                MainUser.SaveLocalMainUser();
+                            });
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);
                         }

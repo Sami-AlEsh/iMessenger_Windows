@@ -39,5 +39,13 @@ namespace iMessenger
             lastMessage = this.LastMessage.Text = lastMsg;
             notification = this.Notification.Visibility = Visibility.Hidden;
         }
+
+        private void ShowChat(object sender, RoutedEventArgs e)
+        {
+            this.FriendName.Foreground = Brushes.Black;
+            //TODO Assign this Name with ChatStackPanel static Ref
+            MessageList.ShowMessagesFrom(friendName);
+            Console.WriteLine("Show " + friendName + " Chat");
+        }
     }
 }
