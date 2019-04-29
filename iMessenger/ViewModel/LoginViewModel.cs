@@ -42,7 +42,6 @@ namespace iMessenger
 
         private void Login()
         {
-            Console.WriteLine("Damn....");
             if (LoginIsRunning) return;
             var khe = this.Name;
 
