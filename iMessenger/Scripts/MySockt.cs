@@ -123,7 +123,6 @@
 //                else
 //                {
 //                    Console.WriteLine("Socket failed to connect !");
-//                    //TODO every X seconds Call this Method"Connect" to check for connection !
 //                }
 //            }
 //            // Manage of Socket's Exceptions 

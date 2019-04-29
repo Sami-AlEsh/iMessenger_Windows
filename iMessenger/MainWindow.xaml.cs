@@ -49,7 +49,6 @@ namespace iMessenger
             //mainUser = MainUser.LoadLocalMainUser();
             //if (mainUser != null && mainUser.verified)
             //{
-            //    //TODO: POST Request to check Program & Get Friends list
             //    /* if (mainUser.verified) -> Show Messenger Window
             //     * else -> Show (Sign up/Log in) Window
             //     * this Check is useful for case "User tried to modify AccessToken So we Checked it"
@@ -57,7 +56,6 @@ namespace iMessenger
             //}
             //else
             //{
-            //    //TODO: Show (Sign up/Log in) Window
             //}
         }
 
@@ -88,7 +86,6 @@ namespace iMessenger
         //    string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
         //    if (File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
         //    {
-        //        //TODO: Deserialize "MainUser" Object from the File
         //        return null;
         //    }
         //    else
