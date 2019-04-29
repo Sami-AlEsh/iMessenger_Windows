@@ -10,7 +10,7 @@ namespace iMessenger.Scripts
     public class User
     {
         public string name;
-        protected string userName;
+        public string userName;
         protected string email;
         protected string profilePhotoUrl;
 
