@@ -12,12 +12,12 @@ namespace iMessenger.Scripts
     [Serializable]
     public class MainUser : User
     {
-        public static MainUser mainUser = new MainUser();
+        public static MainUser mainUser;
         #region Attributes
 
         //Main User Attributes:
         private string StartDate;
-        private string AccessToken;
+        public string AccessToken;
 
         //Main User Property:
         public bool verified { set; get; } = false;
@@ -34,12 +34,6 @@ namespace iMessenger.Scripts
             this.AccessToken = AccessToken;
             StartDate = DateTime.Now.ToFileTime().ToString();
             verified = true;
-
-            //TODO Get Friends List:
-            Friends.Add(new User("Alaa", "Alaa99", "alaa.khair@gmail.com"));
-            Friends.Add(new User("Nader", "Nader98", "Nader.Adi@gmail.com"));
-            Friends.Add(new User("Tareq", "Tareq98", "tareq.amenah@gmail.com"));
-            Friends.Add(new User("Amjad", "amjad99", "amjad.hallak@gmail.com"));
         }
 
         #endregion
@@ -69,9 +63,7 @@ namespace iMessenger.Scripts
 
                 try
                 {
-                    var MainUserobj = (MainUser)BF.Deserialize(fs) as MainUser;
-                    mainUser = MainUserobj;
-                    return MainUserobj;
+                    return (MainUser)BF.Deserialize(fs) as MainUser;
                 }
                 catch (Exception e)
                 {
@@ -82,12 +74,11 @@ namespace iMessenger.Scripts
                 {
                     fs.Close();
                 }
-                //return new MainUser(mainUser.name, mainUser.userName, mainUser.email, mainUser.AccessToken);
             }
 
         }
 
-        public static void SaveLocalMainUser(MainUser currentMainUser)
+        public static void SaveLocalMainUser()
         {
             string ProjectBinPath = Environment.CurrentDirectory;
             string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
@@ -98,7 +89,7 @@ namespace iMessenger.Scripts
             try
             {
                 fs.Position = 0;
-                BF.Serialize(fs , currentMainUser);
+                BF.Serialize(fs , mainUser);
             }
             catch (Exception e)
             {
@@ -117,19 +108,15 @@ namespace iMessenger.Scripts
 
         public static void UpdateFriendsList()
         {
-            //TODO : create TASK to send Get Requet to server
+            //return;
+
+            //TODO Get Friends List:
+            mainUser.Friends.Clear();
+            mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
         }
         public static void AddFriend()
         {
-
+            //TODO Add a friend to static ref and UI
         }
-
-        //public static void LoadFriendsChats()
-        //{
-        //    foreach(var friend in MainUser.mainUser.Friends)
-        //    {
-        //        mainUser.FrindsChat.Add(friend.name,)
-        //    }
-        //}
     }
 }
