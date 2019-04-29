@@ -3,15 +3,11 @@
 /***************************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using iMessenger.Scripts.Events;
@@ -127,104 +123,7 @@ namespace iMessenger.Scripts
             });
         }
             
-
-        //            //StartListening ..
-        //            var ServerListener = new Thread(() =>
-        //            {
-        //                Console.WriteLine("Running Thread ...");
-        //                while (clientsocket .Connected)
-        //                {
-        //                    //if (!MySocket.connected) break;
-
-        //                    Console.WriteLine("Trying 2 Get Message");
-
-        //                    // --- First Message ---
-        //                    //Message Size:
-        //                    byte[] MessageSize = new byte[4];
-        //                    int byteRecv1 = clientsocket .Receive(MessageSize, 4, SocketFlags.None);
-        //                    if (byteRecv1 <= 0)
-        //                    {
-        //                        Console.WriteLine("No Recieved Message");
-        //                        Thread.Sleep(500);
-        //                        continue;
-        //                    }
-        //                    //Message Content:
-        //                    byte[] MessageReceived = new byte[BitConverter.ToInt32(MessageSize, 0)];
-        //                    int byteRecv2 = clientsocket .Receive(MessageReceived, BitConverter.ToInt32(MessageSize, 0), SocketFlags.None);
-
-        //                    Console.WriteLine("New Message Recieved ! Handling....");
-        //                    //Handling Message
-        //                    try
-        //                    {
-        //                        //string JsonString = BitConverter.ToString(MessageReceived);
-        //                        string JsonString = Encoding.UTF8.GetString(MessageReceived);
-        //                        Console.WriteLine(JsonString);
-        //                        JObject JMessagRecieved = JObject.Parse(JsonString);
-        //                        string Type = JMessagRecieved.SelectToken("type").Value<string>();
-        //                        Console.WriteLine("Message Type -> " + Type);
-        //                        if (Type != "Text")
-        //                        {
-        //                            // Type => BinaryFile [ Image, Audio ,Binary ..]
-
-        //                        }
-        //                        else
-        //                        {
-        //                            //Type => TEXT
-        //                        }
-        //                    }
-        //                    catch (Exception e)
-        //                    {
-
-        //                    }
-
-        //                    // --- Second Message ---
-
-
-
-        //                    //Task messageParser = Task.Factory.StartNew(() => MessageParser(MessageReceived));
-        //                }
-
-        //                //While loop has been breaked up :
-        //                Console.WriteLine("Server Listener Stopped (Connection Lost) !");
-        //            });
-        //            ServerListener.Start();
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Socket failed to connect !");
-        //            //TODO every X seconds Call this Method"Connect" to check for connection !
-        //        }
-        //    }
-        //    // Manage of Socket's Exceptions 
-        //    catch (ArgumentNullException ane)
-        //    {
-        //        Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
-        //    }
-
-        //    catch (SocketException se)
-        //    {
-
-        //        Console.WriteLine("SocketException : {0}", se.ToString());
-        //    }
-
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("Unexpected exception : {0}", e.ToString());
-        //    }
-
-        //}
-
-        //private int GetBinaryFileSize(object obj)
-        //{
-            //int size = 0;
-            //using (Stream s = new MemoryStream())
-            //{
-            //    BinaryFormatter formatter = new BinaryFormatter();
-            //    formatter.Serialize(s, obj);
-            //    Console.WriteLine("file length" + Convert.ToInt32(s.Length));
-            //    return size = Convert.ToInt32(s.Length);
-            //}
-        //}
+        
         private byte[] AddBytesArray(byte[] a1, byte[] a2)
         {
             byte[] rv = new byte[a1.Length + a2.Length];
