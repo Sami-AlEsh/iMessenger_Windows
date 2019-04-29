@@ -23,10 +23,10 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.1.105";
+        public static string ServerIp { set; get; } = "192.168.43.55";
 
         //Server Port
-        public static int ServerPort { set; get; } = 3002;
+        public static int ServerPort { set; get; } = 3001;
 
         //My Socket
         public static TcpClient clientsocket  { set; get; }
@@ -42,6 +42,8 @@ namespace iMessenger.Scripts
 
         private Task Connection = null;
         private Task ServerListener = null;
+
+        private string ProjectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         #endregion
 
         /// <summary>
@@ -59,10 +61,10 @@ namespace iMessenger.Scripts
                     {
                         //Connect :
                         clientsocket = new TcpClient(ServerIp, ServerPort);
-                        clientsocket.SendTimeout = 2; 
-                        
+                        clientsocket.SendTimeout = 2;
+
                         //Authentication :
-                        new Event_Authentication().SendMessage();
+                        new Event_Authentication(MainUser.mainUser.AccessToken).SendMessage();
 
                         ServerListener = Task.Factory.StartNew(() =>
                         {
@@ -76,9 +78,9 @@ namespace iMessenger.Scripts
                                 {
                                     Console.WriteLine("###  Message Recieced  ###");
                                     reader = new BinaryReader(stream);
-                                    var RecMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
                                     try
                                     {
+                                        var RecMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
                                         JObject JsonMessage = JObject.Parse(Encoding.UTF8.GetString(RecMessage));
                                         switch (JsonMessage.SelectToken("type").Value<string>())
                                         {
@@ -86,10 +88,14 @@ namespace iMessenger.Scripts
                                                 var TextMessage = JsonMessage;
                                                 new Event_Text(TextMessage).Event_Text_Handler();
                                                 break;
-
-                                            case "BinaryFile":
-                                                var RecBinMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
+                                            case "Image":
+                                                var ImageMessage = JsonMessage;
+                                                var RecImage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
+                                                //new Event_Image();
                                                 break;
+                                            //case "BinaryFile":
+                                            //    var RecBinMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
+                                            //    break;
 
                                             default:
                                                 break;
@@ -98,6 +104,10 @@ namespace iMessenger.Scripts
                                     catch (JsonReaderException exp)
                                     {
                                         Console.WriteLine("JSON isn't valid => " + exp.Message);
+                                    }
+                                    catch (IOException exp)
+                                    {
+                                        Console.WriteLine("# Application Closed => Stream Closed #");
                                     }
                                 }
                                 Task.Delay(500);
@@ -108,6 +118,7 @@ namespace iMessenger.Scripts
                     catch (SocketException e)
                     {
                         Console.WriteLine("Socket Exception Happen here ==> " + e.Message);
+                        //Connect();
                     }
                     Task.Delay(3000);
                 }
