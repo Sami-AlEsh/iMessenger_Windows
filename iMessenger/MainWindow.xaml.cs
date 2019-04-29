@@ -66,14 +66,11 @@ namespace iMessenger
             new JProperty("Starcraft", 9),
             new JProperty("Call of Duty", 7.5));
 
-            string ProjectBinPath = Environment.CurrentDirectory;
-            string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
-            Directory.CreateDirectory(ProjectPath + @"/Database/sami98");
-            File.WriteAllText(ProjectPath + @"/Database/sami98/chat1.json", videogameRatings.ToString());
+            Directory.CreateDirectory(Project.Path + @"/Database/sami98");
+            File.WriteAllText(Project.Path + @"/Database/sami98/chat1.json", videogameRatings.ToString());
 
             // write JSON directly to a file
-            using (StreamWriter file = File.CreateText(ProjectPath + @"/Database/sami98/chat2.json"))
+            using (StreamWriter file = File.CreateText(Project.Path + @"/Database/sami98/chat2.json"))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
                 videogameRatings.WriteTo(writer);
@@ -82,8 +79,6 @@ namespace iMessenger
 
         //private MainUser GetMainUserDetails()
         //{
-        //    string ProjectBinPath = Environment.CurrentDirectory;
-        //    string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
         //    if (File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
         //    {
         //        return null;

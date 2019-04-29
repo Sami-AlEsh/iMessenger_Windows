@@ -35,9 +35,6 @@ namespace iMessenger.Scripts.Events
             //Check Chat.json File
             if (!File.Exists("/Database/" + ReceiverName + "/" + "Chat/Chat.json"))
             {
-                string ProjectBinPath = Environment.CurrentDirectory;
-                string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
                 try { Directory.CreateDirectory("/Database/" + ReceiverName + "/Chat/"); }
                 catch (Exception e) { Console.WriteLine("#$ Error Handling Text Message -=> " + e.Message); }
             }

@@ -39,7 +39,6 @@ namespace iMessenger.Scripts
         private Task Connection = null;
         private Task ServerListener = null;
 
-        private string ProjectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
         #endregion
 
         /// <summary>

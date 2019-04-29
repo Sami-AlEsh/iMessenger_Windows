@@ -34,12 +34,9 @@ namespace iMessenger
 
             //Load Last Friends Chats UI:
             Task.Factory.StartNew(() => {
-                string ProjectBinPath = Environment.CurrentDirectory;
-                string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
-                    string MainFilePath = ProjectPath + @"\DataBase\"+usr.name+@"\chat.json";
+                    string MainFilePath = Project.Path + @"\DataBase\"+usr.name+@"\chat.json";
                     string json = File.ReadAllText(MainFilePath);
 
                     try

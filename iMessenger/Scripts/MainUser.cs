@@ -45,11 +45,9 @@ namespace iMessenger.Scripts
         public static MainUser LoadLocalMainUser()
         {
             //Quickly check for Local Main User:
-            string ProjectBinPath = Environment.CurrentDirectory;
-            string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-            string MainUserPath = ProjectPath + @"\MainUser\MainUser.binary";
+            string MainUserPath = Project.Path + @"\MainUser\MainUser.binary";
 
-            if (!File.Exists(ProjectPath + @"\MainUser\MainUser.binary"))
+            if (!File.Exists(Project.Path + @"\MainUser\MainUser.binary"))
             {
                 Console.WriteLine("No Local Main User Found !");
                 return null;
@@ -80,12 +78,8 @@ namespace iMessenger.Scripts
 
         public static void SaveLocalMainUser()
         {
-            string ProjectBinPath = Environment.CurrentDirectory;
-            string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
-
             BinaryFormatter BF = new BinaryFormatter();
-            FileStream fs = new FileStream(ProjectPath + @"\MainUser\MainUser.binary", FileMode.Create);
+            FileStream fs = new FileStream(Project.Path + @"\MainUser\MainUser.binary", FileMode.Create);
             try
             {
                 fs.Position = 0;

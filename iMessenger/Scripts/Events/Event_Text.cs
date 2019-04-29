@@ -34,19 +34,16 @@ namespace iMessenger.Scripts.Events
         {
             this.Receiver = TextMessage.SelectToken("receiver").Value<string>();
             this.type = TextMessage.SelectToken("type").Value<string>();
-            this.ID = "null";
+            this.ID = "null"; //TODO get ID from server
             this.text = TextMessage.SelectToken("message").Value<string>();
             sentDate = TextMessage.SelectToken("sentDate").Value<string>();
         }
         public void Event_Text_Handler()
         {
-            string ProjectBinPath = Environment.CurrentDirectory;
-            string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
             //Update Friend Chat Log
-            if (File.Exists(ProjectPath +@"/Database/" + Receiver + @"/chat.json"))
+            if (File.Exists(Project.Path +@"/Database/" + Receiver + @"/chat.json"))
             {
-                File.AppendAllText(ProjectPath + @"/Database/" + Receiver + @"/chat.json", GetJson() + Environment.NewLine);
+                File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", GetJson() + Environment.NewLine);
                 Console.WriteLine("#$ Message Stored Successfuly");
                 Event_Text_UpdateUI();
             }
@@ -56,7 +53,7 @@ namespace iMessenger.Scripts.Events
                 try
                 {
                     Directory.CreateDirectory("/Database/" + Receiver + "/");
-                    File.WriteAllText(ProjectPath + @"/Database/" + Receiver + "/chat.json", GetJson());
+                    File.WriteAllText(Project.Path + @"/Database/" + Receiver + "/chat.json", GetJson());
                     Console.WriteLine("#$ Message Stored Successfuly");
 
                     Event_Text_UpdateUI();
