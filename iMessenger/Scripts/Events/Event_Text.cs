@@ -7,14 +7,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace iMessenger.Scripts.Events
 {
     class Event_Text : Message
     {
-        private string Receiver;
+        public string Receiver;
         public string text;
-        private string SentDate;
+        public string sentDate;
 
         //When Sending Text Message :
         public Event_Text(string Receiver, string text)
@@ -23,7 +24,7 @@ namespace iMessenger.Scripts.Events
             this.ID = Message.GetID().ToString();
             this.Receiver = Receiver;
             this.text = text;
-            SentDate = DateTime.Now.ToString();
+            sentDate = DateTime.Now.ToString();
             
         }
         //---------------------------
@@ -34,27 +35,31 @@ namespace iMessenger.Scripts.Events
             this.Receiver = TextMessage.SelectToken("receiver").Value<string>();
             this.type = TextMessage.SelectToken("type").Value<string>();
             this.ID = "null";
-            this.text = TextMessage.SelectToken("text").Value<string>();
-            SentDate = TextMessage.SelectToken("sentDate").Value<string>();
+            this.text = TextMessage.SelectToken("message").Value<string>();
+            sentDate = TextMessage.SelectToken("sentDate").Value<string>();
         }
         public void Event_Text_Handler()
         {
+            string ProjectBinPath = Environment.CurrentDirectory;
+            string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
+
             //Update Friend Chat Log
-            if (File.Exists("/Database/" + Receiver + "/" + "Chat/Chat.json"))
+            if (File.Exists(ProjectPath +@"/Database/" + Receiver + @"/chat.json"))
             {
-                File.AppendAllText("/Database/" + Receiver + "/" + "Chat/Chat.json", GetJson() + Environment.NewLine);
+                File.AppendAllText(ProjectPath + @"/Database/" + Receiver + @"/chat.json", GetJson() + Environment.NewLine);
                 Console.WriteLine("#$ Message Stored Successfuly");
+                Event_Text_UpdateUI();
             }
             //Create Friend Chat Log
             else
             {
-                string ProjectBinPath = Environment.CurrentDirectory;
-                string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
                 try
                 {
-                    Directory.CreateDirectory("/Database/" + Receiver + "/Chat/");
+                    Directory.CreateDirectory("/Database/" + Receiver + "/");
                     File.WriteAllText(ProjectPath + @"/Database/" + Receiver + "/chat.json", GetJson());
+                    Console.WriteLine("#$ Message Stored Successfuly");
+
+                    Event_Text_UpdateUI();
                 }
                 catch(Exception e)
                 {
@@ -63,6 +68,11 @@ namespace iMessenger.Scripts.Events
             }
         }
         //-----------------------------
+        private void Event_Text_UpdateUI()
+        {
+            Application.Current.Dispatcher.Invoke(()=> MessageList.addUIItem(new MessageBubble_text(text, true)));
+            Console.WriteLine("JsonMsg Added to UI !");
+        }
 
         #region Get JSON\Bytes()
         public override string GetJson()
@@ -71,7 +81,7 @@ namespace iMessenger.Scripts.Events
                 new JProperty("type", type),
                 new JProperty("receiver",Receiver) ,
                 new JProperty("message", text) ,
-                new JProperty("SentDate", SentDate)
+                new JProperty("sentDate", sentDate)
                 );
 
             return Jobj.ToString();
