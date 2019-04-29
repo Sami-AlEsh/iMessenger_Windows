@@ -10,12 +10,10 @@ namespace iMessenger.Scripts.Events
     class Event_Authentication : Message
     {
         private string accessToken;
-        public Event_Authentication()
+        public Event_Authentication(string token)
         {
             this.type = "authentication";
-            this.accessToken =
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbWk5OCIsInVzZXJJRCI6IjNkZDBlZDEwLTU0NTAtMTFlOS1iMWE2LWVkNzZiMzg1M2M2MyIsImlhdCI6MTU1NDEwMzkyMn0.XvD5LqMyFA-v-OFyLhROT_QjIqdeD22v2Dd4Ud42Fss";
-            //WORKING HERE TO GET MAIN_USER "ACCESSTOKEN"
+            this.accessToken = token;
         }
 
         public override byte[] GetBytes()
