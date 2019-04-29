@@ -29,7 +29,9 @@ namespace iMessenger
             mMainFrame = this.MainFrame;
             this.DataContext = new WindowViewModel(this);
 
-            if (MainUser.LoadLocalMainUser() != null) SwitchPage(ApplicationPage.chat);
+            MainUser.mainUser = new MainUser();
+            MainUser.mainUser = MainUser.LoadLocalMainUser();
+            if (MainUser.mainUser != null) { MainUser.UpdateFriendsList(); SwitchPage(ApplicationPage.chat); }
             else SwitchPage(ApplicationPage.login);
         }
 
@@ -58,8 +60,16 @@ namespace iMessenger
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            //TODO Close socket & Save Changes
+            //Save Change to Local Storage
+            if (MainUser.mainUser != null)
+            {
+                MainUser.mainUser.FrindsChat.Clear();
+                MainUser.SaveLocalMainUser();
+            }
+
+            //Close Connection
             if(MyTcpSocket.clientsocket != null && MyTcpSocket.clientsocket.Connected) MyTcpSocket.clientsocket.Close();
+
             base.OnClosing(e);
         }
 
