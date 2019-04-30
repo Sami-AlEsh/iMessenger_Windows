@@ -37,14 +37,18 @@ namespace iMessenger
                             break;
                         }
                     case "Image":
-                        var ImgMsg = Msg as Event_Image;
-                        bool flag = (ImgMsg.Receiver == MainUser.mainUser.userName ? true : false);
-                        Console.WriteLine("#### flag : " + txtMsg.Receiver + " - " + MainUser.mainUser.userName);
-                        //messagesList.Children.Add(new MessageBubble_image(, flag));
-                        break;
+                        {
+                            var ImgMsg = Msg as Event_Image;
+                            bool Imgflag = (ImgMsg.Receiver == MainUser.mainUser.userName ? true : false);
+                            Console.WriteLine("#### flag : " + ImgMsg.Receiver + " - " + MainUser.mainUser.userName);
+                            messagesList.Children.Add(new MessageBubble_image(ImgMsg.filePath, Imgflag));
+                            break;
+                        }
                     default:
-                        Console.WriteLine("## Not Handled MessageBubble Type HERE");
-                        break;
+                        {
+                            Console.WriteLine("## Not Handled MessageBubble Type HERE");
+                            break;
+                        }
                 }
             }
         }
@@ -57,7 +61,7 @@ namespace iMessenger
             }
         }
 
-        public static void addUIItem(MessageBubble_text MB)
+        public static void addUIItem(UserControl MB)
         {
             //this.Dispatcher.Invoke(() => );
             Application.Current.Dispatcher.Invoke(new Action(() =>

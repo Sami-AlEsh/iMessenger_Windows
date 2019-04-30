@@ -12,10 +12,7 @@
         <Border Grid.Column="0" Background="Transparent">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Name="List" >
-                <local:MessageBubble_text />
-                <Border Background="LightBlue" CornerRadius="10">
-                    <RadioButton  Margin = "10"/>
-                </Border>
+            
             </StackPanel>
 
         </ScrollViewer>
