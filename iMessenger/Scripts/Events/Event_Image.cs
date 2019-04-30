@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Windows;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,19 +12,20 @@ namespace iMessenger.Scripts.Events
 {
     class Event_Image : Message
     {
-        private string Receiver;
-        private string FilePath;
-        private string Extension;
-        private string SentDate;
+        public string Receiver;
+        public string filePath;
+        public string extension;
+        public string sentDate;
+
+        private byte[] image;
 
         public Event_Image(string Receiver, string FilePath)
         {
             this.type = "Image";
             this.Receiver = Receiver;
-            this.FilePath = FilePath;
-            // TODO Extract it from FilePath
-            this.Extension = ".JPG";
-            this.SentDate = DateTime.Now.ToString();
+            this.filePath = FilePath;
+            this.extension = FilePath.Substring(FilePath.Length-4,4);
+            this.sentDate = DateTime.Now.ToString();
         }
 
         /// <summary>
@@ -33,29 +35,32 @@ namespace iMessenger.Scripts.Events
         /// <param name="image">Image a Byte array</param>
         public Event_Image(JObject TextMessage, byte[] image)
         {
-            var ReceiverName = TextMessage.SelectToken("receiver").Value<string>();
-            var MSG_ID = TextMessage.SelectToken("ID").Value<string>();
+            this.type = TextMessage.SelectToken("type").Value<string>();
+            this.ID = "null"; //TODO get ID from server
+            this.Receiver = TextMessage.SelectToken("sender").Value<string>();
+            this.extension = TextMessage.SelectToken("extension").Value<string>();
+            this.filePath = Project.Path + @"/Database/" + Receiver + @"/images/" + DateTime.Now.ToString() + extension;
+            this.sentDate = TextMessage.SelectToken("sentDate").Value<string>();
 
-            //Update Friend File Log
-            //Check Chat.json File
-            if (!File.Exists("/Database/" + ReceiverName + "/" + "Chat/Chat.json"))
-            {
-                //string ProjectBinPath = Environment.CurrentDirectory;
-                //string ProjectPath = Directory.GetParent(ProjectBinPath).Parent.FullName;
-
-                try { Directory.CreateDirectory("/Database/" + ReceiverName + "/Chat/"); }
-                catch (Exception e) { Console.WriteLine("#$ Error Create DIR Message -=> " + e.Message); }
-            }
-            //Check /Files/ Directory
-            if (!Directory.Exists("/Database/" + ReceiverName + "/Files"))
-                Directory.CreateDirectory("/Database/" + ReceiverName + "/Files/");
-
-            File.AppendAllText("/Database/" + ReceiverName + "/" + "Chat/Chat.json", TextMessage.ToString() + Environment.NewLine);
-            File.WriteAllBytes("/Database/" + ReceiverName + "/Files/" + MSG_ID + "." + Extension, image);
+            this.image = image;
+        }
+        public void Event_Image_Handler()
+        {
+            //Store Json Image Message
+            var JsonMsg = JObject.Parse(GetJson());  JsonMsg.Add(new JProperty("filePath", filePath));
+            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json",JsonMsg.ToString() + Environment.NewLine);
             Console.WriteLine("#$ Message Stored Successfuly");
+
+            //Store Image Byte Array as File.
+            File.WriteAllBytes(filePath, this.image);
+            Event_Image_UpdateUI();
         }
 
-
+        private void Event_Image_UpdateUI()
+        {
+            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, true)));
+            Console.WriteLine("Image Msg Added to UI !");
+        }
 
 
         public override string GetJson()
@@ -63,16 +68,15 @@ namespace iMessenger.Scripts.Events
             JObject json = new JObject(
                 new JProperty("type",type),
                 new JProperty("reciever", Receiver),
-                new JProperty("extension",Extension),
-                new JProperty("sentDate",SentDate)
+                new JProperty("extension",extension),
+                new JProperty("sentDate",sentDate)
                 );
             return json.ToString();
         }
 
         public override byte[] GetBytes()
         {
-            if (File.ReadAllBytes(this.FilePath).Length == 0) Console.WriteLine("Selected Image Doesnt Exist !!");
-            return File.ReadAllBytes(this.FilePath);
+            return File.ReadAllBytes(this.filePath);
         }
     }
 }
