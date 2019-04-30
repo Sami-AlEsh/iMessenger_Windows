@@ -28,7 +28,8 @@ namespace iMessenger
         {
             InitializeComponent();
             this.BubbleText.Text = text;
-            if (FriendMsgFlag) this.BubbleBorder.Background = Brushes.Beige;
+            if (FriendMsgFlag) { this.BubbleBorder.Background = Brushes.Beige; this.HorizontalAlignment = HorizontalAlignment.Left; }
+            else { this.BubbleBorder.Background = Brushes.White; this.HorizontalAlignment = HorizontalAlignment.Right; }
         }
     }
 }
