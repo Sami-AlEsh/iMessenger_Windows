@@ -32,11 +32,13 @@ namespace iMessenger
             if (FriendMsgFlag)
             {
                 this.BubbleBorder.Background = Brushes.Beige;
+                this.BubbleDate.HorizontalAlignment = HorizontalAlignment.Right;
                 this.HorizontalAlignment = HorizontalAlignment.Left;
             }
             else
             {
                 this.BubbleBorder.Background = Brushes.White;
+                this.BubbleDate.HorizontalAlignment = HorizontalAlignment.Left;
                 this.HorizontalAlignment = HorizontalAlignment.Right;
             }
         }

@@ -42,7 +42,6 @@
 
             <TextBlock x:Name="BubbleDate" Grid.Row="2"
                        Text="11:54pm"
-                       HorizontalAlignment="Center"
                        Foreground="{StaticResource ForegroundLightBrush}" />
 
         </Grid>
