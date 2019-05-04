@@ -31,6 +31,8 @@ namespace iMessenger.Scripts.Events
             this.filePath = FilePath;
             this.extension = FilePath.Substring(FilePath.Length-4,4);
             this.sentDate = DateTime.Now.ToString();
+
+            this.image = File.ReadAllBytes(filePath);
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace iMessenger.Scripts.Events
         {
             JObject json = new JObject(
                 new JProperty("type",type),
-                new JProperty("reciever", Receiver),
+                new JProperty("receiver", Receiver),
                 new JProperty("extension",extension),
                 new JProperty("sentDate",sentDate)
                 );

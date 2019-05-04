@@ -66,6 +66,7 @@
                     Style="{StaticResource IconButton}"
                     Content="{StaticResource FontAwesomePaperclipIcon}"
                     Foreground="{StaticResource ForegroundDarkBrush}"
+                    Click="AttachFile"
                     />
                 <!-- Input TextBox -->
                 <TextBox x:Name="InputBox"
