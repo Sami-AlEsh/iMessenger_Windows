@@ -24,12 +24,21 @@ namespace iMessenger
         {
             InitializeComponent();
         }
-        public MessageBubble_text(string text , bool FriendMsgFlag)
+        public MessageBubble_text(string text , string sentDate, bool FriendMsgFlag)
         {
             InitializeComponent();
             this.BubbleText.Text = text;
-            if (FriendMsgFlag) { this.BubbleBorder.Background = Brushes.Beige; this.HorizontalAlignment = HorizontalAlignment.Left; }
-            else { this.BubbleBorder.Background = Brushes.White; this.HorizontalAlignment = HorizontalAlignment.Right; }
+            this.BubbleDate.Text = sentDate;
+            if (FriendMsgFlag)
+            {
+                this.BubbleBorder.Background = Brushes.Beige;
+                this.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+            else
+            {
+                this.BubbleBorder.Background = Brushes.White;
+                this.HorizontalAlignment = HorizontalAlignment.Right;
+            }
         }
     }
 }

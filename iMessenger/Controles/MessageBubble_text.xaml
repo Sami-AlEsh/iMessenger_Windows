@@ -10,13 +10,15 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             <Border Name="BubbleBorder"
                     CornerRadius="10"
                     Padding="15"
+                    HorizontalAlignment="Left"
                     Background="{StaticResource ForegroundLightBrush}">
                 
 
@@ -37,6 +39,12 @@
                   Data="M 0,0 L 15,15 L 30,0 L 0,0"
                   StrokeThickness="0"
                   Fill="{StaticResource ForegroundLightBrush}" />
+
+            <TextBlock x:Name="BubbleDate" Grid.Row="2"
+                       Text="11:54pm"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource ForegroundLightBrush}" />
+
         </Grid>
     </Border>
 </UserControl>

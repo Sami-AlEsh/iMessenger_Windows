@@ -33,7 +33,7 @@ namespace iMessenger
                             var txtMsg = Msg as Event_Text;
                             bool Txtflag = (txtMsg.Receiver == MainUser.mainUser.userName ? true : false);
                             Console.WriteLine("#### flag : " + txtMsg.Receiver + " - " + MainUser.mainUser.userName);
-                            messagesList.Children.Add(new MessageBubble_text(txtMsg.text, Txtflag));
+                            messagesList.Children.Add(new MessageBubble_text(txtMsg.text, txtMsg.sentDate, Txtflag));
                             break;
                         }
                     case "Image":

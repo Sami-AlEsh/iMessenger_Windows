@@ -67,7 +67,7 @@ namespace iMessenger.Scripts.Events
         //-----------------------------
         private void Event_Text_UpdateUI()
         {
-            Application.Current.Dispatcher.Invoke(()=> MessageList.addUIItem(new MessageBubble_text(text, true)));
+            Application.Current.Dispatcher.Invoke(()=> MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
             Console.WriteLine("JsonMsg Added to UI !");
         }
 
