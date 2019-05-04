@@ -24,6 +24,7 @@ namespace iMessenger
         {
             InitList();
             SelectedPerson = name;
+            ChatPage.SelectedPerson.Text = SelectedPerson;
             foreach (var Msg in MainUser.mainUser.FrindsChat[name])
             {
                 switch (Msg.type)

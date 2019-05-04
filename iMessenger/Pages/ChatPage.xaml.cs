@@ -27,14 +27,19 @@ namespace iMessenger
     /// </summary>
     public partial class ChatPage : Page
     {
+        public static TextBlock SelectedPerson;
         public ChatPage()
         {
             InitializeComponent();
             new MyTcpSocket().Connect();
+            SelectedPerson = this.selectedPerson;
         }
-
+        
         private void SendTextMsg(object sender, RoutedEventArgs e)
         {
+            //Check Message
+            if (string.IsNullOrEmpty(MessageList.SelectedPerson) || string.IsNullOrEmpty(this.InputBox.Text)) return;
+
             //Create Event_Text:
             var message = new Event_Text(MessageList.SelectedPerson, this.InputBox.Text);
             this.InputBox.Text = "";
@@ -46,17 +51,6 @@ namespace iMessenger
             message.SendMessage();
             //Store Sent JSON Message:
             message.Event_Text_Handler();
-            //StoreMessage(message);
-        }
-
-        private void StoreMessage(Event_Text message)
-        {
-
-            using (StreamWriter file = File.CreateText(@"/Database/" + message.Receiver + "/chat.json"))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
-            {
-                JObject.Parse(message.GetJson()).WriteTo(writer);
-            };
         }
     }
 }

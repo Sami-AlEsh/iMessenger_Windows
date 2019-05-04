@@ -26,24 +26,64 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
-            <!-- Messages List-->
-            <local:MessageList Grid.Row="0" x:Name="MessagesList" />
-
-            <Grid Grid.Row="1">
+            <!-- Chating Header -->
+            <Grid Grid.Row="0" Height="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
+                <TextBlock x:Name="selectedPerson" Grid.Column="0"
+                           Foreground="{StaticResource ForegroundLightBrush}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="30" />
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Content="{StaticResource FontAwesomeEllipsisIcon}" Style="{StaticResource IconButton}" />
+                </StackPanel>
+                
+            </Grid>
+            <!-- Messages List-->
+            <local:MessageList Grid.Row="1" x:Name="MessagesList" />
+
+            <!-- Input Box -->
+            <Grid Grid.Row="2" Height="50" Background="{StaticResource ForegroundLightBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- attach a file -->
+                <Button Grid.Column="0"
+                    Style="{StaticResource IconButton}"
+                    Content="{StaticResource FontAwesomePaperclipIcon}"
+                    Foreground="{StaticResource ForegroundDarkBrush}"
+                    />
+                <!-- Input TextBox -->
                 <TextBox x:Name="InputBox"
-                         Grid.Column="0" Height="70"
-                         FontFamily="{StaticResource LatoRegular}"
+                         Tag="Write a Message ..."
+                         Grid.Column="1"
                          FontSize="{StaticResource FontSizeRegular}"/>
-                <Button Grid.Column="1" Content="Send" Click="SendTextMsg" />
+                <!-- Emoji -->
+                <Button Grid.Column="2"
+                        Style="{StaticResource IconButton}"
+                        Foreground="{StaticResource LogoOrangeBrush}"
+                        Content="{StaticResource FontAwesomeEmojiIcon}" />
+                <!-- Send Btn -->
+                <Button Grid.Column="3"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeSendIcon}" 
+                        Foreground="{StaticResource LogoGreenBrush}"
+                        IsDefault="True"
+                        Click="SendTextMsg" />
             </Grid>
         </Grid>
     </Grid>
