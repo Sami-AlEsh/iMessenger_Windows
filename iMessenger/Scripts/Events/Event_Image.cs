@@ -19,6 +19,11 @@ namespace iMessenger.Scripts.Events
 
         private byte[] image;
 
+        /// <summary>
+        /// Create Event_Image to send to SERVER
+        /// </summary>
+        /// <param name="Receiver"></param>
+        /// <param name="FilePath"></param>
         public Event_Image(string Receiver, string FilePath)
         {
             this.type = "Image";
@@ -29,18 +34,33 @@ namespace iMessenger.Scripts.Events
         }
 
         /// <summary>
+        /// Parsing Event_Image from Chat.json file to show
+        /// </summary>
+        /// <param name="ImageMessage"></param>
+        public Event_Image(JObject ImageMessage)
+        {
+            this.type = ImageMessage.SelectToken("type").Value<string>();
+            this.ID = "null"; //TODO get ID from server
+            this.Receiver = ImageMessage.SelectToken("receiver").Value<string>();
+            this.extension = ImageMessage.SelectToken("extension").Value<string>();
+            this.filePath = ImageMessage.SelectToken("filePath").Value<string>();
+            this.sentDate = ImageMessage.SelectToken("sentDate").Value<string>();
+        }
+
+
+        /// <summary>
         /// Receive Image from Server
         /// </summary>
         /// <param name="Json">Image detail</param>
         /// <param name="image">Image a Byte array</param>
-        public Event_Image(JObject TextMessage, byte[] image)
+        public Event_Image(JObject ImageMessage, byte[] image)
         {
-            this.type = TextMessage.SelectToken("type").Value<string>();
+            this.type = ImageMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
-            this.Receiver = TextMessage.SelectToken("sender").Value<string>();
-            this.extension = TextMessage.SelectToken("extension").Value<string>();
+            this.Receiver = ImageMessage.SelectToken("sender").Value<string>();
+            this.extension = ImageMessage.SelectToken("extension").Value<string>();
             this.filePath = Project.Path + @"/Database/" + Receiver + @"/images/" + DateTime.Now.ToString() + extension;
-            this.sentDate = TextMessage.SelectToken("sentDate").Value<string>();
+            this.sentDate = ImageMessage.SelectToken("sentDate").Value<string>();
 
             this.image = image;
         }

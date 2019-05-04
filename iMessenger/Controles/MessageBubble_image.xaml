@@ -21,6 +21,7 @@
 
 
                 <Image x:Name="Image"
+                       MouseLeftButtonDown="OpenImage"
                        Height="180"
                        Margin="2"
                        Source="/Images/DefaultImage.jpg" />

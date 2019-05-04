@@ -56,6 +56,9 @@ namespace iMessenger
                                 case "Text":
                                     messages.Add(new Event_Text(obj));
                                     break;
+                                case "Image":
+                                    messages.Add(new Event_Image(obj));
+                                    break;
                                 default:
                                     break;
                             }
@@ -76,11 +79,14 @@ namespace iMessenger
                 {
                     var count = MainUser.mainUser.FrindsChat[usr.name].Count;
                     if (count <= 0) continue;
-                    Event_Text lastMsg = (Event_Text)MainUser.mainUser.FrindsChat[usr.name][count-1];
-                    if(lastMsg.type == "Text")
-                        this.Dispatcher.Invoke(()=>this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
+                    var Msg = MainUser.mainUser.FrindsChat[usr.name][count-1];
+                    if (Msg.type == "Text")
+                    {
+                        Event_Text lastMsg = (Event_Text)Msg;
+                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
+                    }
                     else
-                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, "AA", "BinatyFile NOT Handled yet here")));
+                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "[ "+Msg.type+" ]")));
                 }
             });
         }
