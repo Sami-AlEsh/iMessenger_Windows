@@ -78,7 +78,7 @@ namespace iMessenger.Scripts.Events
 
         private void Event_Image_UpdateUI()
         {
-            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, true)));
+            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, sentDate, true)));
             Console.WriteLine("Image Msg Added to UI !");
         }
 

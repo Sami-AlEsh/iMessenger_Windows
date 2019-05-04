@@ -41,7 +41,7 @@ namespace iMessenger
                             var ImgMsg = Msg as Event_Image;
                             bool Imgflag = (ImgMsg.Receiver == MainUser.mainUser.userName ? true : false);
                             Console.WriteLine("#### flag : " + ImgMsg.Receiver + " - " + MainUser.mainUser.userName);
-                            messagesList.Children.Add(new MessageBubble_image(ImgMsg.filePath, Imgflag));
+                            messagesList.Children.Add(new MessageBubble_image(ImgMsg.filePath, ImgMsg.sentDate, Imgflag));
                             break;
                         }
                     default:
