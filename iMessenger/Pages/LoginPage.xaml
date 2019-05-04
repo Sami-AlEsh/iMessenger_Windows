@@ -75,6 +75,7 @@
                             <!-- SignUp Button -->
                             <Button Content="Sign Up"
                                     Name="Signup_Login_Btn"
+                                    IsDefault="True"
                                     HorizontalAlignment="Center"
                                     Click="SignUp_Login_Button"/>
 
