@@ -9,9 +9,8 @@ namespace iMessenger.Scripts.Tools__Static_
         /// <summary> 
         /// Saves an image as a jpeg image, with the given quality 
         /// </summary> 
-        /// <param name="path"> Path to which the image would be saved. </param> 
         /// <param name="quality"> An integer from 0 to 100, with 100 being the highest quality. </param> 
-        public static void ResizeImage(string path, Image img, int quality)
+        public static void ResizeImage(string filePath, Image img, int quality)
         {
             if (quality < 0 || quality > 100)
                 throw new ArgumentOutOfRangeException("quality must be between 0 and 100.");
@@ -22,7 +21,7 @@ namespace iMessenger.Scripts.Tools__Static_
             ImageCodecInfo jpegCodec = GetEncoderInfo("image/jpeg");
             EncoderParameters encoderParams = new EncoderParameters(1);
             encoderParams.Param[0] = qualityParam;
-            img.Save(path, jpegCodec, encoderParams);
+            img.Save(filePath, jpegCodec, encoderParams);
         }
 
         /// <summary> 

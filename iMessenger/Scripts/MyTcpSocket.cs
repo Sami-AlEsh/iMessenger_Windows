@@ -86,7 +86,7 @@ namespace iMessenger.Scripts
                                             case "Image":
                                                 var ImageMessage = JsonMessage;
                                                 var RecImage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
-                                                //new Event_Image();
+                                                new Event_Image(ImageMessage,RecImage).Event_Image_Handler();
                                                 break;
                                             //case "BinaryFile":
                                             //    var RecBinMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));

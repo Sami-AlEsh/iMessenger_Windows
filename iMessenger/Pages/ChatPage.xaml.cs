@@ -86,16 +86,14 @@ namespace iMessenger
                     case "png":
                     case "gif":
                         {
-                            //Create Event_Text:
+                            //Create Event_Image:
                             var message = new Event_Image(MessageList.SelectedPerson, filePath);
                             this.InputBox.Text = "";
 
-                            //Update UI & MainUser Chats Log:
-                            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(message);
-
                             //Send via TCP:
                             message.SendMessage();
-                            //Store Sent JSON Message:
+
+                            //Store JSON Message & Update UI & Update MainUser Frinds Chats Logs:
                             message.Event_Image_Handler();
                             break;
                         }

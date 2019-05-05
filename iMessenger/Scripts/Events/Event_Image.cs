@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using iMessenger.Scripts.Tools__Static_;
 
 namespace iMessenger.Scripts.Events
 {
@@ -17,23 +18,39 @@ namespace iMessenger.Scripts.Events
         public string extension;
         public string sentDate;
 
-        private byte[] image;
 
         /// <summary>
         /// Create Event_Image to send to SERVER
         /// </summary>
         /// <param name="Receiver"></param>
-        /// <param name="FilePath"></param>
-        public Event_Image(string Receiver, string FilePath)
+        /// <param name="RealFilePath"></param>
+        public Event_Image(string Receiver, string RealFilePath)
         {
             this.type = "Image";
             this.Receiver = Receiver;
-            this.filePath = FilePath;
-            this.extension = FilePath.Substring(FilePath.Length-4,4);
-            this.sentDate = DateTime.Now.ToString();
+            this.extension = Path.GetExtension(RealFilePath).ToLower();
 
-            this.image = File.ReadAllBytes(filePath);
+            var date = DateTime.Now;
+            this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + date.ToFileTime().ToString() + extension);
+            this.sentDate = date.ToString();
+
+            ImageResizer.ResizeImage(filePath, Image.FromFile(RealFilePath), 60);
         }
+        public void Event_Image_Handler()
+        {
+            //Update MainUser Chats Log:
+            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(this);
+
+            //Store Json Image Message
+            var JsonMsg = JObject.Parse(GetJson()); JsonMsg.Add(new JProperty("filePath", filePath));
+            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
+            Console.WriteLine("#$ Message Stored Successfuly");
+
+            //Update UI
+            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, sentDate, true)));
+            Console.WriteLine("Image Msg Added to UI !");
+        }
+
 
         /// <summary>
         /// Parsing Event_Image from Chat.json file to show
@@ -61,29 +78,15 @@ namespace iMessenger.Scripts.Events
             this.ID = "null"; //TODO get ID from server
             this.Receiver = ImageMessage.SelectToken("sender").Value<string>();
             this.extension = ImageMessage.SelectToken("extension").Value<string>();
-            this.filePath = Project.Path + @"/Database/" + Receiver + @"/images/" + DateTime.Now.ToString() + extension;
             this.sentDate = ImageMessage.SelectToken("sentDate").Value<string>();
 
-            this.image = image;
-        }
-        public void Event_Image_Handler()
-        {
-            //Store Json Image Message
-            var JsonMsg = JObject.Parse(GetJson());  JsonMsg.Add(new JProperty("filePath", filePath));
-            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json",JsonMsg.ToString() + Environment.NewLine);
-            Console.WriteLine("#$ Message Stored Successfuly");
+            this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
 
             //Store Image Byte Array as File.
-            File.WriteAllBytes(filePath, this.image);
-            Event_Image_UpdateUI();
+            File.WriteAllBytes(filePath, image);
         }
 
-        private void Event_Image_UpdateUI()
-        {
-            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, sentDate, true)));
-            Console.WriteLine("Image Msg Added to UI !");
-        }
-
+        
 
         public override string GetJson()
         {
