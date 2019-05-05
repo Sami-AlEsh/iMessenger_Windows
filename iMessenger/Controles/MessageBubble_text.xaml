@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:iMessenger"
+             xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
              mc:Ignorable="d" d:DesignWidth="300">
     
     <Border Padding="5">
@@ -22,7 +23,7 @@
                     Background="{StaticResource ForegroundLightBrush}">
                 
 
-                <TextBlock x:Name="BubbleText"
+                <emoji:TextBlock x:Name="BubbleText"
                     VerticalAlignment="Center"
                     TextWrapping="Wrap"
                     FontFamily="{StaticResource LatoRegular}"

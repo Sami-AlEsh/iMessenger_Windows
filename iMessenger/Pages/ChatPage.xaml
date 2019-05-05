@@ -61,23 +61,24 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!-- attach a file -->
+                <!-- Emoji -->
                 <Button Grid.Column="0"
                     Style="{StaticResource IconButton}"
-                    Content="{StaticResource FontAwesomePaperclipIcon}"
-                    Foreground="{StaticResource ForegroundDarkBrush}"
-                    Click="AttachFile"
+                    Content="{StaticResource FontAwesomeEmojiIcon}"
+                    Foreground="{StaticResource LogoOrangeBrush}"
+                    Click="ShowEmojisKeyboard"
                     />
                 <!-- Input TextBox -->
                 <TextBox x:Name="InputBox"
                          Tag="Write a Message ..."
                          Grid.Column="1"
                          FontSize="{StaticResource FontSizeRegular}"/>
-                <!-- Emoji -->
-                <Button Grid.Column="2"
+                <!-- attach a file -->
+                <Button Grid.Column="2" 
+                        Click="AttachFile"
                         Style="{StaticResource IconButton}"
-                        Foreground="{StaticResource LogoOrangeBrush}"
-                        Content="{StaticResource FontAwesomeEmojiIcon}" />
+                        Foreground="{StaticResource ForegroundDarkBrush}"
+                        Content="{StaticResource FontAwesomePaperclipIcon}" />
                 <!-- Send Btn -->
                 <Button Grid.Column="3"
                         Style="{StaticResource IconButton}"

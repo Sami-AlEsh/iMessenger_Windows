@@ -124,5 +124,12 @@ namespace iMessenger
                 }
             }
         }
+
+        private void ShowEmojisKeyboard(object sender, RoutedEventArgs e)
+        {
+            var progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
+            var keyboardPath = System.IO.Path.Combine(progFiles, "TabTip.exe");
+            System.Diagnostics.Process.Start(keyboardPath);
+        }
     }
 }
