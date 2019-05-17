@@ -45,6 +45,14 @@ namespace iMessenger
                             messagesList.Children.Add(new MessageBubble_image(ImgMsg.filePath, ImgMsg.sentDate, Imgflag));
                             break;
                         }
+                    case "BinaryFile":
+                        {
+                            var BFMsg = Msg as Event_BinaryFile;
+                            bool BFflag = (BFMsg.Receiver == MainUser.mainUser.userName ? true : false);
+                            Console.WriteLine("#### flag : " + BFMsg.Receiver + " - " + MainUser.mainUser.userName);
+                            messagesList.Children.Add(new MessageBubble_BinaryFile(BFMsg.FilePath, BFMsg.sentDate, BFflag));
+                            break;
+                        }
                     default:
                         {
                             Console.WriteLine("## Not Handled MessageBubble Type HERE");

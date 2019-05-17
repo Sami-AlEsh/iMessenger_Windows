@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="iMessenger.MessageBubble_BinaryFile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iMessenger"
+             mc:Ignorable="d" Width="200" Height="Auto">
+    
+    <Border Padding="5">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Border Name="BubbleBorder" Grid.Row="0"
+                    CornerRadius="10"
+                    Padding="5"
+                    Background="{StaticResource ForegroundLightBrush}">
+
+                <Border CornerRadius="10"
+                    Padding="5"
+                    Background="{StaticResource BackgroundVeryLightBrush}">
+                    <Grid>
+                        <Button Style="{StaticResource WindowControlButton}" Grid.Column="0" Click="OpenBinaryFile"/>
+                        <Label x:Name="fileName" Grid.Column="0"
+                           Content="FileName(16).mp4"
+                           FontFamily="{StaticResource LatoRegular}"
+                           FontSize="16"
+                           Margin="2"
+                            />
+                    </Grid>
+                </Border>
+
+            </Border>
+
+            <Path Grid.Row="1"
+                  HorizontalAlignment="Left"
+                  Stroke="White"
+                  Margin="15 0 0 0"
+                  Data="M 0,0 L 15,15 L 30,0 L 0,0"
+                  StrokeThickness="0"
+                  Fill="{StaticResource ForegroundLightBrush}" />
+
+            <TextBlock x:Name="BubbleDate" Grid.Row="2"
+                       Text="11:54pm"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource ForegroundLightBrush}" />
+
+        </Grid>
+    </Border>
+</UserControl>
