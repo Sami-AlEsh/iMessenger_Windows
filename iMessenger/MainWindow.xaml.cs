@@ -190,7 +190,7 @@ namespace iMessenger
                 // Convert byte[] to Base64 String
                 string base64String = Convert.ToBase64String(imageBytes);
 
-                new Event_Image("Tareq", base64String).SendMessage();
+                //new Event_Image("Tareq", base64String).SendMessage();
             }
             img.Dispose();
         }
@@ -229,7 +229,7 @@ namespace iMessenger
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             //new Event_Text("Alaa",this.MessageBox.Text).SendMessage();
-            new Event_BinaryFile("sami98", @"D:\Desktop.rar", "rar").SendMessage();
+            //new Event_BinaryFile("sami98", @"D:\Desktop.rar", "rar").SendMessage();
             //new Event_Image("tareq", @"D:\S.JPG").SendMessage();
         }
     }
