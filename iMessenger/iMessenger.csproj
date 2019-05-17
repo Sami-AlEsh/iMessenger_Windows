@@ -96,6 +96,9 @@
     <Compile Include="Controles\ChatListItemControl.xaml.cs">
       <DependentUpon>ChatListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controles\MessageBubble_BinaryFile.xaml.cs">
+      <DependentUpon>MessageBubble_BinaryFile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controles\MessageBubble_image.xaml.cs">
       <DependentUpon>MessageBubble_image.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Page Include="Controles\ChatListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controles\MessageBubble_BinaryFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controles\MessageBubble_image.xaml">
       <Generator>MSBuild:Compile</Generator>

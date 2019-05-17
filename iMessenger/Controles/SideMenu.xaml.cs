@@ -59,6 +59,9 @@ namespace iMessenger
                                 case "Image":
                                     messages.Add(new Event_Image(obj));
                                     break;
+                                case "BinaryFile":
+                                    messages.Add(new Event_BinaryFile(obj));
+                                    break;
                                 default:
                                     break;
                             }

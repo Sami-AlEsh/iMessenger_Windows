@@ -102,7 +102,15 @@ namespace iMessenger
                     case "mp3":
                     case "m4a":
                         {
-                            //TODO attach audio files
+                            //Create Event_BinaryFile:
+                            var message = new Event_BinaryFile(MessageList.SelectedPerson, filePath);
+                            this.InputBox.Text = "";
+
+                            //Send via TCP:
+                            message.SendMessage();
+
+                            //Store JSON Message & Update UI & Update MainUser Frinds Chats Logs:
+                            message.Event_BinaryFile_Handler();
                             break;
                         }
 

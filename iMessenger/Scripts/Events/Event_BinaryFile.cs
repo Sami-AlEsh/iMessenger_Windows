@@ -5,46 +5,81 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace iMessenger.Scripts.Events
 {
     class Event_BinaryFile : Message
     {
-        private string Receiver;
-        private string FilePath;
-        private string FileExtension;
-        private string sentDate;
+        public string Receiver;
+        public string FilePath;
+        public string FileExtension;
+        public string sentDate;
 
-        public Event_BinaryFile(string Receiver, string FilePath , string FileExtension)
+        /// <summary>
+        /// Create Event_Image to send to SERVER
+        /// </summary>
+        /// <param name="Receiver"></param>
+        /// <param name="RealFilePath"></param>
+        /// <param name="FileExtension"></param>
+        public Event_BinaryFile(string Receiver, string RealFilePath)
         {
             this.type = "BinaryFile";
             this.Receiver = Receiver;
-            this.FilePath = FilePath;
-            this.FileExtension = FileExtension;
-            this.sentDate = DateTime.Now.ToString();
+            this.FileExtension = Path.GetExtension(RealFilePath).ToLower();
 
+            var date = DateTime.Now;
+            this.FilePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/binaryfiles/" + date.ToFileTime().ToString() + FileExtension);
+            this.sentDate = date.ToString();
+        }
+        public void Event_BinaryFile_Handler()
+        {
+            //Update MainUser Chats Log:
+            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(this);
+
+            //Store Json Image Message
+            var JsonMsg = JObject.Parse(GetJson()); JsonMsg.Add(new JProperty("filePath", FilePath));
+            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
+            Console.WriteLine("#$ Message Stored Successfuly");
+
+            //Update UI
+            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_BinaryFile(FilePath, sentDate, true)));
+            Console.WriteLine("BinaryFile Msg Added to UI !");
         }
 
-        public Event_BinaryFile(JObject TextMessage, byte[] file)
+
+        /// <summary>
+        /// Parsing Event_BinaryFile from Chat.json file to show
+        /// </summary>
+        /// <param name="BinaryFileMessage"></param>
+        public Event_BinaryFile(JObject BinaryFileMessage)
         {
-            var ReceiverName = TextMessage.SelectToken("receiver").Value<string>();
-            var MSG_ID = TextMessage.SelectToken("ID").Value<string>();
-            var Extension = TextMessage.SelectToken("extension").Value<string>();
+            this.type = BinaryFileMessage.SelectToken("type").Value<string>();
+            this.ID = "null"; //TODO get ID from server
+            this.Receiver = BinaryFileMessage.SelectToken("receiver").Value<string>();
+            this.FileExtension = BinaryFileMessage.SelectToken("extension").Value<string>();
+            this.FilePath = BinaryFileMessage.SelectToken("filePath").Value<string>();
+            this.sentDate = BinaryFileMessage.SelectToken("sentDate").Value<string>();
+        }
 
-            //Update Friend File Log
-            //Check Chat.json File
-            if (!File.Exists("/Database/" + ReceiverName + "/" + "Chat/Chat.json"))
-            {
-                try { Directory.CreateDirectory("/Database/" + ReceiverName + "/Chat/"); }
-                catch (Exception e) { Console.WriteLine("#$ Error Handling Text Message -=> " + e.Message); }
-            }
-            //Check /Files/ Directory
-            if (!Directory.Exists("/Database/" + ReceiverName + "/Files"))
-                Directory.CreateDirectory("/Database/" + ReceiverName + "/Files/");
 
-            File.AppendAllText("/Database/" + ReceiverName + "/" + "Chat/Chat.json", TextMessage.ToString() + Environment.NewLine);
-            File.WriteAllBytes("/Database/" + ReceiverName + "/Files/" + MSG_ID + "." + Extension, file);
-            Console.WriteLine("#$ Message Stored Successfuly");
+        /// <summary>
+        /// Receive Image from Server
+        /// </summary>
+        /// <param name="BFMessage"></param>
+        /// <param name="file"></param>
+        public Event_BinaryFile(JObject BFMessage, byte[] file)
+        {
+            this.type = BFMessage.SelectToken("type").Value<string>();
+            this.ID = "null"; //TODO get ID from server
+            this.Receiver = BFMessage.SelectToken("sender").Value<string>();
+            this.FileExtension = BFMessage.SelectToken("extension").Value<string>();
+            this.sentDate = BFMessage.SelectToken("sentDate").Value<string>();
+
+            this.FilePath= Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + FileExtension);
+
+            //Store Image Byte Array as File.
+            File.WriteAllBytes(FilePath, file);
         }
 
 
@@ -61,7 +96,6 @@ namespace iMessenger.Scripts.Events
 
         public override byte[] GetBytes()
         {
-            if (File.ReadAllBytes(this.FilePath).Length == 0) Console.WriteLine("Selected Binary File Doesnt Exist !!");
             return File.ReadAllBytes(this.FilePath);
         }
     }
