@@ -75,7 +75,7 @@ namespace iMessenger
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             Running = false;
-                            var token = JsonResponse.SelectToken("token").Value<string>();
+                            var token = (string)JsonResponse["data"]["token"];
                             //TODO Take : Name,Email,Friends from Response (modify MainUser Constructoe to add Friends)
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
@@ -150,7 +150,7 @@ namespace iMessenger
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
                             Running = false;
-                            var token = JsonResponse.SelectToken("token").Value<string>();
+                            var token = (string)JsonResponse["data"]["token"];
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
                                 MainUser.UpdateFriendsList(); //TODO Delete this statement
