@@ -25,6 +25,7 @@ namespace iMessenger.Scripts
         //Other Attributes:
         public List<User> Friends = new List<User>();
         public Dictionary<string,List<Message> > FrindsChat = new Dictionary<string,List<Message> >();
+        public Queue<Message> ChatsQueue = new Queue<Message>();
         #endregion
 
         #region Constructor

@@ -111,6 +111,12 @@ namespace iMessenger.Scripts
                             }
                         });
 
+                        //Send offline Messages:
+                        var messages = MainUser.mainUser.ChatsQueue.ToArray();
+                        foreach (var msg in messages)
+                        {
+                            msg.SendMessage();
+                        }
                     }
                     catch (SocketException e)
                     {
@@ -168,9 +174,9 @@ namespace iMessenger.Scripts
                 
                 Console.WriteLine("Message Sent !");
             }
-            catch (WebException e)
+            catch (Exception)
             {
-                Console.WriteLine("Failed to send message ==> " + e.Message);
+                throw new Exception("Message not sent !");
             }
         }
 

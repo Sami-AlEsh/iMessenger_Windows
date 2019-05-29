@@ -53,9 +53,18 @@ namespace iMessenger.Scripts.Events
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine("ERROR Happen Here : "+e.StackTrace);
+                Console.WriteLine("**** Message not sent ! => it stored in Queue");
+                try
+                {
+                    MainUser.mainUser.ChatsQueue.Enqueue(this);
+                }
+                catch(NullReferenceException)
+                {
+                    MainUser.mainUser.ChatsQueue = new Queue<Message>();
+                    MainUser.mainUser.ChatsQueue.Enqueue(this);
+                }
             }
         }
     }
