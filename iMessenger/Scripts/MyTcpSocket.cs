@@ -112,7 +112,7 @@ namespace iMessenger.Scripts
                         });
 
                         //Send offline Messages:
-                        var messages = MainUser.mainUser.ChatsQueue.ToArray();
+                        var messages = MainUser.ChatsQueue.ToArray();
                         foreach (var msg in messages)
                         {
                             msg.SendMessage();
