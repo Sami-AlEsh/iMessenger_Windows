@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.IO;
 
 namespace iMessenger
 {
@@ -20,6 +21,12 @@ namespace iMessenger
         {
             InitializeComponent();
             this.filePath = filePath;
+
+            if (Path.GetFileName(filePath).Length > 17)
+                this.fileName.Content = Path.GetFileName(filePath).Substring(0, 14) + Path.GetExtension(filePath);
+            else
+                this.fileName.Content = Path.GetFileName(filePath);
+
             this.BubbleDate.Text = sentDate;
             if (FriendMsgFlag)
             {

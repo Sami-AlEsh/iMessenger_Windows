@@ -27,7 +27,7 @@
                         <Button Style="{StaticResource WindowControlButton}" Grid.Column="0" Click="OpenBinaryFile"/>
                         <Label x:Name="fileName" Grid.Column="0"
                            Content="FileName(16).mp4"
-                           FontFamily="{StaticResource LatoRegular}"
+                           FontFamily="Arial"
                            FontSize="16"
                            Margin="2"
                             />

@@ -50,7 +50,7 @@ namespace iMessenger
                             var BFMsg = Msg as Event_BinaryFile;
                             bool BFflag = (BFMsg.Receiver == MainUser.mainUser.userName ? true : false);
                             Console.WriteLine("#### flag : " + BFMsg.Receiver + " - " + MainUser.mainUser.userName);
-                            messagesList.Children.Add(new MessageBubble_BinaryFile(BFMsg.FilePath, BFMsg.sentDate, BFflag));
+                            messagesList.Children.Add(new MessageBubble_BinaryFile(BFMsg.filePath, BFMsg.sentDate, BFflag));
                             break;
                         }
                     default:
