@@ -39,7 +39,7 @@ namespace iMessenger.Scripts.Events
         public void Event_Image_Handler()
         {
             //Update MainUser Chats Log:
-            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(this);
+            MainUser.mainUser.FrindsChat[Receiver].Add(this);
 
             //Store Json Image Message
             var JsonMsg = JObject.Parse(GetJson()); JsonMsg.Add(new JProperty("filePath", filePath));
@@ -77,7 +77,7 @@ namespace iMessenger.Scripts.Events
             this.type = ImageMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.Receiver = ImageMessage.SelectToken("sender").Value<string>();
-            this.extension = ImageMessage.SelectToken("extension").Value<string>();
+            this.extension = "." + (string)ImageMessage["extension"];
             this.sentDate = ImageMessage.SelectToken("sentDate").Value<string>();
 
             this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
