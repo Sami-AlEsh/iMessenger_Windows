@@ -17,58 +17,49 @@ namespace iMessenger.Scripts.Events
         public string text;
         public string sentDate;
 
-        //When Sending Text Message :
+        /// <summary>
+        /// Create Event_Text to send to SERVER
+        /// </summary>
+        /// <param name="Receiver"></param>
+        /// <param name="text"></param>
         public Event_Text(string Receiver, string text)
         {
             this.type = "Text";
-            this.ID = Message.GetID().ToString();
+            //this.ID = "null"; //TODO get ID from server
             this.Receiver = Receiver;
             this.text = text;
             sentDate = DateTime.Now.ToString();
-            
         }
-        //---------------------------
+        public void Event_Text_Handler()
+        {
+            //Update MainUser Chats Log:
+            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(this);
 
-        //When Recieving Text Message :
+            //Store Json Image Message
+            var JsonMsg = JObject.Parse(GetJson());
+            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
+            Console.WriteLine("#$ Message Stored Successfuly");
+
+            //Update UI
+            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
+            Console.WriteLine("Text Msg Added to UI !");
+        }
+
+
+        /// <summary>
+        /// Parsing Event_Text from Chat.json file to show / Receive Text from Server
+        /// </summary>
+        /// <param name="TextMessage"></param>
         public Event_Text(JObject TextMessage)
         {
-            this.Receiver = TextMessage.SelectToken("receiver").Value<string>();
+            this.Receiver = (string)TextMessage["receiver"];
+            if (string.IsNullOrEmpty(Receiver))
+                this.Receiver = (string)TextMessage["sender"];
+
             this.type = TextMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.text = TextMessage.SelectToken("message").Value<string>();
             sentDate = TextMessage.SelectToken("sentDate").Value<string>();
-        }
-        public void Event_Text_Handler()
-        {
-            //Update Friend Chat Log
-            if (File.Exists(Project.Path +@"/Database/" + Receiver + @"/chat.json"))
-            {
-                File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", GetJson() + Environment.NewLine);
-                Console.WriteLine("#$ Message Stored Successfuly");
-                Event_Text_UpdateUI();
-            }
-            //Create Friend Chat Log
-            else
-            {
-                try
-                {
-                    Directory.CreateDirectory("/Database/" + Receiver + "/");
-                    File.WriteAllText(Project.Path + @"/Database/" + Receiver + "/chat.json", GetJson());
-                    Console.WriteLine("#$ Message Stored Successfuly");
-
-                    Event_Text_UpdateUI();
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine("#$ Error Handling Text Message -=> " + e.Message);
-                }
-            }
-        }
-        //-----------------------------
-        private void Event_Text_UpdateUI()
-        {
-            Application.Current.Dispatcher.Invoke(()=> MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
-            Console.WriteLine("JsonMsg Added to UI !");
         }
 
         #region Get JSON\Bytes()

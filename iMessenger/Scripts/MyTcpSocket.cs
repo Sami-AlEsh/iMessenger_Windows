@@ -77,23 +77,28 @@ namespace iMessenger.Scripts
                                     {
                                         var RecMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
                                         JObject JsonMessage = JObject.Parse(Encoding.UTF8.GetString(RecMessage));
-                                        switch (JsonMessage.SelectToken("type").Value<string>())
+                                        switch ((string)JsonMessage["type"])
                                         {
                                             case "Text":
-                                                var TextMessage = JsonMessage;
-                                                new Event_Text(TextMessage).Event_Text_Handler();
-                                                break;
+                                                {
+                                                    var TextMessage = JsonMessage;
+                                                    new Event_Text(TextMessage).Event_Text_Handler();
+                                                    break;
+                                                }
                                             case "Image":
-                                                var ImageMessage = JsonMessage;
-                                                var RecImage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
-                                                new Event_Image(ImageMessage,RecImage).Event_Image_Handler();
-                                                break;
+                                                {
+                                                    var ImageMessage = JsonMessage;
+                                                    var RecImage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
+                                                    new Event_Image(ImageMessage, RecImage).Event_Image_Handler();
+                                                    break;
+                                                }
                                             case "BinaryFile":
-                                                var BFMessage = JsonMessage;
-                                                var RecBinaryFile = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
-                                                new Event_BinaryFile(BFMessage, RecBinaryFile).Event_BinaryFile_Handler();
-                                                break;
-
+                                                {
+                                                    var BFMessage = JsonMessage;
+                                                    var RecBinaryFile = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
+                                                    new Event_BinaryFile(BFMessage, RecBinaryFile).Event_BinaryFile_Handler();
+                                                    break;
+                                                }
                                             default:
                                                 break;
                                         }
