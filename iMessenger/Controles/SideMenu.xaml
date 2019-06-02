@@ -33,7 +33,16 @@
                         <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomePictureIcon}" />
                     </StackPanel>
 
-                    <Button Grid.Column="2" Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeCogIcon}" Foreground="{StaticResource LogoDarkBlueBrush}"/>
+                <Button Grid.Column="2" Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeCogIcon}" Foreground="{StaticResource LogoDarkBlueBrush}">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem FontFamily="{StaticResource LatoBold}" Header="View My Profile" />
+                            <MenuItem FontFamily="{StaticResource LatoRegular}" Header="Setting" />
+                            <Separator />
+                            <MenuItem Header="Menu item 3" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
                 </Grid>
 
                 <!--<ContentPresenter Grid.Row="1" />-->
