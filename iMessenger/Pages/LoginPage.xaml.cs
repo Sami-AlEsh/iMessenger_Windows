@@ -71,11 +71,11 @@ namespace iMessenger
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
                         }
-
-                        if (response.StatusCode == HttpStatusCode.OK)
+                    
+                        if ((bool)JsonResponse["status"])
                         {
                             Running = false;
-                            var token = (string)JsonResponse["data"]["token"];
+                            var token = (string)JsonResponse["data"];
                             //TODO Take : Name,Email,Friends from Response (modify MainUser Constructoe to add Friends)
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
@@ -132,6 +132,7 @@ namespace iMessenger
                 request.RequestFormat = DataFormat.Json;
                 try
                 {
+
                     client.ExecuteAsync(request, response =>
                     {
                         //Json response
@@ -147,10 +148,10 @@ namespace iMessenger
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
                         }
 
-                        if (response.StatusCode == HttpStatusCode.OK)
+                        if ((bool)JsonResponse["status"])
                         {
                             Running = false;
-                            var token = (string)JsonResponse["data"]["token"];
+                            var token = (string)JsonResponse["data"];
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
                                 MainUser.UpdateFriendsList(); //TODO Delete this statement
