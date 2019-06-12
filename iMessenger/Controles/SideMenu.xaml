@@ -29,7 +29,7 @@
                     <!-- Chat Icons -->
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeChatIcon}" />
-                        <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeUserIcon}" />
+                        <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeUserIcon}" Click="ShowFriendsWindow" />
                         <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomePictureIcon}" />
                     </StackPanel>
 

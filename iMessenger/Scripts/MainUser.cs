@@ -109,9 +109,34 @@ namespace iMessenger.Scripts
             mainUser.Friends.Clear();
             mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
         }
-        public static void AddFriend()
+
+        public static void AddFriend(User user)
         {
-            //TODO Add a friend to static ref and UI
+            initFriend_directories(user.userName);
+            mainUser.Friends.Add(user);
+            mainUser.FrindsChat[user.userName] = new List<Message>();
+
+            //add friend to UI
+            SideMenu.friendsList.AddFriend_UI(new ChatListItemControl(user.userName, user.userName.ToUpper()[0].ToString() , "#New_friend!"));
+        }
+        public static void Delete_Block_Friend(User user)
+        {
+            DeleteFriend_directories(user.userName);
+            mainUser.Friends.Remove(user);
+            mainUser.FrindsChat.Remove(user.userName);
+
+            //delete friend from UI
+            SideMenu.friendsList.DeleteFriend_UI(user.userName);
+        }
+
+        private static void DeleteFriend_directories(string userName)
+        {
+            //TODO : delete paths and folders and chat.json file
+        }
+
+        private static void initFriend_directories(string username)
+        {
+            //TODO : create paths and folders and chat.json file
         }
     }
 }

@@ -26,11 +26,11 @@ namespace iMessenger
     /// </summary>
     public partial class SideMenu : UserControl
     {
-        public static StackPanel friendsList = new StackPanel();
+        public static SideMenu friendsList;
         public SideMenu()
         {
             InitializeComponent();
-            friendsList = this.FriendsList;
+            friendsList = this;
 
             //Load Last Friends Chats UI:
             Task.Factory.StartNew(() => {
@@ -97,6 +97,25 @@ namespace iMessenger
         public void AddFriend_UI(ChatListItemControl item)
         {
             this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(item));
+        }
+
+        public void DeleteFriend_UI(string userName)
+        {
+            foreach (ChatListItemControl item in this.FriendsList.Children)
+            {
+                if (item.friendName == userName)
+                {
+                    this.Dispatcher.Invoke(() => this.FriendsList.Children.Remove(item));
+                    return;
+                }
+                Console.WriteLine("#ERROR : trying to delete a friend not exist !!");
+            }
+        }
+
+
+        private void ShowFriendsWindow(object sender, RoutedEventArgs e)
+        {
+            new FriendsSetting().ShowDialog();
         }
     }
 }

@@ -39,5 +39,8 @@
     <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
     <system:String x:Key="FontAwesomeCloseIcon">&#xf00d;</system:String>
     <system:String x:Key="FontAwesomeSendIcon">&#xf0a9;</system:String>
-    
+    <system:String x:Key="FontAwesomeAddFriend">&#xf234;</system:String>
+    <system:String x:Key="FontAwesomeDeleteFriend">&#xf503;</system:String>
+    <system:String x:Key="FontAwesomeBlockFriend">&#xf4fa;</system:String>
+
 </ResourceDictionary>
