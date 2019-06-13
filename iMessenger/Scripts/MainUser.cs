@@ -110,6 +110,10 @@ namespace iMessenger.Scripts
             mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
         }
 
+        /// <summary>
+        /// Add new Friend to MainUser Object & UI
+        /// </summary>
+        /// <param name="user"></param>
         public static void AddFriend(User user)
         {
             initFriend_directories(user.userName);

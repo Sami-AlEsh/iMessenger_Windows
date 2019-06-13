@@ -1,18 +1,9 @@
 ﻿using iMessenger.Scripts;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace iMessenger
 {
@@ -45,7 +36,26 @@ namespace iMessenger
 
         private void AddFriend(object sender, RoutedEventArgs e)
         {
-            //TODO : Send HTTP Add friend => On true Response do :
+            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+
+            var client = new RestClient(ServerUri);
+            //HTTP Request Route & Method
+            var request = new RestRequest("/user/addFriend", Method.POST);
+
+            string jsonToSend = new JObject(new JProperty("current", MainUser.mainUser.userName),
+                                             new JProperty("friend", thisUser.userName)
+                                             ).ToString();
+
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = RestSharp.DataFormat.Json;
+
+            client.ExecuteAsync(request, response =>
+            {
+                Console.WriteLine("JS sent : " + jsonToSend);
+                Console.WriteLine("RES : " + response.Content);
+            });
+
+            //Update MainUser Object & UI:
             MainUser.AddFriend(thisUser);
         }
 
