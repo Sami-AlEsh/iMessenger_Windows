@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:iMessenger"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="525"
-        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf">
+        >
 
     <Grid>
         <Button x:Name="ConnectToServer" Content="Connect To Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="134" Height="36" Cursor="Hand" Click="ConnectToServer_Click"/>

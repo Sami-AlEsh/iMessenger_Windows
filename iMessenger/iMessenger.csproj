@@ -133,6 +133,7 @@
     <Compile Include="Scripts\MySockt.cs" />
     <Compile Include="Scripts\MyTcpSocket.cs" />
     <Compile Include="Scripts\MyWebSocket.cs" />
+    <Compile Include="Scripts\Tools %28Static%29\AESOperation.cs" />
     <Compile Include="Scripts\Tools %28Static%29\ImageResizer.cs" />
     <Compile Include="Scripts\Tools %28Static%29\Project.cs" />
     <Compile Include="Scripts\User.cs" />

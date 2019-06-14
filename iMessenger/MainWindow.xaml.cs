@@ -20,6 +20,7 @@ using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using Newtonsoft.Json;
+using iMessenger.Scripts.AES.EncryptionDecryption;
 
 namespace iMessenger
 {
@@ -36,7 +37,7 @@ namespace iMessenger
         public MainWindow()
         {
             InitializeComponent();
-            OnStartUp();
+            //OnStartUp();
 
             //Test1(); User Auth
             //Test2(); Save Image
@@ -46,6 +47,28 @@ namespace iMessenger
         }
         private void OnStartUp()
         {
+            var r = File.ReadAllBytes(Project.Path + @"/text.bin");
+            string cyhertext = Convert.ToBase64String(r);
+            //string tareqKey = "kiXhEPfH4c/+V0cJ2EeEfg==";
+            string key = "kiXhEPfH4c/+V0cJ2EeEfg==";
+            //Console.WriteLine(AESOperation.GenerateKey(64));
+            Console.WriteLine();
+            Console.WriteLine();
+            try
+            {
+                //var key = AESOperation.GenerateKey(128); //#68
+                //Console.WriteLine(key);
+                //Console.WriteLine(key + "  ### " + key.Length);
+                var stringEncrypted = AESOperation.EncryptString(key, "sami AES Encryption Decryption test");
+                //Console.WriteLine(stringEncrypted);
+                Console.WriteLine();
+                var decryptedString = AESOperation.DecryptString(key, stringEncrypted);
+                Console.WriteLine(decryptedString);
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message + " #### " + e.StackTrace);
+            }
+
             //mainUser = MainUser.LoadLocalMainUser();
             //if (mainUser != null && mainUser.verified)
             //{
@@ -221,9 +244,10 @@ namespace iMessenger
 
         private void ConnectToServer_Click(object sender, RoutedEventArgs e)
         {
-            MyTcpSocket.ServerIp = this.Serverip_textBox.Text;
-            MyTcpSocket.ServerPort = Convert.ToInt32(this.ServerPort_textBox.Text);
-            new MyTcpSocket().Connect();
+            OnStartUp();
+            //MyTcpSocket.ServerIp = this.Serverip_textBox.Text;
+            //MyTcpSocket.ServerPort = Convert.ToInt32(this.ServerPort_textBox.Text);
+            //new MyTcpSocket().Connect();
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)

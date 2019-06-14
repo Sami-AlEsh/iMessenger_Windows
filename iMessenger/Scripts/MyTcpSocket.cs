@@ -19,7 +19,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.43.55";
+        public static string ServerIp { set; get; } = "192.168.137.90";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;
