@@ -2,7 +2,7 @@
 using System.IO;  
 using System.Security.Cryptography;  
 
-namespace iMessenger.Scripts.AES.EncryptionDecryption
+namespace iMessenger.Scripts.AES
 {
     public class AESOperation
     {
@@ -133,7 +133,7 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
         /// </summary>
         /// <param name="Key">AES-128 Key</param>
         /// <param name="cipherData">Encrypted Data(Byte Array)</param>
-        /// <returns>Decrypted Data(Plain Byte Array)</returns>
+        /// <returns>Decrypted Data(Plain Byte Array)</returns> 
         public static byte[] Decrypt(string Key, byte[] cipherData)
         {
             var iv = new byte[16];
