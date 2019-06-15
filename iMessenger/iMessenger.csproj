@@ -136,6 +136,7 @@
     <Compile Include="Scripts\Tools %28Static%29\AESOperation.cs" />
     <Compile Include="Scripts\Tools %28Static%29\ImageResizer.cs" />
     <Compile Include="Scripts\Tools %28Static%29\Project.cs" />
+    <Compile Include="Scripts\Tools %28Static%29\RSAOperation.cs" />
     <Compile Include="Scripts\User.cs" />
     <Compile Include="Signup_LoginWindow.xaml.cs">
       <DependentUpon>Signup_LoginWindow.xaml</DependentUpon>
