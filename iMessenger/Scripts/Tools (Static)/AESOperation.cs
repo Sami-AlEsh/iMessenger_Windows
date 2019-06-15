@@ -1,8 +1,7 @@
 ﻿using System;  
 using System.IO;  
 using System.Security.Cryptography;  
-using System.Text;  
-  
+
 namespace iMessenger.Scripts.AES.EncryptionDecryption
 {
     public class AESOperation
@@ -20,6 +19,12 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
             return Convert.ToBase64String(aesEncryption.Key);
         }
 
+        /// <summary>
+        /// Encrypt Text string using AES-128 Key
+        /// </summary>
+        /// <param name="key">AES-128 Key</param>
+        /// <param name="plainText">Text to Encrypt</param>
+        /// <returns>Encrypted Text</returns>
         public static string Encrypt(string key, string plainText)
         {
             byte[] iv = new byte[16];
@@ -49,7 +54,12 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
 
             return Convert.ToBase64String(array);
         }
-
+        /// <summary>
+        /// Decrypt Text string using AES-128 Key
+        /// </summary>
+        /// <param name="key">AES-128 Key</param>
+        /// <param name="cipherText">Encrypted Text to Decrypt</param>
+        /// <returns>Plain Text</returns>
         public static string Decrypt(string key, string cipherText)
         {
             byte[] iv = new byte[16];
@@ -77,6 +87,12 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
             }
         }
 
+        /// <summary>
+        /// Encrypt File(Byte Array) using AES-128 Key
+        /// </summary>
+        /// <param name="Key">AES-128 Key</param>
+        /// <param name="plainData">Byte Array to Encrypt</param>
+        /// <returns>Encrypted Data(Byte Array)</returns>
         public static byte[] Encrypt(string Key, byte[] plainData)
         {
             var key = Convert.FromBase64String(Key);
@@ -112,6 +128,12 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
             // Return the encrypted bytes from the memory stream.
             return encrypted;
         }
+        /// <summary>
+        /// Decrypt File(Byte Array) using AES-128 Key
+        /// </summary>
+        /// <param name="Key">AES-128 Key</param>
+        /// <param name="cipherData">Encrypted Data(Byte Array)</param>
+        /// <returns>Decrypted Data(Plain Byte Array)</returns>
         public static byte[] Decrypt(string Key, byte[] cipherData)
         {
             var iv = new byte[16];
@@ -141,6 +163,5 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
                 return ms.ToArray();
             }
         }
-
     }
 }
