@@ -20,7 +20,8 @@ using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using Newtonsoft.Json;
-using iMessenger.Scripts.AES.EncryptionDecryption;
+using iMessenger.Scripts.AES;
+using iMessenger.Scripts.RSA;
 
 namespace iMessenger
 {
@@ -48,11 +49,11 @@ namespace iMessenger
         private void OnStartUp()
         {
             //var key = AESOperation.GenerateKey();
-            string key = "2iTd8F35SLK5VBAfwV6Ulg==";
+            //string key = "2iTd8F35SLK5VBAfwV6Ulg==";
             Console.WriteLine();
 
 
-            
+
             //var stringEncrypted = AESOperation.Encrypt(key, "Done Bro !");
             //Console.WriteLine(stringEncrypted);
             ////var decryptedString = AESOperation.Decrypt(key, stringEncrypted);
@@ -60,12 +61,12 @@ namespace iMessenger
             //Console.WriteLine(decryptedString);
             /////////////////////////////////////////////
 
-            var r = File.ReadAllBytes(Project.Path + @"/aa.zip");
-            var EncryptedFile = AESOperation.Encrypt(key, r);
-            File.WriteAllBytes(Project.Path + @"/2Encrypted.zip", EncryptedFile);
+            //var r = File.ReadAllBytes(Project.Path + @"/aa.zip");
+            //var EncryptedFile = AESOperation.Encrypt(key, r);
+            //File.WriteAllBytes(Project.Path + @"/2Encrypted.zip", EncryptedFile);
 
-            var theFile = AESOperation.Decrypt(key, EncryptedFile);
-            File.WriteAllBytes(Project.Path + @"/3Decrypted.zip", theFile);
+            //var theFile = AESOperation.Decrypt(key, EncryptedFile);
+            //File.WriteAllBytes(Project.Path + @"/3Decrypted.zip", theFile);
 
 
 
