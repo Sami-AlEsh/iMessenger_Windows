@@ -89,7 +89,7 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
                 aesAlg.KeySize = 128;
                 aesAlg.BlockSize = 128;
                 aesAlg.FeedbackSize = 128;
-                aesAlg.Padding = PaddingMode.Zeros;
+                aesAlg.Padding = PaddingMode.PKCS7;
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
 
@@ -119,7 +119,7 @@ namespace iMessenger.Scripts.AES.EncryptionDecryption
             {
                 aes.KeySize = 128;
                 aes.BlockSize = 128;
-                aes.Padding = PaddingMode.Zeros;
+                aes.Padding = PaddingMode.PKCS7;
 
                 aes.Key = Convert.FromBase64String(Key);
                 aes.IV = iv;

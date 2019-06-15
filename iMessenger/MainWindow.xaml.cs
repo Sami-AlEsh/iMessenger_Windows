@@ -47,25 +47,25 @@ namespace iMessenger
         }
         private void OnStartUp()
         {
-            var r = File.ReadAllBytes(Project.Path + @"/1.jpg");
-            //string cyhertext = Convert.ToBase64String(r);
-            //string tareqKey = "kiXhEPfH4c/+V0cJ2EeEfg==";
-
-            //string key = "sami1234sami1234";
-            var key = AESOperation.GenerateKey();
-            Console.WriteLine(key);
+            //var key = AESOperation.GenerateKey();
+            string key = "2iTd8F35SLK5VBAfwV6Ulg==";
             Console.WriteLine();
+
+
             
-            var stringEncrypted = AESOperation.Encrypt(key, "تجربة !");
-            var decryptedString = AESOperation.Decrypt(key, stringEncrypted);
-            Console.WriteLine(decryptedString);
+            //var stringEncrypted = AESOperation.Encrypt(key, "Done Bro !");
+            //Console.WriteLine(stringEncrypted);
+            ////var decryptedString = AESOperation.Decrypt(key, stringEncrypted);
+            //var decryptedString = AESOperation.Decrypt(key, "xw0NSe22U6r9t7sn8txqSA==");
+            //Console.WriteLine(decryptedString);
             /////////////////////////////////////////////
 
+            var r = File.ReadAllBytes(Project.Path + @"/aa.zip");
             var EncryptedFile = AESOperation.Encrypt(key, r);
-            File.WriteAllBytes(Project.Path + @"/2Encrypted.jpg", EncryptedFile);
+            File.WriteAllBytes(Project.Path + @"/2Encrypted.zip", EncryptedFile);
 
             var theFile = AESOperation.Decrypt(key, EncryptedFile);
-            File.WriteAllBytes(Project.Path + @"/3Decrypted.jpg", theFile);
+            File.WriteAllBytes(Project.Path + @"/3Decrypted.zip", theFile);
 
 
 
