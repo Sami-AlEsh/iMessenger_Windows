@@ -26,13 +26,19 @@ namespace iMessenger
 
             //Alias
             this.FriendNameAlias.Text = user.name.ToUpper()[0].ToString();
+            
             //Name
             this.FriendName.Text = user.name;
+
             //Button
-            if (MainUser.mainUser.Friends.Contains(user))
+            if (MainUser.mainUser.Friends.Exists(p=> p.userName == user.userName))
+            {
                 this.Add_Btn.IsEnabled = false;
+            }
             else
+            {
                 this.Delete_Btn.IsEnabled = false;
+            }
         }
 
         private void AddFriend(object sender, RoutedEventArgs e)
@@ -56,7 +62,16 @@ namespace iMessenger
                 {
                     JObject JSResponse = JObject.Parse(response.Content);
                     if ((bool)JSResponse["status"])
-                    { Console.WriteLine("JS sent : " + jsonToSend); }
+                    {
+                        Console.WriteLine("TRUE JS sent : " + jsonToSend);
+
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            //Buttons
+                            this.Add_Btn.IsEnabled = false;
+                            this.Delete_Btn.IsEnabled = true;
+                        });
+                    }
                     else
                     { Console.WriteLine("Status False => RES : " + response.Content); }
                 }
