@@ -63,10 +63,11 @@ namespace iMessenger
                     JObject JSResponse = JObject.Parse(response.Content);
                     if ((bool)JSResponse["status"])
                     {
-                        Console.WriteLine("TRUE JS sent : " + jsonToSend);
-
                         this.Dispatcher.Invoke(() =>
                         {
+                            //Update MainUser Object & UI:
+                            MainUser.AddFriend(thisUser);
+
                             //Buttons
                             this.Add_Btn.IsEnabled = false;
                             this.Delete_Btn.IsEnabled = true;
@@ -80,15 +81,48 @@ namespace iMessenger
                     Console.WriteLine("#ERROR in sending HTTP Request Method [Add New Friend]: " + error.Message);
                 }
             });
-
-            //Update MainUser Object & UI:
-            MainUser.AddFriend(thisUser);
         }
 
         private void DeleteFriend(object sender, RoutedEventArgs e)
         {
-            //TODO : Send HTTP Delete friend => On true Response do :
-            MainUser.Delete_Block_Friend(thisUser);
+            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+
+            var client = new RestClient(ServerUri);
+            //HTTP Request Route & Method
+            var request = new RestRequest("/user/delete", Method.POST);
+
+            string jsonToSend = new JObject(new JProperty("username", MainUser.mainUser.userName),
+                                             new JProperty("delete", thisUser.userName)
+                                             ).ToString();
+
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = RestSharp.DataFormat.Json;
+
+            client.ExecuteAsync(request, response =>
+            {
+                try
+                {
+                    JObject JSResponse = JObject.Parse(response.Content);
+                    if ((bool)JSResponse["status"])
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            //Update MainUser Object & UI:
+                            MainUser.Delete_Block_Friend(thisUser);
+
+                            //Buttons
+                            this.Add_Btn.IsEnabled = true;
+                            this.Delete_Btn.IsEnabled = false;
+                        });
+                    }
+                    else
+                    { Console.WriteLine("Status False => RES : " + response.Content); }
+                }
+                catch (JsonReaderException error)
+                {
+                    Console.WriteLine("#ERROR in sending HTTP Request Method [Delete Friend]: " + error.Message);
+                }
+            });
         }
 
         private void BlockFriend(object sender, RoutedEventArgs e)

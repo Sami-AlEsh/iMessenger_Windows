@@ -150,9 +150,13 @@ namespace iMessenger.Scripts
         }
         public static void Delete_Block_Friend(User user)
         {
+            //Delete User and his Chat from MainUser Object:
+            var index = mainUser.Friends.FindIndex(p => p.userName == user.userName);
+            mainUser.FrindsChat.Remove(user.name);
+            mainUser.Friends.RemoveAt(index);
+
+            //Delete his Directory
             DeleteFriend_directories(user.userName);
-            mainUser.Friends.Remove(user);
-            mainUser.FrindsChat.Remove(user.userName);
 
             //delete friend from UI
             SideMenu.friendsList.DeleteFriend_UI(user.userName);
@@ -160,7 +164,7 @@ namespace iMessenger.Scripts
 
         private static void DeleteFriend_directories(string userName)
         {
-            Directory.Delete(Project.Path + @"\Database\" + userName);
+            Directory.Delete(Project.Path + @"\Database\" + userName, true);
         }
 
         private static void initFriend_directories(string username)

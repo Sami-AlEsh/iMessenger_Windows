@@ -111,8 +111,8 @@ namespace iMessenger
                     this.Dispatcher.Invoke(() => this.FriendsList.Children.Remove(item));
                     return;
                 }
-                Console.WriteLine("#ERROR : trying to delete a friend not exist !!");
             }
+            Console.WriteLine("#ERROR : trying to delete a friend not exist !!");
         }
 
 
