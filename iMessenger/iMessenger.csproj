@@ -137,7 +137,6 @@
     <Compile Include="Scripts\Events\Event_Image.cs" />
     <Compile Include="Scripts\Events\Message.cs" />
     <Compile Include="Scripts\MainUser.cs" />
-    <Compile Include="Scripts\MySockt.cs" />
     <Compile Include="Scripts\MyTcpSocket.cs" />
     <Compile Include="Scripts\MyWebSocket.cs" />
     <Compile Include="Scripts\Tools %28Static%29\AESOperation.cs" />
