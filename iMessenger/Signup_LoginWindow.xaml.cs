@@ -29,10 +29,17 @@ namespace iMessenger
             mMainFrame = this.MainFrame;
             this.DataContext = new WindowViewModel(this);
 
-            MainUser.mainUser = new MainUser();
-            MainUser.mainUser = MainUser.LoadLocalMainUser();
+            MainUser.mainUser = MainUser.LoadLocalMainUserJS();
             if (MainUser.mainUser != null) { MainUser.UpdateFriendsList(); SwitchPage(ApplicationPage.chat); }
             else SwitchPage(ApplicationPage.login);
+
+            //OnClose Event:
+            Closing += MessengerClosed;
+        }
+
+        private void MessengerClosed(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainUser.SaveLocalMainUserJS();
         }
 
         public static void SwitchPage(ApplicationPage page)
@@ -64,7 +71,7 @@ namespace iMessenger
             if (MainUser.mainUser != null)
             {
                 MainUser.mainUser.FrindsChat.Clear();
-                MainUser.SaveLocalMainUser();
+                MainUser.SaveLocalMainUserJS();
             }
 
             //Close Connection

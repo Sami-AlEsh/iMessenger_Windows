@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace iMessenger.Scripts.Events
 {
+    [Serializable]
     public abstract class Message
     {
         #region Local Message ID Counter

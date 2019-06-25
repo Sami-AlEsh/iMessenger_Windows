@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using iMessenger.Scripts.Events;
 
@@ -12,7 +10,7 @@ namespace iMessenger.Scripts
     [Serializable]
     public class MainUser : User
     {
-        public static MainUser mainUser;
+        public static MainUser mainUser = new MainUser();
         #region Attributes
 
         //Main User Attributes:
@@ -79,6 +77,7 @@ namespace iMessenger.Scripts
 
         public static void SaveLocalMainUser()
         {
+            Console.WriteLine("MainUser Friends when saving is " + mainUser.Friends);
             BinaryFormatter BF = new BinaryFormatter();
             FileStream fs = new FileStream(Project.Path + @"\MainUser\MainUser.binary", FileMode.Create);
             try
@@ -97,6 +96,31 @@ namespace iMessenger.Scripts
             Console.WriteLine("Main User Saved to Local Storage");
         }
 
+        public static MainUser LoadLocalMainUserJS()
+        {
+            //Quickly check for Local Main User:
+            string MainUserPath = Project.Path + @"\MainUser\MainUser.json";
+
+            if (!File.Exists(Project.Path + @"\MainUser\MainUser.json"))
+            {
+                Console.WriteLine("No Local Main User Found !");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Local Main User Found !");
+                return JsonConvert.DeserializeObject<MainUser>(File.ReadAllText(Project.Path + @"\MainUser\MainUser.json"));
+            }
+
+        }
+
+        public static void SaveLocalMainUserJS()
+        {
+            Console.WriteLine("MainUser Friends when saving is " + mainUser.Friends.Count);
+            File.WriteAllText(Project.Path + @"\MainUser\MainUser.json", JsonConvert.SerializeObject(mainUser));
+            Console.WriteLine("Main User Saved to Local Storage");
+        }
+
 
 
 
@@ -106,8 +130,8 @@ namespace iMessenger.Scripts
             //return;
 
             //TODO Get Friends List:
-            mainUser.Friends.Clear();
-            mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
+            //mainUser.Friends.Clear();
+            //mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
         }
 
         /// <summary>
@@ -122,6 +146,7 @@ namespace iMessenger.Scripts
 
             //add friend to UI
             SideMenu.friendsList.AddFriend_UI(new ChatListItemControl(user.userName, user.userName.ToUpper()[0].ToString() , "#New_friend!"));
+            //SaveLocalMainUser();
         }
         public static void Delete_Block_Friend(User user)
         {
@@ -135,12 +160,15 @@ namespace iMessenger.Scripts
 
         private static void DeleteFriend_directories(string userName)
         {
-            //TODO : delete paths and folders and chat.json file
+            Directory.Delete(Project.Path + @"\Database\" + userName);
         }
 
         private static void initFriend_directories(string username)
         {
-            //TODO : create paths and folders and chat.json file
+            Directory.CreateDirectory(Project.Path + @"\Database\" + username);
+            Directory.CreateDirectory(Project.Path + @"\Database\" + username + @"\images");
+            Directory.CreateDirectory(Project.Path + @"\Database\" + username + @"\binaryfiles");
+            File.Create(Project.Path + @"\Database\" + username + @"\chat.json");
         }
     }
 }

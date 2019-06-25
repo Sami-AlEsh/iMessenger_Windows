@@ -80,7 +80,7 @@ namespace iMessenger
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
                                 MainUser.UpdateFriendsList();
-                                MainUser.SaveLocalMainUser();
+                                MainUser.SaveLocalMainUserJS();
                             });
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);
@@ -154,8 +154,7 @@ namespace iMessenger
                             var token = (string)JsonResponse["data"];
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
-                                MainUser.UpdateFriendsList(); //TODO Delete this statement
-                                MainUser.SaveLocalMainUser();
+                                MainUser.SaveLocalMainUserJS();
                             });
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);
