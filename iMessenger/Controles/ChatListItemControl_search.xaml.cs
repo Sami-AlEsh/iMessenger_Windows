@@ -1,4 +1,5 @@
 ﻿using iMessenger.Scripts;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
@@ -51,8 +52,18 @@ namespace iMessenger
 
             client.ExecuteAsync(request, response =>
             {
-                Console.WriteLine("JS sent : " + jsonToSend);
-                Console.WriteLine("RES : " + response.Content);
+                try
+                {
+                    JObject JSResponse = JObject.Parse(response.Content);
+                    if ((bool)JSResponse["status"])
+                    { Console.WriteLine("JS sent : " + jsonToSend); }
+                    else
+                    { Console.WriteLine("Status False => RES : " + response.Content); }
+                }
+                catch (JsonReaderException error)
+                {
+                    Console.WriteLine("#ERROR in sending HTTP Request Method [Add New Friend]: " + error.Message);
+                }
             });
 
             //Update MainUser Object & UI:

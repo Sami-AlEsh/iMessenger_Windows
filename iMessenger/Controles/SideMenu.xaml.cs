@@ -28,6 +28,7 @@ namespace iMessenger
             //Load Last Friends Chats UI:
             Task.Factory.StartNew(() =>
             {
+                //Reading Messages from local storage:
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
                     string MainFilePath = Project.Path + @"\DataBase\" + usr.name + @"\chat.json";
@@ -73,18 +74,25 @@ namespace iMessenger
                 }
                 Console.WriteLine("## All Chats Loaded ##");
 
+                //Create Friend ChatListItemControl UI:
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
                     var count = MainUser.mainUser.FrindsChat[usr.name].Count;
-                    if (count <= 0) continue;
-                    var Msg = MainUser.mainUser.FrindsChat[usr.name][count - 1];
-                    if (Msg.type == "Text")
+                    if (count <= 0)
                     {
-                        Event_Text lastMsg = (Event_Text)Msg;
-                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
+                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "#New_friend!")));
                     }
                     else
-                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "[ " + Msg.type + " ]")));
+                    {
+                        var Msg = MainUser.mainUser.FrindsChat[usr.name][count - 1];
+                        if (Msg.type == "Text")
+                        {
+                            Event_Text lastMsg = (Event_Text)Msg;
+                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
+                        }
+                        else
+                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "[ " + Msg.type + " ]")));
+                    }
                 }
             });
         }
