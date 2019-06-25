@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace iMessenger.Scripts
 {
@@ -12,7 +8,7 @@ namespace iMessenger.Scripts
         public string name;
         public string userName;
         protected string email;
-        protected string profilePhotoUrl;
+        //protected string profilePhotoUrl;
 
         public User(string name, string userName, string email)
         {
