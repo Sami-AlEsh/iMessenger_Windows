@@ -100,6 +100,9 @@ namespace iMessenger.Scripts
                                                     break;
                                                 }
                                             default:
+                                                {
+                                                    Console.WriteLine("Unknown Message Type : " + JsonMessage);
+                                                }
                                                 break;
                                         }
                                     }
