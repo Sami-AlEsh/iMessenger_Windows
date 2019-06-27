@@ -19,7 +19,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.137.90";
+        public static string ServerIp { set; get; } = "192.168.1.105";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;
@@ -107,7 +107,7 @@ namespace iMessenger.Scripts
                                     {
                                         Console.WriteLine("JSON isn't valid => " + exp.Message);
                                     }
-                                    catch (IOException exp)
+                                    catch (IOException)
                                     {
                                         Console.WriteLine("# Application Closed => Stream Closed #");
                                     }
