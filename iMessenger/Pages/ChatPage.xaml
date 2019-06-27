@@ -38,11 +38,26 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock x:Name="selectedPerson" Grid.Column="0"
-                           Foreground="{StaticResource ForegroundLightBrush}"
+                <!-- Selected person to chat with his last seen-->
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <!-- Friend Name -->
+                    <TextBlock x:Name="selectedPerson"
+                            Padding="190 0 15 0"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           Foreground="{StaticResource ForegroundLightBrush}"
+                            FontFamily="{StaticResource LatoBold}"
                            FontSize="30" />
+
+                    <!-- Friend Last Seen -->
+                    <TextBlock x:Name="lastSeen"
+                           Foreground="{StaticResource LogoOrangeBrush}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="Cooper Std"
+                           FontStyle="Italic"
+                           FontSize="15" />
+                </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <Button Content="{StaticResource FontAwesomeEllipsisIcon}" Style="{StaticResource IconButton}" />

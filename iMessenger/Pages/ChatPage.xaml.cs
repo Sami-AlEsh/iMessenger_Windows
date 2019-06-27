@@ -13,11 +13,13 @@ namespace iMessenger
     public partial class ChatPage : Page
     {
         public static TextBlock SelectedPerson;
+        public static TextBlock LastSeen;
         public ChatPage()
         {
             InitializeComponent();
             new MyTcpSocket().Connect();
             SelectedPerson = this.selectedPerson;
+            LastSeen = this.lastSeen;
             SideMenu.UpdateFriendsUI();
         }
         
