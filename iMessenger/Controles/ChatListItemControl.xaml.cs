@@ -42,7 +42,7 @@ namespace iMessenger
 
         private void ShowChat(object sender, RoutedEventArgs e)
         {
-            this.FriendName.Foreground = Brushes.Black;
+            this.Notification.Visibility = Visibility.Hidden;
             MessageList.ShowMessagesFrom(friendName);
             Console.WriteLine("Show " + friendName + " Chat");
         }

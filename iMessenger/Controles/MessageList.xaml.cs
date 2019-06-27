@@ -72,7 +72,6 @@ namespace iMessenger
 
         public static void addUIItem(UserControl MB)
         {
-            //this.Dispatcher.Invoke(() => );
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 MessageList.messagesList.Children.Add(MB);

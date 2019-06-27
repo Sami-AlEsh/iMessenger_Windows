@@ -32,6 +32,10 @@ namespace iMessenger.Scripts.Events
             this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/binaryfiles/" + date.ToFileTime().ToString() + extension);
             this.sentDate = date.ToString();
         }
+
+        /// <summary>
+        /// Received binaryfile handler
+        /// </summary>
         public void Event_BinaryFile_Handler()
         {
             //Update MainUser Chats Log:
@@ -43,7 +47,14 @@ namespace iMessenger.Scripts.Events
             Console.WriteLine("#$ Message Stored Successfuly");
 
             //Update UI
-            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_BinaryFile(filePath, sentDate, true)));
+            if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+            {
+                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_BinaryFile(filePath, sentDate, true)));
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, "[BinaryFile]"));
+            }
             Console.WriteLine("BinaryFile Msg Added to UI !");
         }
 

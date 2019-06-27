@@ -36,6 +36,10 @@ namespace iMessenger.Scripts.Events
 
             ImageResizer.ResizeImage(filePath, Image.FromFile(RealFilePath), 60);
         }
+
+        /// <summary>
+        /// Received image handler
+        /// </summary>
         public void Event_Image_Handler()
         {
             //Update MainUser Chats Log:
@@ -47,7 +51,14 @@ namespace iMessenger.Scripts.Events
             Console.WriteLine("#$ Message Stored Successfuly");
 
             //Update UI
-            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, sentDate, true)));
+            if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+            {
+                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_image(filePath, sentDate, true)));
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, "[Image]"));
+            }
             Console.WriteLine("Image Msg Added to UI !");
         }
 

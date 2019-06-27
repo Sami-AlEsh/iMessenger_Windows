@@ -30,10 +30,14 @@ namespace iMessenger.Scripts.Events
             this.text = text;
             sentDate = DateTime.Now.ToString();
         }
+
+        /// <summary>
+        /// Received message handler
+        /// </summary>
         public void Event_Text_Handler()
         {
             //Update MainUser Chats Log:
-            MainUser.mainUser.FrindsChat[MessageList.SelectedPerson].Add(this);
+            MainUser.mainUser.FrindsChat[Receiver].Add(this);
 
             //Store Json Image Message
             var JsonMsg = JObject.Parse(GetJson());
@@ -41,7 +45,14 @@ namespace iMessenger.Scripts.Events
             Console.WriteLine("#$ Message Stored Successfuly");
 
             //Update UI
-            Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
+            if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+            {
+                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, this.text));
+            }
             Console.WriteLine("Text Msg Added to UI !");
         }
 

@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,7 +23,7 @@ namespace iMessenger
             InitializeComponent();
             friendsList = this;
         }
-        
+
         public void UpdateFriendsUI()
         {
             //Load Last Friends Chats UI:
@@ -115,6 +116,24 @@ namespace iMessenger
             Console.WriteLine("#ERROR : trying to delete a friend not exist !!");
         }
 
+        public void addNotificationTo(string notifyFriend, string newMessage)
+        {
+            foreach(var UIelement in this.FriendsList.Children)
+            {
+                var item = (ChatListItemControl)UIelement;
+                if (item.FriendName.Text == notifyFriend)
+                {
+                    item.Notification.Visibility = Visibility.Visible;
+                    item.LastMessage.Text = newMessage;
+
+                    using (SoundPlayer player = new SoundPlayer(Project.Path + @"/Sounds/Notification Sound.wav"))
+                    {
+                        player.Play();
+                    }
+                    return;
+                }
+            }
+        }
 
         private void ShowFriendsWindow(object sender, RoutedEventArgs e)
         {
