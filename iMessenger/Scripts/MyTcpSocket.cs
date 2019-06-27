@@ -71,12 +71,12 @@ namespace iMessenger.Scripts
                             {
                                 if (stream != null)
                                 {
-                                    Console.WriteLine("###  Message Recieced  ###");
                                     reader = new BinaryReader(stream);
                                     try
                                     {
                                         var RecMessage = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
                                         JObject JsonMessage = JObject.Parse(Encoding.UTF8.GetString(RecMessage));
+                                        Console.WriteLine("###  Message Recieced  ### => "+JsonMessage);
                                         switch ((string)JsonMessage["type"])
                                         {
                                             case "Text":
