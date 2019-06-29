@@ -42,5 +42,7 @@
     <system:String x:Key="FontAwesomeAddFriend">&#xf234;</system:String>
     <system:String x:Key="FontAwesomeDeleteFriend">&#xf503;</system:String>
     <system:String x:Key="FontAwesomeBlockFriend">&#xf4fa;</system:String>
+    <system:String x:Key="FontAwesomePhonePick">&#xf095;</system:String>
+    <system:String x:Key="FontAwesomePhoneDrop">&#xf3dd;</system:String>
 
 </ResourceDictionary>

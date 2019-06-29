@@ -139,5 +139,10 @@ namespace iMessenger
         {
             new FriendsSetting().ShowDialog();
         }
+
+        private void ShowCallsWindow(object sender, RoutedEventArgs e)
+        {
+            new CallsWindow().ShowDialog();
+        }
     }
 }

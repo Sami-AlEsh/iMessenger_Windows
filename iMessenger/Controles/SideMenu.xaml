@@ -30,7 +30,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeChatIcon}" />
                         <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeUserIcon}" Click="ShowFriendsWindow" />
-                        <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomePictureIcon}" />
+                        <Button Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomePhonePick}" Click="ShowCallsWindow" />
                     </StackPanel>
 
                 <Button Grid.Column="2" Style="{StaticResource IconButton}" Content="{StaticResource FontAwesomeCogIcon}" Foreground="{StaticResource LogoDarkBlueBrush}">

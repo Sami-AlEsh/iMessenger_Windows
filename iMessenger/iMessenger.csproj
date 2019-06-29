@@ -100,6 +100,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controles\ChatListItemControl_call.xaml.cs">
+      <DependentUpon>ChatListItemControl_call.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controles\ChatListItemControl_search.xaml.cs">
       <DependentUpon>ChatListItemControl_search.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,9 @@
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="CallsWindow.xaml.cs">
+      <DependentUpon>CallsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FriendsSetting.xaml.cs">
       <DependentUpon>FriendsSetting.xaml</DependentUpon>
     </Compile>
@@ -154,6 +160,10 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Controles\ChatListItemControl_call.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controles\ChatListItemControl_search.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -181,6 +191,10 @@
     <Page Include="Controles\SideMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CallsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FriendsSetting.xaml">
       <SubType>Designer</SubType>
