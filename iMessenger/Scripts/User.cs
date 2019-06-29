@@ -9,6 +9,7 @@ namespace iMessenger.Scripts
         public string userName;
         protected string email;
         //protected string profilePhotoUrl;
+        public bool blocked = false;
 
         public User(string name, string userName, string email)
         {

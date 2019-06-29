@@ -68,6 +68,13 @@
                         Content="{StaticResource FontAwesomeBlockFriend}" 
                         Foreground="{StaticResource LogoDarkBlueBrush}"
                         Click="BlockFriend" />
+                    <Button x:Name="UnBlock_Btn"
+                        Width="45"
+                        IsEnabled="False"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeUserIcon}" 
+                        Foreground="{StaticResource LogoDarkBlueBrush}"
+                        Click="UnBlockFriend" />
                 </StackPanel>
             </Border>
 

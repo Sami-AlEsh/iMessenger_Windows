@@ -29,7 +29,14 @@ namespace iMessenger
             {
                 Application.Current.Dispatcher.Invoke(() => InitList());
                 SelectedPerson = name;
-                Application.Current.Dispatcher.Invoke(() => ChatPage.SelectedPerson.Text = SelectedPerson);
+
+                var isBlockedflag = MainUser.mainUser.Friends.Find(p => p.userName == name).blocked;
+
+                Application.Current.Dispatcher.Invoke(() => {
+                    ChatPage.SelectedPerson.Text = SelectedPerson;
+                    if(isBlockedflag) ChatPage.InputBoxRef.IsEnabled = false;
+                    else ChatPage.InputBoxRef.IsEnabled = true;
+                });
                 foreach (var Msg in MainUser.mainUser.FrindsChat[name])
                 {
                     switch (Msg.type)

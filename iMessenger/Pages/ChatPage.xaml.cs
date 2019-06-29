@@ -14,12 +14,14 @@ namespace iMessenger
     {
         public static TextBlock SelectedPerson;
         public static TextBlock LastSeen;
+        public static TextBox InputBoxRef;
         public ChatPage()
         {
             InitializeComponent();
             new MyTcpSocket().Connect();
             SelectedPerson = this.selectedPerson;
             LastSeen = this.lastSeen;
+            InputBoxRef = this.InputBox;
             SideMenu.UpdateFriendsUI();
         }
         

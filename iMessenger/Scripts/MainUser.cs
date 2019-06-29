@@ -146,9 +146,8 @@ namespace iMessenger.Scripts
 
             //add friend to UI
             SideMenu.friendsList.AddFriend_UI(new ChatListItemControl(user.userName, user.userName.ToUpper()[0].ToString() , "#New_friend!"));
-            //SaveLocalMainUser();
         }
-        public static void Delete_Block_Friend(User user)
+        public static void Delete_Friend(User user)
         {
             //Delete User and his Chat from MainUser Object:
             var index = mainUser.Friends.FindIndex(p => p.userName == user.userName);
@@ -173,6 +172,25 @@ namespace iMessenger.Scripts
             Directory.CreateDirectory(Project.Path + @"\Database\" + username + @"\images");
             Directory.CreateDirectory(Project.Path + @"\Database\" + username + @"\binaryfiles");
             File.Create(Project.Path + @"\Database\" + username + @"\chat.json");
+        }
+
+        /// <summary>
+        /// Bolcks a Friend
+        /// </summary>
+        /// <param name="user"></param>
+        public static void Block_Friend(User user)
+        {
+            //Block User:
+            var index = mainUser.Friends.Find(p => p.userName == user.userName).blocked = true;
+        }
+        /// <summary>
+        /// UnBlock a Friend
+        /// </summary>
+        /// <param name="user"></param>
+        public static void UnBlock_Friend(User user)
+        {
+            //Block User:
+            var index = mainUser.Friends.Find(p => p.userName == user.userName).blocked = false;
         }
     }
 }
