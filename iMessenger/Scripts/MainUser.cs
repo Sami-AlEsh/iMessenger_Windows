@@ -135,11 +135,13 @@ namespace iMessenger.Scripts
 
             var client = new RestClient(ServerUri);
             //HTTP Request Route & Method
-            var request = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
+            var request1 = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
+            //GET BLOCKED FRIENDS:
+            //var request2 = new RestRequest("/user/blockedFriends/" + mainUser.userName, Method.GET);
 
             try
             {
-                client.ExecuteAsync(request, response =>
+                client.ExecuteAsync(request1, response =>
                 {
                     //Json response
                     var JsonResponse = new JObject();
@@ -166,6 +168,36 @@ namespace iMessenger.Scripts
                         Console.WriteLine("Error parsing LastSeen JSON Response");
                     }
                 });
+
+                //GET BLOCKED FRIENDS:
+
+                //client.ExecuteAsync(request2, response =>
+                //{
+                //    //Json response
+                //    var JsonResponse = new JObject();
+                //    try
+                //    {
+                //        JsonResponse = JObject.Parse(response.Content);
+
+                //        if ((bool)JsonResponse["status"])
+                //        {
+                //            JArray friends = (JArray)JsonResponse["data"];
+                //            for (int i = 0; i < friends.Count; i++)
+                //            {
+                //                Application.Current.Dispatcher.Invoke(()=> MainUser.AddFriend(new User((string)friends[i], (string)friends[i], (string)friends[i]+"@gmail.com")));
+                //            }
+                //        }
+                //        else
+                //        {
+                //            Console.WriteLine("HTTP Request failed # RESPONSE => " + response.Content);
+                //        }
+                //        MainUser.SaveLocalMainUserJS();
+                //    }
+                //    catch (JsonReaderException)
+                //    {
+                //        Console.WriteLine("Error parsing LastSeen JSON Response");
+                //    }
+                //});
             }
             catch (Exception error)
             {
