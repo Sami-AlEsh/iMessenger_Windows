@@ -59,12 +59,12 @@ namespace iMessenger.Scripts.Events
                 Console.WriteLine("**** Message not sent ! => it stored in Queue");
                 try
                 {
-                    MainUser.ChatsQueue.Enqueue(this);
+                    MainUser.mainUser.ChatsQueue.Enqueue(this);
                 }
                 catch(NullReferenceException)
                 {
-                    MainUser.ChatsQueue = new Queue<Message>();
-                    MainUser.ChatsQueue.Enqueue(this);
+                    MainUser.mainUser.ChatsQueue = new Queue<Message>();
+                    MainUser.mainUser.ChatsQueue.Enqueue(this);
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.43.55";
+        public static string ServerIp { set; get; } = "192.168.1.105";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;
@@ -123,10 +123,11 @@ namespace iMessenger.Scripts
                                 }
                                 Task.Delay(500);
                             }
+                            Connect();
                         });
 
                         //Send offline Messages:
-                        var messages = MainUser.ChatsQueue.ToArray();
+                        var messages = MainUser.mainUser.ChatsQueue.ToArray();
                         foreach (var msg in messages)
                         {
                             msg.SendMessage();
