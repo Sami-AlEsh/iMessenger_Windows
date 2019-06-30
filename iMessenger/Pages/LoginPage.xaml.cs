@@ -80,7 +80,6 @@ namespace iMessenger
                             this.Dispatcher.Invoke(() => {
                                 MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
                                 MainUser.UpdateFriendsList();
-                                MainUser.SaveLocalMainUserJS();
                             });
                             this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                             Console.WriteLine("Server Response Token ==> " + token);

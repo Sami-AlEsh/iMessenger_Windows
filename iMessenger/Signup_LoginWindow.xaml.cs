@@ -30,7 +30,7 @@ namespace iMessenger
             this.DataContext = new WindowViewModel(this);
 
             MainUser.mainUser = MainUser.LoadLocalMainUserJS();
-            if (MainUser.mainUser != null) { MainUser.UpdateFriendsList(); SwitchPage(ApplicationPage.chat); }
+            if (MainUser.mainUser != null) { SwitchPage(ApplicationPage.chat); }
             else SwitchPage(ApplicationPage.login);
 
             //OnClose Event:

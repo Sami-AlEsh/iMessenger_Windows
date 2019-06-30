@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using iMessenger.Scripts.Events;
+using RestSharp;
+using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace iMessenger.Scripts
 {
@@ -127,7 +130,47 @@ namespace iMessenger.Scripts
 
         public static void UpdateFriendsList()
         {
-            //return;
+            //Get MyFriends:
+            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+
+            var client = new RestClient(ServerUri);
+            //HTTP Request Route & Method
+            var request = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
+
+            try
+            {
+                client.ExecuteAsync(request, response =>
+                {
+                    //Json response
+                    var JsonResponse = new JObject();
+                    try
+                    {
+                        JsonResponse = JObject.Parse(response.Content);
+
+                        if ((bool)JsonResponse["status"])
+                        {
+                            JArray friends = (JArray)JsonResponse["data"];
+                            for (int i = 0; i < friends.Count; i++)
+                            {
+                                Application.Current.Dispatcher.Invoke(()=> MainUser.AddFriend(new User((string)friends[i], (string)friends[i], (string)friends[i]+"@gmail.com")));
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("HTTP Request failed # RESPONSE => " + response.Content);
+                        }
+                        MainUser.SaveLocalMainUserJS();
+                    }
+                    catch (JsonReaderException)
+                    {
+                        Console.WriteLine("Error parsing LastSeen JSON Response");
+                    }
+                });
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("#ERROR in sending HTTP Request [LastSeen]: " + error.Message);
+            }
 
             //TODO Get Friends List:
             //mainUser.Friends.Clear();
