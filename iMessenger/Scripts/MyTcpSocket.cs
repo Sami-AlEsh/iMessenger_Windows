@@ -19,7 +19,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.1.105";
+        public static string ServerIp { set; get; } = "192.168.43.55";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;
@@ -97,6 +97,12 @@ namespace iMessenger.Scripts
                                                     var BFMessage = JsonMessage;
                                                     var RecBinaryFile = reader.ReadBytes(BitConverter.ToInt32(reader.ReadBytes(4), 0));
                                                     new Event_BinaryFile(BFMessage, RecBinaryFile).Event_BinaryFile_Handler();
+                                                    break;
+                                                }
+                                            case "VoiceCall":
+                                                {
+                                                    var VoipMessage = JsonMessage;
+                                                    new Event_VoiceCall(VoipMessage);
                                                     break;
                                                 }
                                             default:

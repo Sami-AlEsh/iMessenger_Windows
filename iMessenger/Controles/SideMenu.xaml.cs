@@ -142,7 +142,10 @@ namespace iMessenger
 
         private void ShowCallsWindow(object sender, RoutedEventArgs e)
         {
-            new CallsWindow().ShowDialog();
+            if (string.IsNullOrEmpty(MessageList.SelectedPerson)) return;
+            new Event_VoiceCall(MessageList.SelectedPerson, Command.Invite).SendMessage();
+            new Call(MessageList.SelectedPerson, CallStatus.Caller, "0.0.0.0").ShowDialog();
+            //new CallsWindow().ShowDialog();
         }
     }
 }

@@ -1,0 +1,25 @@
+﻿<Window x:Class="iMessenger.Call"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iMessenger"
+        mc:Ignorable="d"
+        Title="Call" Height="160" Width="300">
+    <Grid Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Text="Sami"
+                   HorizontalAlignment="Center"
+                   Margin="0 15 0 15"
+                   FontSize="{StaticResource FontSizeLarge}"
+                   />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button x:Name="DropBtn" Style="{StaticResource IconButton}" Margin="10 0 50 0" Content="{StaticResource FontAwesomePhoneDrop}" Foreground="{StaticResource LogoRedBrush}" Click="DropCall" />
+            <Button x:Name="PickBtn" Style="{StaticResource IconButton}" Margin="120 0 10 0" Content="{StaticResource FontAwesomePhonePick}" Foreground="{StaticResource LogoGreenBrush}" Click="PickCall" />
+        </StackPanel>
+    </Grid>
+</Window>

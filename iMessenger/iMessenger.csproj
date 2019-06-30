@@ -54,6 +54,10 @@
       <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NAudio, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.9.0\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +74,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -100,6 +105,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Call.xaml.cs">
+      <DependentUpon>Call.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controles\ChatListItemControl_call.xaml.cs">
       <DependentUpon>ChatListItemControl_call.xaml</DependentUpon>
     </Compile>
@@ -141,15 +149,18 @@
     <Compile Include="Scripts\Events\Event_Text.cs" />
     <Compile Include="Scripts\Events\Event_Authentication.cs" />
     <Compile Include="Scripts\Events\Event_Image.cs" />
+    <Compile Include="Scripts\Events\Event_VoiceCall.cs" />
     <Compile Include="Scripts\Events\Message.cs" />
     <Compile Include="Scripts\MainUser.cs" />
     <Compile Include="Scripts\MyTcpSocket.cs" />
     <Compile Include="Scripts\MyWebSocket.cs" />
     <Compile Include="Scripts\Tools %28Static%29\AESOperation.cs" />
     <Compile Include="Scripts\Tools %28Static%29\ImageResizer.cs" />
+    <Compile Include="Scripts\Tools %28Static%29\MuLawCodec.cs" />
     <Compile Include="Scripts\Tools %28Static%29\Project.cs" />
     <Compile Include="Scripts\Tools %28Static%29\RSAOperation.cs" />
     <Compile Include="Scripts\User.cs" />
+    <Compile Include="Scripts\VoipCall.cs" />
     <Compile Include="Signup_LoginWindow.xaml.cs">
       <DependentUpon>Signup_LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -160,6 +171,10 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\WindowViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Call.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controles\ChatListItemControl_call.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
