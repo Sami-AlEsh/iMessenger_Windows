@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace iMessenger.Scripts.Events
 {
@@ -50,17 +51,17 @@ namespace iMessenger.Scripts.Events
             {
                 case Command.Invite:
                     {
-                        new Call(Receiver, CallStatus.Receiver, ip).ShowDialog();
+                        Application.Current.Dispatcher.Invoke(() => new Call(Receiver, CallStatus.Receiver, ip).ShowDialog());
                         break;
                     }
                 case Command.Accept:
                     {
-                        Call.AcceptCallRecieved(ip, 1550);
+                        Application.Current.Dispatcher.Invoke(() => Call.AcceptCallRecieved(ip, 1550));
                         break;
                     }
                 case Command.Drop:
                     {
-                        Call.DropCallRecieved();
+                        Application.Current.Dispatcher.Invoke(()=> Call.DropCallRecieved());
                         break;
                     }
                 default:
