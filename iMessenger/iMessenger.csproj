@@ -39,13 +39,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CSharp-easy-RSA-PEM">
-      <HintPath>..\Ref\CSharp-easy-RSA-PEM.dll</HintPath>
-    </Reference>
     <Reference Include="Emoji.Wpf, Version=0.0.0.17, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Emoji.Wpf.0.0.17-experimental\lib\net30\Emoji.Wpf.dll</HintPath>
       <Private>True</Private>
