@@ -66,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -151,6 +152,7 @@
     <Compile Include="Scripts\Tools %28Static%29\ImageResizer.cs" />
     <Compile Include="Scripts\Tools %28Static%29\MuLawCodec.cs" />
     <Compile Include="Scripts\Tools %28Static%29\Project.cs" />
+    <Compile Include="Scripts\Tools %28Static%29\Protector.cs" />
     <Compile Include="Scripts\Tools %28Static%29\RSAOperation.cs" />
     <Compile Include="Scripts\User.cs" />
     <Compile Include="Scripts\VoipCall.cs" />
