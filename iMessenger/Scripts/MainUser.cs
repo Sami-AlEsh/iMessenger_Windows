@@ -372,10 +372,20 @@ namespace iMessenger.Scripts
             byte[] byte_encryptedAESKey = Convert.FromBase64String(encryptedAESKey);
             byte[] byte_AesKey = RSAOperation.Decryption(byte_encryptedAESKey, keys_RSA.privateKey);
             string new_AESKey = Convert.ToBase64String(byte_AesKey);
-            keys_AES[friendUsername] = new_AESKey;
 
-            //Save Changes
-            SaveSecretKeys();
+            if (keys_AES.ContainsKey(friendUsername))
+            {
+                keys_AES[friendUsername] = new_AESKey;
+                //Save Changes
+                SaveSecretKeys();
+            }
+            else
+            {
+                keys_AES.Add(friendUsername, new_AESKey);
+
+                //Save Changes
+                SaveSecretKeys();
+            }
         }
 
         /// <summary>
