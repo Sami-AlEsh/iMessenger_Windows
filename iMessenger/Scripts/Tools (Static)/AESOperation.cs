@@ -1,12 +1,18 @@
-﻿using System;  
-using System.IO;  
-using System.Security.Cryptography;  
+﻿using System;
+using System.IO;
 using System.Text;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace iMessenger.Scripts.AES
 {
     public class AESOperation
     {
+        /// <summary>
+        /// Generates AES-128 bits Key
+        /// </summary>
+        /// <returns></returns>
         public static string GenerateKey()
         {
             RijndaelManaged aesEncryption = new RijndaelManaged();
@@ -55,6 +61,7 @@ namespace iMessenger.Scripts.AES
 
             return Convert.ToBase64String(array);
         }
+
         /// <summary>
         /// Decrypt Text string using AES-128 Key
         /// </summary>
@@ -165,17 +172,27 @@ namespace iMessenger.Scripts.AES
             }
         }
 
-        public static void StoreKey(string AESkey)
+        /// <summary>
+        /// Stores the given AES-Keys securely in local storage
+        /// </summary>
+        /// <param name="AESkeys"></param>
+        public static void StoreKeys(Dictionary<string, string> AESkeys)
         {
-            var P1 = Protector.Protect(Encoding.Unicode.GetBytes(AESkey));
-            File.WriteAllBytes(Project.Path + "/Keys/AESSecret.key", P1);
+            var JKeys = JsonConvert.SerializeObject(AESkeys);
+            var P1 = Protector.Protect(Encoding.Unicode.GetBytes(JKeys));
+            File.WriteAllBytes(Project.Path + "/Keys/AESSecret.keys", P1);
         }
 
-        public static string GetKey()
+        /// <summary>
+        /// Retrieve secure AES-Keys from local storage
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<string, string> GetKey()
         {
-            var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/AESSecret.key"));
-            string AesKey = Encoding.Unicode.GetString(P1);
-            return AesKey;
+            var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/AESSecret.keys"));
+            var JKeys = Encoding.Unicode.GetString(P1);
+            Dictionary<string, string> AesKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(JKeys);
+            return AesKeys;
         }
     }
 }
