@@ -7,6 +7,8 @@ using iMessenger.Scripts.Events;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Windows;
+using iMessenger.Scripts.RSA;
+using iMessenger.Scripts.AES;
 
 namespace iMessenger.Scripts
 {
@@ -27,6 +29,10 @@ namespace iMessenger.Scripts
         public List<User> Friends = new List<User>();
         public Dictionary<string,List<Message> > FrindsChat = new Dictionary<string,List<Message> >();
         public Queue<Message> ChatsQueue = new Queue<Message>();
+
+        //RSA Keys
+        private RSA_keys keys_RSA;
+        private Dictionary<string, string> keys_AES;
         #endregion
 
         #region Constructor
@@ -272,6 +278,37 @@ namespace iMessenger.Scripts
         {
             //Block User:
             var index = mainUser.Friends.Find(p => p.userName == user.userName).blocked = false;
+        }
+
+        /// <summary>
+        /// Init RSA-Keys & AES-Keys for MainUser
+        /// </summary>
+        public void InitializeAllKeys()
+        {
+            //RSA:
+            try
+            {
+                //Try to load keys
+                keys_RSA = RSA_keys.GetKeys();
+            }
+            catch (Exception)
+            {
+                //Failed to load keys => Generate
+                keys_RSA = new RSA_keys();
+                RSA_keys.StoreKeys(keys_RSA);
+            }
+
+            //AES
+            try
+            {
+                //Try to load keys
+                keys_AES = AESOperation.GetKey();
+            }
+            catch (Exception)
+            {
+                //Failed to load keys => No Friends Relations
+                keys_AES = new Dictionary<string, string>();
+            }
         }
     }
 }

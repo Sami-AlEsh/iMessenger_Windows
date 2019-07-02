@@ -1,12 +1,9 @@
-﻿using iMessenger.Scripts;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System;
 using RestSharp;
-using System;
-using System.Net;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using iMessenger.Scripts;
+using Newtonsoft.Json.Linq;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace iMessenger
 {
@@ -64,31 +61,33 @@ namespace iMessenger
                         try
                         {
                             JsonResponse = JObject.Parse(response.Content);
+
+                            if ((bool)JsonResponse["status"])
+                            {
+                                Running = false;
+                                var token = (string)JsonResponse["data"];
+                                this.Dispatcher.Invoke(() => {
+                                    MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
+                                    MainUser.UpdateFriendsList();
+
+                                    //init all MainUser Keys
+                                    GenerateRSAKeys_LoadAESKeys();
+                                });
+                                this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
+                                Console.WriteLine("Server Response Token ==> " + token);
+                            }
+                            else
+                            {
+                                Running = false;
+                                this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
+                                Console.WriteLine("HTTP Request failed # Error MSG => " + response.Content);
+                            }
                         }
                         catch (JsonReaderException error)
                         {
                             Running = false;
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
-                        }
-                    
-                        if ((bool)JsonResponse["status"])
-                        {
-                            Running = false;
-                            var token = (string)JsonResponse["data"];
-                            //TODO Take : Name,Email,Friends from Response (modify MainUser Constructoe to add Friends)
-                            this.Dispatcher.Invoke(() => {
-                                MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
-                                MainUser.UpdateFriendsList();
-                            });
-                            this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
-                            Console.WriteLine("Server Response Token ==> " + token);
-                        }
-                        else
-                        {
-                            Running = false;
-                            this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
-                            Console.WriteLine("HTTP Request failed # Error MSG => " + response.Content);
                         }
                     });
                 }
@@ -139,30 +138,32 @@ namespace iMessenger
                         try
                         {
                             JsonResponse = JObject.Parse(response.Content);
+
+                            if ((bool)JsonResponse["status"])
+                            {
+                                Running = false;
+                                var token = (string)JsonResponse["data"];
+                                this.Dispatcher.Invoke(() => {
+                                    MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
+
+                                    //init all MainUser Keys
+                                    GenerateRSAKeys_LoadAESKeys();
+                                });
+                                this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
+                                Console.WriteLine("Server Response Token ==> " + token);
+                            }
+                            else
+                            {
+                                Running = false;
+                                this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Sign Up"; });
+                                Console.WriteLine("HTTP Request failed # Error MSG => " + response.Content);
+                            }
                         }
                         catch (JsonReaderException error)
                         {
                             Running = false;
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Sign Up"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
-                        }
-
-                        if ((bool)JsonResponse["status"])
-                        {
-                            Running = false;
-                            var token = (string)JsonResponse["data"];
-                            this.Dispatcher.Invoke(() => {
-                                MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
-                                MainUser.SaveLocalMainUserJS();
-                            });
-                            this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
-                            Console.WriteLine("Server Response Token ==> " + token);
-                        }
-                        else
-                        {
-                            Running = false;
-                            this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Sign Up"; });
-                            Console.WriteLine("HTTP Request failed # Error MSG => " + response.Content);
                         }
                     });
                 }
@@ -179,7 +180,7 @@ namespace iMessenger
                 Signup_Login_Btn.IsEnabled = true;
                 Signup_Login_Btn.Content = "Sign Up";
             }
-            }
+        }
 
         #region Other Functions
 
@@ -210,6 +211,10 @@ namespace iMessenger
 
             if (Password.Text.Length < 16 && Password.Text.Length > 6) return true;
             else { Password.Text = "#ERROR"; return false; }
+        }
+        private void GenerateRSAKeys_LoadAESKeys()
+        {
+            MainUser.mainUser.InitializeAllKeys();
         }
 
         #endregion
