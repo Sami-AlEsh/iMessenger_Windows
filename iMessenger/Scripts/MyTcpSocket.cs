@@ -32,7 +32,6 @@ namespace iMessenger.Scripts
         #region private property
 
         NetworkStream stream = null;
-        //private TcpListener listener = null;
         private static BinaryReader reader = null;
         private static BinaryWriter writer = null;
 
@@ -105,11 +104,17 @@ namespace iMessenger.Scripts
                                                     new Event_VoiceCall(VoipMessage);
                                                     break;
                                                 }
+                                            case "updateSecretKey":
+                                                {
+                                                    var SecretKeyNotification = JsonMessage;
+                                                    new Event_UpdateSecretKey(SecretKeyNotification);
+                                                    break;
+                                                }
                                             default:
                                                 {
                                                     Console.WriteLine("Unknown Message Type : " + JsonMessage);
+                                                    break;
                                                 }
-                                                break;
                                         }
                                     }
                                     catch (JsonReaderException exp)

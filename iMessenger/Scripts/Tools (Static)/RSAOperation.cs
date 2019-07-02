@@ -201,4 +201,10 @@ namespace iMessenger.Scripts.RSA
             return keys;
         }
     }
+
+    public enum Platform
+    {
+        Windows = 0,
+        Android
+    }
 }

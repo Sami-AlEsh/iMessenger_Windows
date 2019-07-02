@@ -290,6 +290,10 @@ namespace iMessenger.Scripts
             keys_AES = AESOperation.GetKey();
             AESOperation.StoreKeys(keys_AES);
         }
+
+        /// <summary>
+        /// Uploads MainUser RSA Public Key to the Server.
+        /// </summary>
         public void UploadRSAPublicKey()
         {
             var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
@@ -318,6 +322,68 @@ namespace iMessenger.Scripts
             {
                 Console.Write("#ERROR in sending HTTP Request [SetPublicKey]: "+ e.Message);
             }
+        }
+
+        /// <summary>
+        /// Returns encrypted AES-128 key (generated to the new relation MainUser-Friend) with friend RSA Public Key.
+        /// </summary>
+        /// <param name="friendUsername"></param>
+        /// <param name="friendPublicKey_XML"></param>
+        /// <param name="platform"></param>
+        /// <returns></returns>
+        public string GetNewAESKeyEncryptedWith(string friendUsername, string friendPublicKey_XML, Platform platform)
+        {
+            if(platform == Platform.Windows)
+            {
+                //Generate a new AES-128 Key
+                var n_AESKey = AESOperation.GenerateKey();
+                
+                //Store Key
+                keys_AES.Add(friendUsername, n_AESKey);
+
+                //Encrypt AES key with RSA public Key
+                RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+                RSA.FromXmlString(friendPublicKey_XML);
+                var byte_encryptedKey = RSAOperation.Encryption(Convert.FromBase64String(n_AESKey), RSA.ExportParameters(false));
+                return Convert.ToBase64String(byte_encryptedKey);
+            }
+            else //if (platform == KeyPlatform.Android)
+            {
+                //Generate a new AES-128 Key
+                var n_AESKey = AESOperation.GenerateKey();
+
+                //Store Key
+                keys_AES.Add(friendUsername, n_AESKey);
+
+                //Encrypt AES key with RSA public Key
+                var publicKey = RSA_keys.FromJavaXML(friendPublicKey_XML);
+                var byte_encryptedKey = RSAOperation.Encryption(Convert.FromBase64String(n_AESKey), publicKey);
+                return Convert.ToBase64String(byte_encryptedKey);
+            }
+        }
+
+        /// <summary>
+        /// Update friend relation AES key.
+        /// </summary>
+        /// <param name="friendUsername"></param>
+        /// <param name="encryptedAESKey"></param>
+        public void UpdateFriendKey(string friendUsername, string encryptedAESKey)
+        {
+            byte[] byte_encryptedAESKey = Convert.FromBase64String(encryptedAESKey);
+            byte[] byte_AesKey = RSAOperation.Decryption(byte_encryptedAESKey, keys_RSA.privateKey);
+            string new_AESKey = Convert.ToBase64String(byte_AesKey);
+            keys_AES[friendUsername] = new_AESKey;
+
+            //Save Changes
+            SaveSecretKeys();
+        }
+
+        /// <summary>
+        /// Save AES-Keys Changes to local storage
+        /// </summary>
+        public void SaveSecretKeys()
+        {
+            AESOperation.StoreKeys(this.keys_AES);
         }
     }
 }

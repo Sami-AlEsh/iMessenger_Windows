@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using iMessenger.Scripts;
 using Newtonsoft.Json.Linq;
 using System.Windows.Controls;
+using iMessenger.Scripts.RSA;
+using iMessenger.Scripts.Events;
 
 namespace iMessenger
 {
@@ -93,6 +95,9 @@ namespace iMessenger
 
                             //Upload RSA-Public Key to Server
                             UploadRSAPublicKey();
+
+                            //Foreach friend update SecretKey
+                            UpdateSecretKeysForAllFriends();
                         }
                     });
                 }
@@ -229,6 +234,63 @@ namespace iMessenger
         private void UploadRSAPublicKey()
         {
             MainUser.mainUser.UploadRSAPublicKey();
+        }
+        private void UpdateSecretKeysForAllFriends()
+        {
+            //Get MyFriends PublicKeys:
+            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+
+            foreach (var friend in MainUser.mainUser.Friends)
+            {
+                var client = new RestClient(ServerUri);
+                var request = new RestRequest("/user/getPublicKey/" + friend.userName, Method.GET);
+
+                client.ExecuteAsync(request, response =>
+                {
+                    //Json response
+                    var JsonResponse = new JObject();
+                    try
+                    {
+                        JsonResponse = JObject.Parse(response.Content);
+
+                        if ((bool)JsonResponse["status"])
+                        {
+                            JArray Keys = (JArray)JsonResponse["data"];
+                            foreach(JObject key in Keys)
+                            {
+                                Console.WriteLine("### TEST ONLY ==> " + key.ToString()); //TODO Delete it
+                                var platform = (string)key["platform"];
+
+                                if (platform == "windows")
+                                {
+                                    var publicKey_XML = (string)key["publicKey"];
+                                    var encryptedSecretKey = MainUser.mainUser.GetNewAESKeyEncryptedWith(friend.userName, publicKey_XML, Platform.Windows);
+                                    new Event_UpdateSecretKey(friend.userName, Platform.Windows, encryptedSecretKey).SendMessage();
+                                }
+                                else if (platform == "android")
+                                {
+                                    var publicKey_JXML = (string)key["publicKey"];
+                                    var encryptedSecretKey = MainUser.mainUser.GetNewAESKeyEncryptedWith(friend.userName, publicKey_JXML, Platform.Android);
+                                    new Event_UpdateSecretKey(friend.userName, Platform.Android, encryptedSecretKey).SendMessage();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("HTTP Request failed [GetFriendsPublicKey]# RESPONSE => " + response.Content);
+                        }
+                    }
+                    catch (JsonReaderException)
+                    {
+                        Console.WriteLine("Error parsing GetFriendsPublicKey JSON Response " + JsonResponse.ToString());
+                    }
+                    finally
+                    {
+                        MainUser.mainUser.SaveSecretKeys();
+                    }
+                });
+            }
+            Console.WriteLine("AllKeys is being Updated Async !");
         }
 
         #endregion
