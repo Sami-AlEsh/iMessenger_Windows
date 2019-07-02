@@ -69,9 +69,6 @@ namespace iMessenger
                                 this.Dispatcher.Invoke(() => {
                                     MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
                                     MainUser.UpdateFriendsList();
-
-                                    //init all MainUser Keys
-                                    GenerateRSAKeys_LoadAESKeys();
                                 });
                                 this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                                 Console.WriteLine("Server Response Token ==> " + token);
@@ -88,6 +85,14 @@ namespace iMessenger
                             Running = false;
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
+                        }
+                        finally
+                        {
+                            //init all MainUser Keys
+                            GenerateRSAKeys_LoadAESKeys();
+
+                            //Upload RSA-Public Key to Server
+                            UploadRSAPublicKey();
                         }
                     });
                 }
@@ -145,9 +150,6 @@ namespace iMessenger
                                 var token = (string)JsonResponse["data"];
                                 this.Dispatcher.Invoke(() => {
                                     MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
-
-                                    //init all MainUser Keys
-                                    GenerateRSAKeys_LoadAESKeys();
                                 });
                                 this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                                 Console.WriteLine("Server Response Token ==> " + token);
@@ -164,6 +166,14 @@ namespace iMessenger
                             Running = false;
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Sign Up"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
+                        }
+                        finally
+                        {
+                            //init all MainUser Keys
+                            GenerateRSAKeys_LoadAESKeys();
+
+                            //Upload RSA-Public Key to Server
+                            UploadRSAPublicKey();
                         }
                     });
                 }
@@ -215,6 +225,10 @@ namespace iMessenger
         private void GenerateRSAKeys_LoadAESKeys()
         {
             MainUser.mainUser.InitializeAllKeys();
+        }
+        private void UploadRSAPublicKey()
+        {
+            MainUser.mainUser.UploadRSAPublicKey();
         }
 
         #endregion

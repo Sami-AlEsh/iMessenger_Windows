@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Windows;
 using iMessenger.Scripts.RSA;
 using iMessenger.Scripts.AES;
+using System.Security.Cryptography;
 
 namespace iMessenger.Scripts
 {
@@ -27,7 +28,7 @@ namespace iMessenger.Scripts
 
         //Other Attributes:
         public List<User> Friends = new List<User>();
-        public Dictionary<string,List<Message> > FrindsChat = new Dictionary<string,List<Message> >();
+        public Dictionary<string, List<Message>> FrindsChat = new Dictionary<string, List<Message>>();
         public Queue<Message> ChatsQueue = new Queue<Message>();
 
         //RSA Keys
@@ -36,8 +37,8 @@ namespace iMessenger.Scripts
         #endregion
 
         #region Constructor
-        public MainUser() : base ("","","") { /*if(LoadLocalMainUser() != null ) mainUser = LoadLocalMainUser();*/ }
-        public MainUser(string name,string userName , string email , string AccessToken) : base(name, userName, email)
+        public MainUser() : base("", "", "") { /*if(LoadLocalMainUser() != null ) mainUser = LoadLocalMainUser();*/ }
+        public MainUser(string name, string userName, string email, string AccessToken) : base(name, userName, email)
         {
             this.AccessToken = AccessToken;
             StartDate = DateTime.Now.ToFileTime().ToString();
@@ -65,7 +66,7 @@ namespace iMessenger.Scripts
                 Console.WriteLine("Local Main User Found !");
 
                 BinaryFormatter BF = new BinaryFormatter();
-                FileStream fs = new FileStream(MainUserPath , FileMode.Open, FileAccess.ReadWrite);
+                FileStream fs = new FileStream(MainUserPath, FileMode.Open, FileAccess.ReadWrite);
 
                 try
                 {
@@ -92,7 +93,7 @@ namespace iMessenger.Scripts
             try
             {
                 fs.Position = 0;
-                BF.Serialize(fs , mainUser);
+                BF.Serialize(fs, mainUser);
             }
             catch (Exception e)
             {
@@ -142,7 +143,7 @@ namespace iMessenger.Scripts
             var client = new RestClient(ServerUri);
             //HTTP Request Route & Method
             var request1 = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
-            
+
             //GET BLOCKED FRIENDS:
             var request2 = new RestRequest("/user/blockedUsers/" + mainUser.userName, Method.GET);
 
@@ -165,6 +166,7 @@ namespace iMessenger.Scripts
                                 User n_friend = new User((string)friends[i], (string)friends[i], (string)friends[i] + "@gmail.com");
                                 Application.Current.Dispatcher.Invoke(() => MainUser.AddFriend(n_friend));
                             }
+                            Console.WriteLine("Friends Count :: " + friends.Count);
 
                             /////////////////////
                             // Get Blocked User :
@@ -194,10 +196,6 @@ namespace iMessenger.Scripts
                                 {
                                     Console.WriteLine("Error parsing BlockedUsers JSON Response");
                                 }
-                                finally
-                                {
-                                    MainUser.SaveLocalMainUserJS();
-                                }
                             });
                         }
                         else
@@ -207,11 +205,7 @@ namespace iMessenger.Scripts
                     }
                     catch (JsonReaderException)
                     {
-                        Console.WriteLine("Error parsing GetFriends JSON Response");
-                    }
-                    finally
-                    {
-                        MainUser.SaveLocalMainUserJS();
+                        Console.WriteLine("Error parsing GetFriends JSON Response "+ JsonResponse.ToString());
                     }
                 });
             }
@@ -232,7 +226,7 @@ namespace iMessenger.Scripts
             mainUser.FrindsChat[user.userName] = new List<Message>();
 
             //add friend to UI
-            SideMenu.friendsList.AddFriend_UI(new ChatListItemControl(user.userName, user.userName.ToUpper()[0].ToString() , "#New_friend!"));
+            SideMenu.friendsList.AddFriend_UI(new ChatListItemControl(user.userName, user.userName.ToUpper()[0].ToString(), "#New_friend!"));
         }
         public static void Delete_Friend(User user)
         {
@@ -285,29 +279,44 @@ namespace iMessenger.Scripts
         /// </summary>
         public void InitializeAllKeys()
         {
+            keys_RSA = new RSA_keys();
+            keys_AES = new Dictionary<string, string>();
+
             //RSA:
-            try
-            {
-                //Try to load keys
-                keys_RSA = RSA_keys.GetKeys();
-            }
-            catch (Exception)
-            {
-                //Failed to load keys => Generate
-                keys_RSA = new RSA_keys();
-                RSA_keys.StoreKeys(keys_RSA);
-            }
+            keys_RSA = RSA_keys.GetKeys();
+            RSA_keys.StoreKeys(keys_RSA);
 
             //AES
+            keys_AES = AESOperation.GetKey();
+            AESOperation.StoreKeys(keys_AES);
+        }
+        public void UploadRSAPublicKey()
+        {
+            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+
+            var client = new RestClient(ServerUri);
+            //HTTP Request Route & Method
+            var request = new RestRequest("/user/setPublicKey/", Method.POST);
+
+            //Get Public Key as XML:
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            RSA.ImportParameters(keys_RSA.publicKey);
+            var XML = RSA.ToXmlString(false);
+
+            string jsonToSend = new JObject(new JProperty("username", mainUser.userName),
+                                                new JProperty("platform", "windows"),
+                                                new JProperty("publicKey", XML)
+                                                ).ToString();
+
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = RestSharp.DataFormat.Json;
             try
             {
-                //Try to load keys
-                keys_AES = AESOperation.GetKey();
+                client.ExecuteAsync(request, response => Console.WriteLine("PublicKey Sent !"));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Failed to load keys => No Friends Relations
-                keys_AES = new Dictionary<string, string>();
+                Console.Write("#ERROR in sending HTTP Request [SetPublicKey]: "+ e.Message);
             }
         }
     }

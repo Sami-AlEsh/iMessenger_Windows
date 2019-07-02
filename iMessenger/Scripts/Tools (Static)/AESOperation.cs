@@ -189,9 +189,15 @@ namespace iMessenger.Scripts.AES
         /// <returns></returns>
         public static Dictionary<string, string> GetKey()
         {
-            var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/AESSecret.keys"));
-            var JKeys = Encoding.Unicode.GetString(P1);
-            Dictionary<string, string> AesKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(JKeys);
+            Dictionary<string, string> AesKeys = new Dictionary<string, string>();
+            try
+            {
+                var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/AESSecret.keys"));
+                var JKeys = Encoding.Unicode.GetString(P1);
+                AesKeys = JsonConvert.DeserializeObject<Dictionary<string, string>>(JKeys);
+            }
+            catch (IOException) { }
+
             return AesKeys;
         }
     }
