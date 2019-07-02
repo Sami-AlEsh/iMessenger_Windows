@@ -158,6 +158,10 @@ namespace iMessenger.Scripts.RSA
             }
         }
 
+        /// <summary>
+        /// Stores the given Keys securely in local storage
+        /// </summary>
+        /// <param name="keys"></param>
         public static void StoreKeys(RSA_keys keys)
         {
             RSACryptoServiceProvider RSA1 = new RSACryptoServiceProvider();
@@ -171,15 +175,21 @@ namespace iMessenger.Scripts.RSA
             File.WriteAllBytes(Project.Path + "/Keys/RSAPublic.key", P2);
         }
 
+        /// <summary>
+        /// Retrieve secure Keys from local storage
+        /// </summary>
+        /// <returns></returns>
         public static RSA_keys GetKeys()
         {
             RSA_keys keys = new RSA_keys();
 
+            //Load Private Key:
             var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/RSAPrivate.key"));
             RSACryptoServiceProvider RSA1 = new RSACryptoServiceProvider();
             RSA1.FromXmlString(Encoding.Unicode.GetString(P1));
             keys.privateKey = RSA1.ExportParameters(true);
 
+            //Load Public Key:
             var P2 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/RSAPublic.key"));
             RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
             RSA2.FromXmlString(Encoding.Unicode.GetString(P2));
