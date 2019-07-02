@@ -240,6 +240,9 @@ namespace iMessenger.Scripts
 
             //delete friend from UI
             SideMenu.friendsList.DeleteFriend_UI(user.userName);
+
+            //Delete his Relation AES-Key
+            MainUser.mainUser.DeleteFriendKey(user.userName);
         }
 
         private static void DeleteFriend_directories(string userName)
@@ -394,6 +397,16 @@ namespace iMessenger.Scripts
         public void SaveSecretKeys()
         {
             AESOperation.StoreKeys(this.keys_AES);
+        }
+
+        /// <summary>
+        /// Deletes AES-Key for a friend relation
+        /// </summary>
+        /// <param name="friendUsername"></param>
+        public void DeleteFriendKey(string friendUsername)
+        {
+            keys_AES.Remove(friendUsername);
+            SaveSecretKeys();
         }
     }
 }
