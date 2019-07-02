@@ -136,8 +136,9 @@ namespace iMessenger.Scripts
             var client = new RestClient(ServerUri);
             //HTTP Request Route & Method
             var request1 = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
+            
             //GET BLOCKED FRIENDS:
-            //var request2 = new RestRequest("/user/blockedFriends/" + mainUser.userName, Method.GET);
+            var request2 = new RestRequest("/user/blockedUsers/" + mainUser.userName, Method.GET);
 
             try
             {
@@ -152,61 +153,66 @@ namespace iMessenger.Scripts
                         if ((bool)JsonResponse["status"])
                         {
                             JArray friends = (JArray)JsonResponse["data"];
+
                             for (int i = 0; i < friends.Count; i++)
                             {
-                                Application.Current.Dispatcher.Invoke(()=> MainUser.AddFriend(new User((string)friends[i], (string)friends[i], (string)friends[i]+"@gmail.com")));
+                                User n_friend = new User((string)friends[i], (string)friends[i], (string)friends[i] + "@gmail.com");
+                                Application.Current.Dispatcher.Invoke(() => MainUser.AddFriend(n_friend));
                             }
+
+                            /////////////////////
+                            // Get Blocked User :
+                            /////////////////////
+                            client.ExecuteAsync(request2, response2 =>
+                            {
+                                //Json response
+                                try
+                                {
+                                    JsonResponse = JObject.Parse(response2.Content);
+
+                                    if ((bool)JsonResponse["status"])
+                                    {
+                                        JArray blockedFriends = (JArray)JsonResponse["data"];
+
+                                        for (int i = 0; i < blockedFriends.Count; i++)
+                                        {
+                                            MainUser.mainUser.Friends.Find(p => p.userName == (string)blockedFriends[i]).blocked = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("HTTP Request failed [GetBlockedFriends]# RESPONSE => " + response.Content);
+                                    }
+                                }
+                                catch (JsonReaderException)
+                                {
+                                    Console.WriteLine("Error parsing BlockedUsers JSON Response");
+                                }
+                                finally
+                                {
+                                    MainUser.SaveLocalMainUserJS();
+                                }
+                            });
                         }
                         else
                         {
-                            Console.WriteLine("HTTP Request failed # RESPONSE => " + response.Content);
+                            Console.WriteLine("HTTP Request failed [GetFriends]# RESPONSE => " + response.Content);
                         }
-                        MainUser.SaveLocalMainUserJS();
                     }
                     catch (JsonReaderException)
                     {
-                        Console.WriteLine("Error parsing LastSeen JSON Response");
+                        Console.WriteLine("Error parsing GetFriends JSON Response");
+                    }
+                    finally
+                    {
+                        MainUser.SaveLocalMainUserJS();
                     }
                 });
-
-                //GET BLOCKED FRIENDS:
-
-                //client.ExecuteAsync(request2, response =>
-                //{
-                //    //Json response
-                //    var JsonResponse = new JObject();
-                //    try
-                //    {
-                //        JsonResponse = JObject.Parse(response.Content);
-
-                //        if ((bool)JsonResponse["status"])
-                //        {
-                //            JArray friends = (JArray)JsonResponse["data"];
-                //            for (int i = 0; i < friends.Count; i++)
-                //            {
-                //                Application.Current.Dispatcher.Invoke(()=> MainUser.AddFriend(new User((string)friends[i], (string)friends[i], (string)friends[i]+"@gmail.com")));
-                //            }
-                //        }
-                //        else
-                //        {
-                //            Console.WriteLine("HTTP Request failed # RESPONSE => " + response.Content);
-                //        }
-                //        MainUser.SaveLocalMainUserJS();
-                //    }
-                //    catch (JsonReaderException)
-                //    {
-                //        Console.WriteLine("Error parsing LastSeen JSON Response");
-                //    }
-                //});
             }
             catch (Exception error)
             {
                 Console.WriteLine("#ERROR in sending HTTP Request [LastSeen]: " + error.Message);
             }
-
-            //TODO Get Friends List:
-            //mainUser.Friends.Clear();
-            //mainUser.Friends.Add(new User("sami98", "sami98", "sami98@gmail.com"));
         }
 
         /// <summary>
