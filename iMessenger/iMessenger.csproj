@@ -143,6 +143,7 @@
     <Compile Include="Scripts\Events\Event_Text.cs" />
     <Compile Include="Scripts\Events\Event_Authentication.cs" />
     <Compile Include="Scripts\Events\Event_Image.cs" />
+    <Compile Include="Scripts\Events\Event_UpdateSecretKey.cs" />
     <Compile Include="Scripts\Events\Event_VoiceCall.cs" />
     <Compile Include="Scripts\Events\Message.cs" />
     <Compile Include="Scripts\MainUser.cs" />
