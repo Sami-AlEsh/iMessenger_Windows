@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json.Linq;
 
 namespace iMessenger.Scripts.Events
 {
@@ -81,6 +77,9 @@ namespace iMessenger.Scripts.Events
         /// <param name="file"></param>
         public Event_BinaryFile(JObject BFMessage, byte[] file)
         {
+            //Decrypt file
+            var decryptedFile = MainUser.mainUser.DecryptMessage(file, Receiver);
+
             this.type = BFMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.Receiver = BFMessage.SelectToken("sender").Value<string>();
@@ -90,7 +89,7 @@ namespace iMessenger.Scripts.Events
             this.filePath= Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
 
             //Store Image Byte Array as File.
-            File.WriteAllBytes(filePath, file);
+            File.WriteAllBytes(filePath, decryptedFile);
         }
 
 
@@ -107,7 +106,8 @@ namespace iMessenger.Scripts.Events
 
         public override byte[] GetBytes()
         {
-            return File.ReadAllBytes(this.filePath);
+            var encryptedFile = MainUser.mainUser.EncryptMessage(File.ReadAllBytes(this.filePath), Receiver);
+            return encryptedFile;
         }
     }
 }

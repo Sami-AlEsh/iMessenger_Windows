@@ -1,12 +1,8 @@
-﻿using System.Windows;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Drawing;
+using Newtonsoft.Json.Linq;
 using iMessenger.Scripts.Tools__Static_;
 
 namespace iMessenger.Scripts.Events
@@ -85,6 +81,9 @@ namespace iMessenger.Scripts.Events
         /// <param name="image">Image a Byte array</param>
         public Event_Image(JObject ImageMessage, byte[] image)
         {
+            //Decrypt Image
+            var decryptedImage = MainUser.mainUser.DecryptMessage(image, Receiver);
+
             this.type = ImageMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.Receiver = ImageMessage.SelectToken("sender").Value<string>();
@@ -94,7 +93,7 @@ namespace iMessenger.Scripts.Events
             this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
 
             //Store Image Byte Array as File.
-            File.WriteAllBytes(filePath, image);
+            File.WriteAllBytes(filePath, decryptedImage);
         }
 
         
@@ -112,7 +111,8 @@ namespace iMessenger.Scripts.Events
 
         public override byte[] GetBytes()
         {
-            return File.ReadAllBytes(this.filePath);
+            var encryptedImage = MainUser.mainUser.EncryptMessage(File.ReadAllBytes(this.filePath), Receiver);
+            return encryptedImage;
         }
     }
 }

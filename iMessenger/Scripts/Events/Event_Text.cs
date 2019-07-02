@@ -1,13 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json.Linq;
 
 namespace iMessenger.Scripts.Events
 {
@@ -36,22 +30,25 @@ namespace iMessenger.Scripts.Events
         /// </summary>
         public void Event_Text_Handler()
         {
+            //Decrypt Text
+            var decryptedText = MainUser.mainUser.DecryptMessage(this.text, Receiver);
+
             //Update MainUser Chats Log:
             MainUser.mainUser.FrindsChat[Receiver].Add(this);
 
             //Store Json Image Message
-            var JsonMsg = JObject.Parse(GetJson());
+            var JsonMsg = JObject.Parse(GetJson()); JsonMsg["message"] = decryptedText;
             File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
             Console.WriteLine("#$ Message Stored Successfuly");
 
             //Update UI
             if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
             {
-                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
+                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(decryptedText, sentDate, true)));
             }
             else
             {
-                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, this.text));
+                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, decryptedText));
             }
             Console.WriteLine("Text Msg Added to UI !");
         }
@@ -76,10 +73,12 @@ namespace iMessenger.Scripts.Events
         #region Get JSON\Bytes()
         public override string GetJson()
         {
+            var encryptedText = MainUser.mainUser.EncryptMessage(text, Receiver);
+
             JObject Jobj = new JObject(
                 new JProperty("type", type),
                 new JProperty("receiver",Receiver) ,
-                new JProperty("message", text) ,
+                new JProperty("message", encryptedText) ,
                 new JProperty("sentDate", sentDate)
                 );
 

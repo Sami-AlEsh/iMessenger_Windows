@@ -408,5 +408,24 @@ namespace iMessenger.Scripts
             keys_AES.Remove(friendUsername);
             SaveSecretKeys();
         }
+
+
+        //Encryption/Decryption Methods:
+        public string EncryptMessage(string Message, string Reciever)
+        {
+            return AESOperation.Encrypt(keys_AES[Reciever], Message);
+        }
+        public byte[] EncryptMessage(byte[] file, string Reciever)
+        {
+            return AESOperation.Encrypt(keys_AES[Reciever], file);
+        }
+        public string DecryptMessage(string Message, string Reciever)
+        {
+            return AESOperation.Decrypt(keys_AES[Reciever], Message);
+        }
+        public byte[] DecryptMessage(byte[] file, string Reciever)
+        {
+            return AESOperation.Decrypt(keys_AES[Reciever], file);
+        }
     }
 }
