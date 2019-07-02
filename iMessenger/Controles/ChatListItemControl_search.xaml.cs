@@ -1,4 +1,6 @@
 ﻿using iMessenger.Scripts;
+using iMessenger.Scripts.Events;
+using iMessenger.Scripts.RSA;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -84,14 +86,67 @@ namespace iMessenger
                     JObject JSResponse = JObject.Parse(response.Content);
                     if ((bool)JSResponse["status"])
                     {
-                        this.Dispatcher.Invoke(() =>
-                        {
-                            //Update MainUser Object & UI:
-                            MainUser.AddFriend(thisUser);
 
-                            //Buttons
-                            this.Add_Btn.IsEnabled = false;
-                            this.Delete_Btn.IsEnabled = true;
+                        /////////////////////////////////////////
+                        //Add a new AES-Key for friend relation//
+                        /////////////////////////////////////////
+
+                        //Get MyFriend PublicKeys
+                        var client2 = new RestClient(ServerUri);
+                        var request2 = new RestRequest("/user/getPublicKey/" + thisUser.userName, Method.GET);
+
+                        client2.ExecuteAsync(request2, response2 =>
+                        {
+                            //Json response
+                            var JsonResponse = new JObject();
+                            try
+                            {
+                                JsonResponse = JObject.Parse(response.Content);
+
+                                if ((bool)JsonResponse["status"])
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        //Update MainUser Object & UI:
+                                        MainUser.AddFriend(thisUser);
+
+                                        //Buttons
+                                        this.Add_Btn.IsEnabled = false;
+                                        this.Delete_Btn.IsEnabled = true;
+                                    });
+
+                                    JArray Keys = (JArray)JsonResponse["data"];
+                                    foreach (JObject key in Keys)
+                                    {
+                                        var platform = (string)key["platform"];
+
+                                        if (platform == "windows")
+                                        {
+                                            var publicKey_XML = (string)key["publicKey"];
+                                            var encryptedSecretKey = MainUser.mainUser.GetNewAESKeyEncryptedWith(thisUser.userName, publicKey_XML, Platform.Windows);
+                                            new Event_UpdateSecretKey(thisUser.userName, Platform.Windows, encryptedSecretKey).SendMessage();
+                                        }
+                                        else if (platform == "android")
+                                        {
+                                            var publicKey_JXML = (string)key["publicKey"];
+                                            var encryptedSecretKey = MainUser.mainUser.GetNewAESKeyEncryptedWith(thisUser.userName, publicKey_JXML, Platform.Android);
+                                            new Event_UpdateSecretKey(thisUser.userName, Platform.Android, encryptedSecretKey).SendMessage();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("HTTP Request failed [GetFriendPublicKey]# RESPONSE => " + response.Content);
+                                }
+                            }
+                            catch (JsonReaderException)
+                            {
+                                Console.WriteLine("Error parsing GetFriendPublicKey JSON Response " + JsonResponse.ToString());
+                            }
+                            finally
+                            {
+                                MainUser.mainUser.SaveSecretKeys();
+                            }
                         });
                     }
                     else
