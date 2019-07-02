@@ -1,6 +1,7 @@
 ﻿using System;  
 using System.IO;  
 using System.Security.Cryptography;  
+using System.Text;
 
 namespace iMessenger.Scripts.AES
 {
@@ -162,6 +163,19 @@ namespace iMessenger.Scripts.AES
 
                 return ms.ToArray();
             }
+        }
+
+        public static void StoreKey(string AESkey)
+        {
+            var P1 = Protector.Protect(Encoding.Unicode.GetBytes(AESkey));
+            File.WriteAllBytes(Project.Path + "/Keys/AESSecret.key", P1);
+        }
+
+        public static string GetKey()
+        {
+            var P1 = Protector.Unprotect(File.ReadAllBytes(Project.Path + "/Keys/AESSecret.key"));
+            string AesKey = Encoding.Unicode.GetString(P1);
+            return AesKey;
         }
     }
 }
