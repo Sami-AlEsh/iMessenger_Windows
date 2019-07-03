@@ -123,7 +123,15 @@ namespace iMessenger
                     //Other
                     default:
                         {
-                            Console.WriteLine("Unsupported File Extension to send ! (#"+fileExt+ ")");
+                            //Create Event_BinaryFile:
+                            var message = new Event_BinaryFile(MessageList.SelectedPerson, filePath);
+                            this.InputBox.Text = "";
+
+                            //Send via TCP:
+                            message.SendMessage();
+
+                            //Store JSON Message & Update UI & Update MainUser Frinds Chats Logs:
+                            message.Event_BinaryFile_Handler();
                             break;
                         }
                 }
