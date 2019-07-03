@@ -179,10 +179,6 @@ namespace iMessenger
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Sign Up"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
                         }
-                        finally
-                        {
-                            
-                        }
                     });
                 }
                 catch (Exception error)
