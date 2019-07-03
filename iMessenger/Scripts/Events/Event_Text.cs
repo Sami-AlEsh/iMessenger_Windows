@@ -28,29 +28,65 @@ namespace iMessenger.Scripts.Events
         /// <summary>
         /// Received message handler
         /// </summary>
-        public void Event_Text_Handler()
+        /// <param name="mode">1: Received Message from Server , 2: Sent from Chat Page</param>
+        public void Event_Text_Handler(bool isEncrypted)
         {
-            //Decrypt Text
-            var decryptedText = MainUser.mainUser.DecryptMessage(this.text, Receiver);
-
-            //Update MainUser Chats Log:
-            MainUser.mainUser.FrindsChat[Receiver].Add(this);
-
-            //Store Json Image Message
-            var JsonMsg = JObject.Parse(GetJson()); JsonMsg["message"] = decryptedText;
-            File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
-            Console.WriteLine("#$ Message Stored Successfuly");
-
-            //Update UI
-            if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+            if (isEncrypted) //Received Message from Server
             {
-                Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(decryptedText, sentDate, true)));
+                //Decrypt Text
+                var decryptedText = MainUser.mainUser.DecryptMessage(this.text, Receiver);
+                this.text = decryptedText;
+
+                //Update MainUser Chats Log:
+                MainUser.mainUser.FrindsChat[Receiver].Add(this);
+
+                //Store Json Image Message
+                JObject JsonMsg = new JObject(new JProperty("type", type),
+                                           new JProperty("receiver", Receiver),
+                                           new JProperty("message", decryptedText),
+                                           new JProperty("sentDate", sentDate)
+                                           );
+
+                File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
+                Console.WriteLine("#$ Message Stored Successfuly");
+
+                //Update UI
+                if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+                {
+                    Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(decryptedText, sentDate, true)));
+                }
+                else
+                {
+                    Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, decryptedText));
+                }
+                Console.WriteLine("Text Msg Added to UI !");
             }
-            else
+            else // Send from Chat Page
             {
-                Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, decryptedText));
+                //Update MainUser Chats Log:
+                MainUser.mainUser.FrindsChat[Receiver].Add(this);
+
+                //Store Json Image Message
+                JObject JsonMsg = new JObject(new JProperty("type", type),
+                                            new JProperty("receiver", Receiver),
+                                            new JProperty("message", text),
+                                            new JProperty("sentDate", sentDate)
+                );
+
+                File.AppendAllText(Project.Path + @"/Database/" + Receiver + @"/chat.json", JsonMsg.ToString() + Environment.NewLine);
+                Console.WriteLine("#$ Message Stored Successfuly");
+
+                //Update UI
+                if (MessageList.SelectedPerson == this.Receiver) //Receiver here as "Sender"
+                {
+                    Application.Current.Dispatcher.Invoke(() => MessageList.addUIItem(new MessageBubble_text(text, sentDate, true)));
+                }
+                else
+                {
+                    Application.Current.Dispatcher.Invoke(() => SideMenu.friendsList.addNotificationTo(this.Receiver, text));
+                }
+                Console.WriteLine("Text Msg Added to UI !");
             }
-            Console.WriteLine("Text Msg Added to UI !");
         }
 
 

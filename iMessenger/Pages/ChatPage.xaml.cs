@@ -40,7 +40,7 @@ namespace iMessenger
             //Send via TCP:
             message.SendMessage();
             //Store Sent JSON Message:
-            message.Event_Text_Handler();
+            message.Event_Text_Handler(false);
         }
 
         private void AttachFile(object sender, RoutedEventArgs e)

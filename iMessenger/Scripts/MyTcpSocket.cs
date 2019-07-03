@@ -81,7 +81,7 @@ namespace iMessenger.Scripts
                                             case "Text":
                                                 {
                                                     var TextMessage = JsonMessage;
-                                                    new Event_Text(TextMessage).Event_Text_Handler();
+                                                    new Event_Text(TextMessage).Event_Text_Handler(true);
                                                     break;
                                                 }
                                             case "Image":
