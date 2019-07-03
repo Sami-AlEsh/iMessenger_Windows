@@ -49,7 +49,8 @@ namespace iMessenger
                 var request = new RestRequest("/index/login/", Method.POST);
 
                 string jsonToSend = new JObject( new JProperty("username", UserName.Text),
-                                                 new JProperty("password", Password.Text)
+                                                 new JProperty("password", Password.Text),
+                                                 new JProperty("platform", "windows")
                                                  ).ToString();
 
                 request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
@@ -133,7 +134,8 @@ namespace iMessenger
                 string jsonToSend = new JObject(new JProperty("name", Name.Text),
                                                     new JProperty("username", UserName.Text),
                                                     new JProperty("password", Password.Text),
-                                                    new JProperty("email", Email.Text)
+                                                    new JProperty("email", Email.Text),
+                                                    new JProperty("platform", "windows")
                                                     ).ToString();
 
                 request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
