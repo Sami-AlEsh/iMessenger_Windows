@@ -113,6 +113,7 @@ namespace iMessenger.Scripts
                                                 }
                                             case "new friend":
                                                 {
+                                                    Console.WriteLine("## New Friend !");
                                                     var n_JSUser = JsonMessage;
                                                     User user = new User("", (string)n_JSUser["from"], "");
                                                     Application.Current.Dispatcher.Invoke(() => MainUser.AddFriend(user));
