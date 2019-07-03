@@ -93,7 +93,7 @@ namespace iMessenger
 
                         //Get MyFriend PublicKeys
                         var client2 = new RestClient(ServerUri);
-                        var request2 = new RestRequest("/user/getPublicKey/" + thisUser.userName, Method.GET);
+                        var request2 = new RestRequest("/user/getPublicKeys/" + thisUser.userName, Method.GET);
 
                         client2.ExecuteAsync(request2, response2 =>
                         {
@@ -105,16 +105,6 @@ namespace iMessenger
 
                                 if ((bool)JsonResponse["status"])
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        //Update MainUser Object & UI:
-                                        MainUser.AddFriend(thisUser);
-
-                                        //Buttons
-                                        this.Add_Btn.IsEnabled = false;
-                                        this.Delete_Btn.IsEnabled = true;
-                                    });
-
                                     JArray Keys = (JArray)JsonResponse["data"];
                                     foreach (JObject key in Keys)
                                     {
@@ -133,6 +123,16 @@ namespace iMessenger
                                             new Event_UpdateSecretKey(thisUser.userName, Platform.Android, encryptedSecretKey).SendMessage();
                                         }
                                     }
+
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        //Update MainUser Object & UI:
+                                        MainUser.AddFriend(thisUser);
+
+                                        //Buttons
+                                        this.Add_Btn.IsEnabled = false;
+                                        this.Delete_Btn.IsEnabled = true;
+                                    });
                                 }
                                 else
                                 {
