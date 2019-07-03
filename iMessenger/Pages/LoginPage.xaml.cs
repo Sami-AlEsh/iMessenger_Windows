@@ -69,12 +69,22 @@ namespace iMessenger
                             {
                                 Running = false;
                                 var token = (string)JsonResponse["data"];
+
                                 this.Dispatcher.Invoke(() => {
                                     MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
                                     MainUser.UpdateFriendsList();
                                 });
                                 this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                                 Console.WriteLine("Server Response Token ==> " + token);
+
+                                //init all MainUser Keys
+                                GenerateRSAKeys_LoadAESKeys();
+
+                                //Upload RSA-Public Key to Server
+                                UploadRSAPublicKey();
+
+                                //Foreach friend update SecretKey
+                                UpdateSecretKeysForAllFriends();
                             }
                             else
                             {
@@ -89,17 +99,6 @@ namespace iMessenger
                             this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
                             Console.WriteLine("#ERROR in sending HTTP Request Method [JSON Parser Error]: " + error.Message);
                         }
-                        finally
-                        {
-                            //init all MainUser Keys
-                            GenerateRSAKeys_LoadAESKeys();
-
-                            //Upload RSA-Public Key to Server
-                            UploadRSAPublicKey();
-
-                            //Foreach friend update SecretKey
-                            UpdateSecretKeysForAllFriends();
-                        }
                     });
                 }
                 catch (Exception error)
@@ -107,14 +106,6 @@ namespace iMessenger
                     Running = false;
                     this.Dispatcher.Invoke(() => { Signup_Login_Btn.IsEnabled = true; Signup_Login_Btn.Content = "Log in"; });
                     Console.WriteLine("#ERROR in sending HTTP Request Method: " + error.Message);
-                }
-                finally
-                {
-                    //init all MainUser Keys
-                    GenerateRSAKeys_LoadAESKeys();
-
-                    //Upload RSA-Public Key to Server
-                    UploadRSAPublicKey();
                 }
             }
             else
@@ -163,11 +154,17 @@ namespace iMessenger
                             {
                                 Running = false;
                                 var token = (string)JsonResponse["data"];
-                                
-                                MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token);
+
+                                this.Dispatcher.Invoke(() => MainUser.mainUser = new MainUser(Name.Text, UserName.Text, Email.Text, token));
                                 
                                 this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                                 Console.WriteLine("Server Response Token ==> " + token);
+
+                                //init all MainUser Keys
+                                GenerateRSAKeys_LoadAESKeys();
+
+                                //Upload RSA-Public Key to Server
+                                UploadRSAPublicKey();
                             }
                             else
                             {
@@ -184,11 +181,7 @@ namespace iMessenger
                         }
                         finally
                         {
-                            //init all MainUser Keys
-                            GenerateRSAKeys_LoadAESKeys();
-
-                            //Upload RSA-Public Key to Server
-                            UploadRSAPublicKey();
+                            
                         }
                     });
                 }
