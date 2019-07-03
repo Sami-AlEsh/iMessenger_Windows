@@ -81,14 +81,14 @@ namespace iMessenger.Scripts.Events
         /// <param name="image">Image a Byte array</param>
         public Event_Image(JObject ImageMessage, byte[] image)
         {
-            //Decrypt Image
-            var decryptedImage = MainUser.mainUser.DecryptMessage(image, Receiver);
-
             this.type = ImageMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.Receiver = ImageMessage.SelectToken("sender").Value<string>();
             this.extension = "." + (string)ImageMessage["extension"];
             this.sentDate = ImageMessage.SelectToken("sentDate").Value<string>();
+
+            //Decrypt Image
+            var decryptedImage = MainUser.mainUser.DecryptMessage(image, Receiver);
 
             this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
 
