@@ -89,6 +89,7 @@ namespace iMessenger
 
                     //Audios
                     case "mp3":
+                    case "wav":
                     case "m4a":
                         {
                             //Create Event_BinaryFile:
@@ -104,9 +105,18 @@ namespace iMessenger
                         }
 
                     //Videos
+                    case "avi":
                     case "mp4":
                         {
-                            //TODO attach video file
+                            //Create Event_BinaryFile:
+                            var message = new Event_BinaryFile(MessageList.SelectedPerson, filePath);
+                            this.InputBox.Text = "";
+
+                            //Send via TCP:
+                            message.SendMessage();
+
+                            //Store JSON Message & Update UI & Update MainUser Frinds Chats Logs:
+                            message.Event_BinaryFile_Handler();
                             break;
                         }
 
