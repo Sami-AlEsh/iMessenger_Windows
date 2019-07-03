@@ -11,6 +11,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using iMessenger.Scripts.Events;
+using System.Windows;
 
 namespace iMessenger.Scripts
 {
@@ -19,7 +20,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.1.105";
+        public static string ServerIp { set; get; } = "192.168.43.56";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;
@@ -108,6 +109,13 @@ namespace iMessenger.Scripts
                                                 {
                                                     var SecretKeyNotification = JsonMessage;
                                                     new Event_UpdateSecretKey(SecretKeyNotification);
+                                                    break;
+                                                }
+                                            case "new friend":
+                                                {
+                                                    var n_JSUser = JsonMessage;
+                                                    User user = new User("", (string)n_JSUser["from"], "");
+                                                    Application.Current.Dispatcher.Invoke(() => MainUser.AddFriend(user));
                                                     break;
                                                 }
                                             default:
