@@ -141,6 +141,7 @@ namespace iMessenger.Scripts
             var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
 
             var client = new RestClient(ServerUri);
+            var client2 = new RestClient(ServerUri);
             //HTTP Request Route & Method
             var request1 = new RestRequest("/user/friends/" + mainUser.userName, Method.GET);
 
@@ -171,7 +172,7 @@ namespace iMessenger.Scripts
                             /////////////////////
                             // Get Blocked User :
                             /////////////////////
-                            client.ExecuteAsync(request2, response2 =>
+                            client2.ExecuteAsync(request2, response2 =>
                             {
                                 //Json response
                                 try

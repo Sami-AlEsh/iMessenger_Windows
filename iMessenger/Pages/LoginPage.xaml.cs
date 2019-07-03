@@ -72,8 +72,10 @@ namespace iMessenger
 
                                 this.Dispatcher.Invoke(() => {
                                     MainUser.mainUser = new MainUser("sami1", UserName.Text, "LoginNoEmailSAMI1", token);
-                                    MainUser.UpdateFriendsList();
                                 });
+
+                                MainUser.UpdateFriendsList();
+
                                 this.Dispatcher.Invoke(() => Signup_LoginWindow.SwitchPage(ApplicationPage.chat));
                                 Console.WriteLine("Server Response Token ==> " + token);
 
@@ -242,7 +244,7 @@ namespace iMessenger
             foreach (var friend in MainUser.mainUser.Friends)
             {
                 var client = new RestClient(ServerUri);
-                var request = new RestRequest("/user/getPublicKey/" + friend.userName, Method.GET);
+                var request = new RestRequest("/user/getPublicKeys/" + friend.userName, Method.GET);
 
                 client.ExecuteAsync(request, response =>
                 {
