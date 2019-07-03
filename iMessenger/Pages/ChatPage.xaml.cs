@@ -126,5 +126,10 @@ namespace iMessenger
             var keyboardPath = System.IO.Path.Combine(progFiles, "TabTip.exe");
             System.Diagnostics.Process.Start(keyboardPath);
         }
+
+        private void FixConnection(object sender, RoutedEventArgs e)
+        {
+            new MyTcpSocket().Connect();
+        }
     }
 }
