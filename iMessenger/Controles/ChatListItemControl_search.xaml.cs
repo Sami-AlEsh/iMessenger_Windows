@@ -101,7 +101,7 @@ namespace iMessenger
                             var JsonResponse = new JObject();
                             try
                             {
-                                JsonResponse = JObject.Parse(response.Content);
+                                JsonResponse = JObject.Parse(response2.Content);
 
                                 if ((bool)JsonResponse["status"])
                                 {
