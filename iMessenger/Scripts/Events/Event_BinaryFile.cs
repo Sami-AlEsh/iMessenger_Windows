@@ -77,14 +77,14 @@ namespace iMessenger.Scripts.Events
         /// <param name="file"></param>
         public Event_BinaryFile(JObject BFMessage, byte[] file)
         {
-            //Decrypt file
-            var decryptedFile = MainUser.mainUser.DecryptMessage(file, Receiver);
-
             this.type = BFMessage.SelectToken("type").Value<string>();
             this.ID = "null"; //TODO get ID from server
             this.Receiver = BFMessage.SelectToken("sender").Value<string>();
             this.extension = "." + (string)BFMessage["extension"];
             this.sentDate = BFMessage.SelectToken("sentDate").Value<string>();
+
+            //Decrypt file
+            var decryptedFile = MainUser.mainUser.DecryptMessage(file, Receiver);
 
             this.filePath= Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/images/" + DateTime.Now.ToFileTime().ToString() + extension);
 
