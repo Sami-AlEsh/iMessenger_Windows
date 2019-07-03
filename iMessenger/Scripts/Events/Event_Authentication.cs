@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace iMessenger.Scripts.Events
@@ -23,7 +19,7 @@ namespace iMessenger.Scripts.Events
 
         public override string GetJson()
         {
-            JObject Jobj = new JObject(new JProperty("type", type), new JProperty("AccessToken", accessToken));
+            JObject Jobj = new JObject(new JProperty("type", type), new JProperty("AccessToken", accessToken), new JProperty("platform", "windows"));
             return Jobj.ToString();
         }
     }
