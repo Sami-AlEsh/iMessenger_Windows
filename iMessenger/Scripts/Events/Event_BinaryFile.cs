@@ -25,7 +25,7 @@ namespace iMessenger.Scripts.Events
             this.extension = Path.GetExtension(RealFilePath).ToLower();
 
             var date = DateTime.Now;
-            this.filePath = Path.GetFullPath(Project.Path + "/Database/" + Receiver + "/binaryfiles/" + date.ToFileTime().ToString() + extension);
+            this.filePath = RealFilePath;
             this.sentDate = date.ToString();
         }
 
