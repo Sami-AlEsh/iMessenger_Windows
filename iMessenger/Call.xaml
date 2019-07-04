@@ -12,6 +12,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
+                   x:Name="Caller"
                    Text="Sami"
                    HorizontalAlignment="Center"
                    Margin="0 15 0 15"

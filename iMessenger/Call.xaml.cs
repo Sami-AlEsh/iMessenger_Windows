@@ -22,6 +22,7 @@ namespace iMessenger
 
             this.callStatus = callStatus;
             this.username = username;
+            this.Caller.Text = username;
             if (this.callStatus == CallStatus.Caller) this.PickBtn.IsEnabled = false;
             else if (this.callStatus == CallStatus.Receiver) voiceCall = new VoipCall(ip, port);
         }
