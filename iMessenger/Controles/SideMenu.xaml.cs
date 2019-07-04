@@ -32,7 +32,7 @@ namespace iMessenger
                 //Reading Messages from local storage:
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
-                    string MainFilePath = Project.Path + @"\DataBase\" + usr.name + @"\chat.json";
+                    string MainFilePath = Project.Path + @"\DataBase\" + usr.userName + @"\chat.json";
                     string json = File.ReadAllText(MainFilePath);
 
                     try
@@ -63,14 +63,14 @@ namespace iMessenger
                                     break;
                             }
                         }
-                        MainUser.mainUser.FrindsChat.Add(usr.name, messages);
+                        MainUser.mainUser.FrindsChat.Add(usr.userName, messages);
 
-                        Console.WriteLine(usr.name + "Chats Loaded !");
+                        Console.WriteLine(usr.userName + "Chats Loaded !");
                         reader.Close();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Binary Formatter Deserialize Error at User " + usr.name + " => " + e.Message);
+                        Console.WriteLine("Binary Formatter Deserialize Error at User " + usr.userName + " => " + e.Message);
                     }
                 }
                 Console.WriteLine("## All Chats Loaded ##");
@@ -78,21 +78,21 @@ namespace iMessenger
                 //Create Friend ChatListItemControl UI:
                 foreach (User usr in MainUser.mainUser.Friends)
                 {
-                    var count = MainUser.mainUser.FrindsChat[usr.name].Count;
+                    var count = MainUser.mainUser.FrindsChat[usr.userName].Count;
                     if (count <= 0)
                     {
-                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "#New_friend!")));
+                        this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.userName, usr.userName[0].ToString(), "#New_friend!")));
                     }
                     else
                     {
-                        var Msg = MainUser.mainUser.FrindsChat[usr.name][count - 1];
+                        var Msg = MainUser.mainUser.FrindsChat[usr.userName][count - 1];
                         if (Msg.type == "Text")
                         {
                             Event_Text lastMsg = (Event_Text)Msg;
-                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), lastMsg.text)));
+                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.userName, usr.userName[0].ToString(), lastMsg.text)));
                         }
                         else
-                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.name, usr.name[0].ToString(), "[ " + Msg.type + " ]")));
+                            this.Dispatcher.Invoke(() => this.FriendsList.Children.Add(new ChatListItemControl(usr.userName, usr.userName[0].ToString(), "[ " + Msg.type + " ]")));
                     }
                 }
             });
