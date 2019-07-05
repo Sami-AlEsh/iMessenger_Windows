@@ -42,7 +42,7 @@ namespace iMessenger
 
             if (CheckUserName() && CheckPassword())
             {
-                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+                var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp);
 
                 var client = new RestClient(ServerUri);
                 //HTTP Request Route & Method
@@ -126,7 +126,7 @@ namespace iMessenger
 
             if (CheckName() && CheckUserName() && CheckEmail() && CheckPassword())
             {
-                var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+                var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp);
 
                 var client = new RestClient(ServerUri);
                 //HTTP Request Route & Method
@@ -239,7 +239,7 @@ namespace iMessenger
         private void UpdateSecretKeysForAllFriends()
         {
             //Get MyFriends PublicKeys:
-            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+            var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp);
 
             foreach (var friend in MainUser.mainUser.Friends)
             {

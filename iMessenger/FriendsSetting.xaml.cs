@@ -37,7 +37,7 @@ namespace iMessenger
 
             #region HTTP Friend Search Request
 
-            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+            var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp );
 
             var client = new RestClient(ServerUri);
             //HTTP Request Route & Method

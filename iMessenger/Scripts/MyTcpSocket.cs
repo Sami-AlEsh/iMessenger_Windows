@@ -20,7 +20,7 @@ namespace iMessenger.Scripts
         #region public property
 
         //Server IP
-        public static string ServerIp { set; get; } = "192.168.1.105";
+        public static string ServerIp { set; get; } = "chati-server.herokuapp.com";
 
         //Server Port
         public static int ServerPort { set; get; } = 3001;

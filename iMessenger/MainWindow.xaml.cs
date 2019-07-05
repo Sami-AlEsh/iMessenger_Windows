@@ -22,6 +22,8 @@ using System.Net;
 using Newtonsoft.Json;
 using iMessenger.Scripts.AES;
 using iMessenger.Scripts.RSA;
+using System.Security.Cryptography;
+using System.Xml;
 
 namespace iMessenger
 {
@@ -67,7 +69,57 @@ namespace iMessenger
 
             //var theFile = AESOperation.Decrypt(key, EncryptedFile);
             //File.WriteAllBytes(Project.Path + @"/3Decrypted.zip", theFile);
+            ////////////////////////////////////////////////
+            RSA_keys k = new RSA_keys();
+            Console.WriteLine("#1# " + Convert.ToBase64String(k.publicKey.Modulus) + "\n$\n" +  Convert.ToBase64String(k.publicKey.Exponent) );
+            Console.WriteLine("#2# " + Convert.ToBase64String(k.privateKey.Modulus) + "\n$\n" + Convert.ToBase64String(k.privateKey.Exponent));
+            RSA_keys.StoreKeys(k);
 
+            k = RSA_keys.GetKeys();
+            Console.WriteLine("#11# " + Convert.ToBase64String(k.publicKey.Modulus ) + "\n$\n" + Convert.ToBase64String(k.publicKey.Exponent) );
+            Console.WriteLine("#22# " + Convert.ToBase64String(k.privateKey.Modulus) + "\n$\n" + Convert.ToBase64String(k.privateKey.Exponent));
+
+            //var moduPUB =Convert.FromBase64String("27lKXjVyI86AVt8eSdBJD2aI0pI+WJmizRfXUTclA6/UokZPvsG9wdd6rHpZ0FEQk13i5oPQvJJZFAuFs4vZhbqfzAJkg+/0v97D9QUGbi7BTRmkOYDroy6pSywUKJg0SiwGIaxk0uKG4x6d/EHJjIqfMh9wym3HSfi7zvGdeyYmLihLjXtB4PzHaWCvlJjBZKZPnJStVp/WSNETHS0XvMb8UTMqe0Gx/ZE8c0gDk8iANlFUrXgq5DFtixVcjpxVcIJWmjnCFkcS7v5uultTiBZ9etDXuli3w+bT8jJ+Mk50jUzWO1o5HFEavDDJpfvK8NLFIqg4ZuVROizetw/o9Q=="); 
+            //var moduPriv=Convert.FromBase64String("27lKXjVyI86AVt8eSdBJD2aI0pI+WJmizRfXUTclA6/UokZPvsG9wdd6rHpZ0FEQk13i5oPQvJJZFAuFs4vZhbqfzAJkg+/0v97D9QUGbi7BTRmkOYDroy6pSywUKJg0SiwGIaxk0uKG4x6d/EHJjIqfMh9wym3HSfi7zvGdeyYmLihLjXtB4PzHaWCvlJjBZKZPnJStVp/WSNETHS0XvMb8UTMqe0Gx/ZE8c0gDk8iANlFUrXgq5DFtixVcjpxVcIJWmjnCFkcS7v5uultTiBZ9etDXuli3w+bT8jJ+Mk50jUzWO1o5HFEavDDJpfvK8NLFIqg4ZuVROizetw/o9Q==");
+            //var expPUB  =Convert.FromBase64String("AQAB");
+            //var expPriv = Convert.FromBase64String("AQAB");   
+
+            //Console.WriteLine("PUBKEY :\n");
+            //Console.WriteLine("#1# ==>"+Convert.ToBase64String(moduPUB));
+            //Console.WriteLine("#2# ==>"+Convert.ToBase64String(expPUB));
+            //Console.WriteLine("\nPriKEY :\n");
+            //Console.WriteLine("#1# ==>"+Convert.ToBase64String(moduPriv));
+            //Console.WriteLine("#2# ==>"+Convert.ToBase64String(expPriv));
+            //var enc = RSAOperation.Encryption(Encoding.UTF8.GetBytes("Hello to RSA"), keys.PUBLIC_Key);
+            //var dec = RSAOperation.Decryption(enc, keys.PRIVATE_Key);
+            //Console.WriteLine(Encoding.UTF8.GetString(dec));
+            //Console.WriteLine(Convert.ToBase64String(enc));
+
+            //RSA_keys keys = new RSA_keys("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");
+            //var enc = Convert.FromBase64String("fVpS99mH1SoXv60hIJ69668L6WQFg7Saqv08tj9DVz5Wl8YxWf4Lt5KdLQXOkP7lHXmnCaabNbZCNHU0KcUKbShzxO4mHitKVFyy/sNDXjI7IuCYeFcsUySgK4304xCslUmq68U7venw6edUDJiQlhcJOPeS0Mugto8ggbn+hnNDf2yz+8VqlqIt2epBgWyyLiVSdi45RMD1EKiyqGnobvNQkc/kdWk0dKPFmkh/z0wG2/vags1Gi+x9Uca5F/ysuYmsqhyx7Q4LtFXRCCu74k42SXPas0Cz5nWw8dCb9gkb0xNZkJU1AE4ETzxnlFHVEDDyn03LbbausmZc4MRViA==");
+            //var dec = RSAOperation.Decryption(enc, keys.PRIVATE_Key);
+            //Console.WriteLine(Encoding.UTF8.GetString(dec));
+
+
+            //RSA_keys keys = new RSA_keys();
+            //byte[] encData = RSAOperation.Encryption(Encoding.UTF8.GetBytes("In the name of allah"), keys.PRIVATE_Key);
+
+
+            //RSA_keys Nkeys = new RSA_keys(File.ReadAllText("PublicKey.dat"), File.ReadAllText("PrivateKey.dat"));
+
+            //Console.WriteLine(Encoding.UTF8.GetString(RSAOperation.Decryption(Convert.FromBase64String(
+            //    "RbRCLGH4k3n8raHkaj10xkQOL9jWok0XPaF8KJ3yqi5P7qvy1ivP6ZBUEmoQmimZmO8VwchEqenX/bNexD3pChdJHGgKOXJ4u5lgDG/ZdLFjeZ8k/+Zam97mXjUweHHgKr8yAEqCfP8OUphqfpUjydEFz8y4WprURtFocGywGhrKJqZ6oHSwTHFteoNdVSHuh0UHkhB/E1yVZsMmksKasoLDw5WhZLxcjclkWzf55fHI2qphc8nMZmjo6SJBqXLt4npT9Y6lbJOZjdq+4m6799W8kXFczhN4ESHPZcnMnkeZaSoMI8AGoe1p0ud7DteTly2ixYUE7Cq5w660jOGzWg=="
+            //    ),Nkeys.PRIVATE_Key)));
+
+
+            //var key = Convert.FromBase64String(
+            //    ""
+            //    );
+            //RSA_keys.DecodeX509PublicKey(key).Decrypt(, false);
+            //Console.WriteLine();
+
+            //RSA_keys r = new RSA_keys();
+            //Console.WriteLine(RSA_keys.GetJavaKey(r.PUBLIC_Key));
 
 
 
@@ -83,6 +135,7 @@ namespace iMessenger
             //{
             //}
         }
+
 
         private void Test4()
         {

@@ -138,7 +138,7 @@ namespace iMessenger.Scripts
         public static void UpdateFriendsList()
         {
             //Get MyFriends:
-            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+            var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp);
 
             var client = new RestClient(ServerUri);
             var client2 = new RestClient(ServerUri);
@@ -300,7 +300,7 @@ namespace iMessenger.Scripts
         /// </summary>
         public void UploadRSAPublicKey()
         {
-            var ServerUri = new Uri("http://" + MyTcpSocket.ServerIp + ":" + "8080");
+            var ServerUri = new Uri("https://" + MyTcpSocket.ServerIp);
 
             var client = new RestClient(ServerUri);
             //HTTP Request Route & Method

@@ -43,7 +43,7 @@ namespace iMessenger
 
         private void MessengerClosed(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(MainUser.mainUser != null ) MainUser.SaveLocalMainUserJS();
+            //if(MainUser.mainUser != null ) MainUser.SaveLocalMainUserJS();
         }
 
         public static void SwitchPage(ApplicationPage page)
