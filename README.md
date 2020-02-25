@@ -13,3 +13,9 @@ An application where clients can connect to friends and chat using text, emojis,
 •Support block list.<br/>
 •Support standard IM protocols.<br/>
 •Support all file extensions.<br/>
+
+## Application Screenshot
+![alt text](https://i.ibb.co/W2ywBK9/i-Messenger.png)
+<br/><br/>
+## Application Demo on youtube
+[![iMessenger](http://img.youtube.com/vi/tQIun0IjvpI/0.jpg)](https://youtu.be/tQIun0IjvpI "iMessenger")
