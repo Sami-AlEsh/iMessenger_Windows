@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:iMessenger">
+
+    <Color x:Key="BackgroundLight" >#efefef</Color>
+    <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}" />
+
+    <Color x:Key="BackgroundVeryLight" >#fafafa</Color>
+    <SolidColorBrush x:Key="BackgroundVeryLightBrush" Color="{StaticResource BackgroundVeryLight}" />
+
+    <Color x:Key="ForegroundMain" >#686868</Color>
+    <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}" />
+
+    <Color x:Key="ForegroundVeryDark" >#000000</Color>
+    <SolidColorBrush x:Key="ForegroundVeryDarkBrush" Color="{StaticResource ForegroundVeryDark}" />
+
+    <Color x:Key="ForegroundLight" >#ffffff</Color>
+    <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}" />
+
+    <Color x:Key="ForegroundDark" >#bdbdbd</Color>
+    <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
+
+    <!-- LOGO : Four COLORS-->
+    <Color x:Key="LogoBlue">#3099c5</Color>
+    <SolidColorBrush x:Key="LogoBlueBrush" Color="{StaticResource LogoBlue}" />
+    <Color x:Key="LogoOrange">#ff8800</Color>
+    <SolidColorBrush x:Key="LogoOrangeBrush" Color="{StaticResource LogoOrange}" />
+    <Color x:Key="LogoRed">#ff4747</Color>
+    <SolidColorBrush x:Key="LogoRedBrush" Color="{StaticResource LogoRed}" />
+    <Color x:Key="LogoGreen">#00c541</Color>
+    <SolidColorBrush x:Key="LogoGreenBrush" Color="{StaticResource LogoGreen}" />
+
+    <!-- Cht Icons Colors -->
+    <Color x:Key="LogoLightBlue">#45b6e5</Color>
+    <SolidColorBrush x:Key="LogoLightBlueBrush" Color="{StaticResource LogoLightBlue}" />
+
+    <Color x:Key="LogoDarkBlue">#0c6991</Color>
+    <SolidColorBrush x:Key="LogoDarkBlueBrush" Color="{StaticResource LogoDarkBlue}" />
+    
+</ResourceDictionary>

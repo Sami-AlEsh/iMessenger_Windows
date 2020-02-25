@@ -1,0 +1,137 @@
+﻿<Window x:Class="iMessenger.Signup_LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iMessenger"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        x:Name="SignAppWindow"
+        Icon="Images/icon.ico"
+        MinWidth ="{Binding WindowMinimumWidth}"
+        MinHeight="{Binding WindowMinimumHeight}"
+        Title="iMessenger" Height="600" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:Signup_LoginWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Outer Border with the drop shadow margin -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+                            
+                            <!-- Main Window Outline -->
+                            <Grid>
+                            
+                                <!-- Opacity mask for corner on Grid -->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"
+                                        CornerRadius="{Binding WindowCornerRadius ,FallbackValue=10}" />
+
+                                <!-- Window border and DropShadow -->
+                                <Border CornerRadius="{Binding WindowCornerRadius , FallbackValue=10}"
+                                        Background="{Binding ForeGroundLightBrush  , FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+                                
+                                <!-- The Main Window Content -->
+                                <Grid>
+
+                                    <!-- Corner Clipping -->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+                                    
+                                    <Grid.RowDefinitions>
+                                        
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength , FallbackValue=42}" />
+                                        
+                                        <!--Window Content-->
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title Bar -->
+                                    <Grid Background="{StaticResource BackgroundVeryLightBrush}" Grid.Column="0" Panel.ZIndex="1">
+
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Logo Icon-->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+                                            <!-- Windows Buttons-->
+                                            <ColumnDefinition Width="Auto" />
+
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <!-- Icon -->
+                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                            <Image Source="/Images/Icon.ico" />
+                                        </Button>
+                                        
+                                        <!-- Title -->
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                            <!-- LOGO TEXT: <TextBlock Style="{StaticResource Header Text}" Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Title , FallbackValue='iMessenger app'}"/> -->
+                                            <!-- LOGO IMG: -->
+                                            <StackPanel>
+                                                <TextBlock FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeRegular}" Margin="0,0,0,-5">
+                                                    <Run Text="L" Foreground="{StaticResource LogoOrangeBrush}" /><Run Text="O" Foreground="{StaticResource LogoBlueBrush}" /><Run Text="G" Foreground="{StaticResource LogoRedBrush}" /><Run Text="O" Foreground="{StaticResource LogoGreenBrush}" />
+                                                </TextBlock>
+                                                <TextBlock Text="By SAMI" Foreground="{StaticResource ForegroundDarkBrush}" TextAlignment="Center" />
+                                            </StackPanel>
+                                        </Viewbox>
+                                        
+                                        <!-- Windows Buttons-->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button Command="{Binding MinimizedCommand}" Style="{StaticResource WindowControlButton}" Content="_" />
+                                            <Button Command="{Binding MaximizedCommand}" Style="{StaticResource WindowControlButton}" Content="[_]" />
+                                            <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" />
+                                        </StackPanel>
+
+                                    </Grid>
+                                    
+
+                                    <!-- Page Content -->
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}" >
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </Border>
+
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+
+    <Border Background="{StaticResource LogoBlueBrush}">
+        <Grid>
+
+             <!--Blue Chat Image--> 
+            <Grid.Background>
+                 <!--<ImageBrush Opacity="1" TileMode="Tile" ViewportUnits="RelativeToBoundingBox" ImageSource="/Images/Backgrounds/BG (8).png" />--> 
+                <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 400" ImageSource="/Images/Backgrounds/BG (9).png" />
+            </Grid.Background>
+
+             <!--Main Frame--> 
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+
+        </Grid>
+    </Border>
+</Window>

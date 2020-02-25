@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="iMessenger.ChatListItemControl_search"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iMessenger"
+             mc:Ignorable="d"
+             Height="60"
+             d:DesignHeight="60" d:DesignWidth="300">
+    <Grid Background="{StaticResource BackgroundVeryLightBrush}">
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Profile Picture -->
+            <Border Grid.Column="0" Padding="8" >
+                <Border Background="{StaticResource LogoBlueBrush}"
+                        Width="{Binding ActualHeight , RelativeSource={RelativeSource Self}}"
+                        CornerRadius="{Binding ActualHeight , RelativeSource={RelativeSource Self}}">
+
+                    <TextBlock Name="FriendNameAlias"
+                               Text="SA"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ForegroundLightBrush}"
+                               FontSize="{StaticResource FontSizeLarge}"
+                               FontFamily="{StaticResource LatoRegular}"
+                               />
+                </Border>
+            </Border>
+            <!-- Text Content -->
+            <Border Grid.Column="1" Padding="0 0 8 0">
+            <StackPanel VerticalAlignment="Center">
+                <!-- Name -->
+                <TextBlock Name="FriendName" 
+                    Text="Sami AlEsh"
+                    FontSize="{StaticResource FontSizeRegular}"
+                    Foreground="{StaticResource LogoBlueBrush}"
+                    TextTrimming="CharacterEllipsis"
+                    FontFamily="{StaticResource LatoRegular}" />
+            </StackPanel>
+        </Border>
+            <!-- Add , Delete , Block Friend-->
+            <Border Grid.Column="2" Padding="0 0 5 0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Add -->
+                    <Button x:Name="Add_Btn"
+                        Width="45"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeAddFriend}" 
+                        Foreground="{StaticResource LogoLightBlueBrush}"
+                        Click="AddFriend" />
+                    <!-- Delete -->
+                    <Button x:Name="Delete_Btn"
+                        Width="45"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeDeleteFriend}" 
+                        Foreground="{StaticResource LogoRedBrush}"
+                        Click="DeleteFriend" />
+                    <!-- Block -->
+                    <Button x:Name="Block_Btn"
+                        Width="45"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeBlockFriend}" 
+                        Foreground="{StaticResource LogoDarkBlueBrush}"
+                        Click="BlockFriend" />
+                    <Button x:Name="UnBlock_Btn"
+                        Width="45"
+                        IsEnabled="False"
+                        Style="{StaticResource IconButton}"
+                        Content="{StaticResource FontAwesomeUserIcon}" 
+                        Foreground="{StaticResource LogoDarkBlueBrush}"
+                        Click="UnBlockFriend" />
+                </StackPanel>
+            </Border>
+
+
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>
