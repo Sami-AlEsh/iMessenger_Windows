@@ -1,17 +1,15 @@
 # Instant-Messaging-and-Chat-App [ Windows Application ]
 An application where clients can connect to friends and chat using text, emojis, pictures, etc...
 
-Core Functionality :
-• Support user creation and identification
-via user name.
-• Server/Client multi-party system.
-• Support instant messaging through text,
-images and other media.
-• Support chat history.
+### Core Functionality :<br/>
+• Support user creation and identification via user name.<br/>
+• Server/Client multi-party system.<br/>
+• Support instant messaging through text,images and any other media.<br/>
+• Support chat history.<br/>
+• end-to-end encryption.<br/>
+• Support Voice calls feature.<br/>
 
-Extras (Suggested)
-•Support multiple platforms (esp. mobile).
-•Support block list.
-•Support standard IM protocols.
-•Multilingual support
-•Games and other extensions
+### Extras<br/>
+•Support block list.<br/>
+•Support standard IM protocols.<br/>
+•Support all file extensions.<br/>
